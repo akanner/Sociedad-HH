@@ -18,15 +18,15 @@ queda así
             CustomLog ${APACHE_LOG_DIR}/sociedadhh/access.log combined
     </VirtualHost>
 
-###LOG TIENE QUE ESTAR CREADA###
+### LOG TIENE QUE ESTAR CREADA ###
     sudo mkdir /var/log/apache2/sociedadhh
 
-#####modifico /etc/hosts#####
+##### modifico /etc/hosts #####
 
     # sociedad de hematologia
     127.0.1.1       sociedadhh.local.com
 
- #####habilitamos el sitio#####
+##### habilitamos el sitio #####
 
     sudo a2ensite sociedadhh.conf
     sudo service apache2 restart
