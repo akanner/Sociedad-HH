@@ -2,6 +2,10 @@
 
 ####Instalacion####
 
+####Git & Composer ####
+    clone git clone git@bitbucket.org:team_sociedad_hh/sociedad_hh.git .
+    cd source
+    composer install
 #####Copiar el archivo por defecto de apache (Puede variar el nombre)#####
 
     cp /etc/apache/sites-available/000-default.conf /etc/apache/sites-available/sociedadhh.conf
