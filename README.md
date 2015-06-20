@@ -5,6 +5,7 @@
 ####Git & Composer ####
     clone git clone git@bitbucket.org:team_sociedad_hh/sociedad_hh.git .
     cd source
+    sudo apt-get install nodejs-legacy
     composer install && npm install
     cp .env.example .env
     php artisan key:generate
