@@ -1,6 +1,6 @@
 ### Sitio para la sociedad de hemátologos y hemoterapeutas de la ciudad de La Plata ###
 
-####Instalacion####
+###Instalacion###
 
 ####Git & Composer ####
     clone git clone git@bitbucket.org:team_sociedad_hh/sociedad_hh.git .
@@ -10,7 +10,7 @@
     cp .env.example .env
     php artisan key:generate
     -----quizas debas copiar la clave al archivo /config/app.php
-#####Base de Datos#####
+####Base de Datos####
 Crear una base de datos llamada db_sociedadhh
     CREATE DATABASE db_sociedadhh;
 Configurar base de datos en la aplicacion
@@ -24,6 +24,7 @@ Configurar base de datos en la aplicacion
 Ejecutar la migracion de la base de datos
     php artisan migrate
     
+####Configuracion Apache####
 
 #####Copiar el archivo por defecto de apache (Puede variar el nombre)#####
 
