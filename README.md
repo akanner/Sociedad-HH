@@ -1,11 +1,32 @@
 ### Sitio para la sociedad de hemátologos y hemoterapeutas de la ciudad de La Plata ###
 
-####Instalacion####
+###Instalacion###
 
 ####Git & Composer ####
     clone git clone git@bitbucket.org:team_sociedad_hh/sociedad_hh.git .
     cd source
-    composer install
+    sudo apt-get install nodejs-legacy
+    composer install && npm install
+    cp .env.example .env
+    php artisan key:generate
+    -----quizas debas copiar la clave al archivo /config/app.php
+####Base de Datos####
+Crear una base de datos llamada db_sociedadhh
+    CREATE DATABASE db_sociedadhh;
+    
+Configurar base de datos en la aplicacion
+
+    #modify path/to/laravel/project/.env
+    DB_HOST=localhost
+    DB_DATABASE=db_sociedadhh
+    DB_USERNAME=username
+    DB_PASSWORD=password
+
+Ejecutar la migracion de la base de datos
+    php artisan migrate
+    
+####Configuracion Apache####
+
 #####Copiar el archivo por defecto de apache (Puede variar el nombre)#####
 
     cp /etc/apache/sites-available/000-default.conf /etc/apache/sites-available/sociedadhh.conf
