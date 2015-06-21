@@ -13,6 +13,7 @@
 ####Base de Datos####
 Crear una base de datos llamada db_sociedadhh
     CREATE DATABASE db_sociedadhh;
+    
 Configurar base de datos en la aplicacion
 
     #modify path/to/laravel/project/.env
