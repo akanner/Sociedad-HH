@@ -10,6 +10,21 @@
     cp .env.example .env
     php artisan key:generate
     -----quizas debas copiar la clave al archivo /config/app.php
+#####Base de Datos#####
+Crear una base de datos llamada db_sociedadhh
+    CREATE DATABASE db_sociedadhh;
+Configurar base de datos en la aplicacion
+
+    #modify path/to/laravel/project/.env
+    DB_HOST=localhost
+    DB_DATABASE=db_sociedadhh
+    DB_USERNAME=username
+    DB_PASSWORD=password
+
+Ejecutar la migracion de la base de datos
+    php artisan migrate
+    
+
 #####Copiar el archivo por defecto de apache (Puede variar el nombre)#####
 
     cp /etc/apache/sites-available/000-default.conf /etc/apache/sites-available/sociedadhh.conf
