@@ -11,6 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+/* Páginas estáticas */
+Route::get('/', 'StaticPagesController@index');
+Route::get('home', 'StaticPagesController@index');
