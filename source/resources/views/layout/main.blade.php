@@ -38,7 +38,8 @@
 <body>
 
     <div class="container">
-        @include('layout.nav')
+        @include('layout.homeheader')
+        {{--@include('layout.nav')--}}
         @yield('content')
     </div>
     <!-- /container -->
