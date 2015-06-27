@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Survey;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -8,16 +8,16 @@ use Illuminate\Database\Eloquent\Model;
  * This class represents a survey
  *
  * Properties:
- *  title       ::string
- *  substract   ::string
- *  email       ::string
- *  activeFrom  ::date
- *  activeTo    ::date
+ *  title       ::string  The title of the survey
+ *  substract   ::string  Some description about the survey
+ *  activeFrom  ::date    Creation date of the survey
+ *  activeTo    ::date    Date when the survey went out of use, will be null if the survey is still in use
  *
+ * @author Agustin Ignacio Kanner <agustinkanner@gmail.com>
  */
 class Survey extends Model
 {
-  protected $fillable = array('title','substract','email','activeFrom','activeTo');
+  protected $fillable = array('title','substract','activeFrom','activeTo');
 
   public function setTitle($title)
   {
@@ -31,24 +31,13 @@ class Survey extends Model
 
   public function setSubstract($substract)
   {
-    $this->substract = $substract
+    $this->substract = $substract;
   }
 
   public function getSubstract()
   {
     return $this->substract;
   }
-
-  public function setEmail($email)
-  {
-    $this->email = $email;
-  }
-
-  public function getEmail()
-  {
-    return $this->email;
-  }
-
   public function setActiveFrom($activeFrom)
   {
     $this->activeFrom = $activeFrom;
