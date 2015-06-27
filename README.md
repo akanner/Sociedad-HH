@@ -1,5 +1,11 @@
 ### Sitio para la sociedad de hemátologos y hemoterapeutas de la ciudad de La Plata ###
 
+###Requeridos###
+    git
+    composer
+    npm
+    nodejs-legacy
+
 ###Instalacion###
 
 ####Git & Composer ####
@@ -35,7 +41,9 @@ queda así
 
     <VirtualHost *:80>
             ServerName sociedadhh.local.com
-
+        	<Directory "/var/www/sociedadhh-dev/source/public">
+		        AllowOverride All
+	        </Directory>
             ServerAdmin webmaster@localhost
             DocumentRoot /var/www/sociedadhh-dev
 
