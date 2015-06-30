@@ -11,6 +11,13 @@ var elixir = require('laravel-elixir');
  |
  */
 
-elixir(function(mix) {
-    mix.less('app.less');
+/* DOCUMENTACION
+ | -- http://laravel.com/docs/5.0/elixir
+ | -- http://laravel.com/docs/5.1/elixir
+ */
+
+elixir(function (mix) {
+    mix.less('main.less', 'public/css/main.css')
+       .scripts(['jquery-2.1.4.min.js', 'bootstrap.min.js'], 'public/js/libraries.js')
+       .version(["public/css/main.css", "public/js/libraries.js"]);
 });

@@ -18,14 +18,16 @@
     <meta property="og:url" content="" />
     <meta property="og:image" content="" />
     <meta property="og:description" content="" />
-    <meta property="og:site_name" content="" /> @show
+    <meta property="og:site_name" content="" />
+    @show
 
     <title>@section('title') Sociedad de Hemat&oacute;logos y Hemoterapeutas de La Plata @show</title>
 
-    <!--<link rel="shortcut icon" href="{{{ asset('assets/site/ico/favicon.ico') }}}">-->
+    <link rel="icon" type="image/png" href="{{{ asset('favicon.png') }}}">
 
-    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}" />
-    <link rel="stylesheet" href="{{asset('css/main.css')}}" /> @yield('styles')
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ elixir('css/main.css') }}" />
+    @yield('styles')
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -44,8 +46,7 @@
     </div>
     <!-- /container -->
 
-    <script type="application/javascript" src="{{asset('js/jquery-2.1.4.min.js')}}"></script>
-    <script type="application/javascript" src="{{asset('js/bootstrap.min.js')}}"></script>
+    <script type="application/javascript" src="{{asset('js/libraries.js')}}"></script>
     @yield('scripts')
 
 </body>
