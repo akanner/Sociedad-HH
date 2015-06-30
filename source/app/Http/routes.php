@@ -16,8 +16,8 @@ use App\Models\Survey;
 use App\Utils\PrettyJson;
 
 /* Páginas estáticas */
-Route::get('/', 'StaticPagesController@index');
-Route::get('home', 'StaticPagesController@index');
+Route::get('/', 'StaticPagesController@home');
+Route::get('home', 'StaticPagesController@home');
 
 Route::get('test/', function()
 {

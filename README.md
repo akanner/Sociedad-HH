@@ -63,3 +63,13 @@ queda así
 
     sudo a2ensite sociedadhh.conf
     sudo service apache2 restart
+    
+### Compilar CSS y JS con GULP ###
+
+Desde consola, en el root del proyecto, tirar:
+
+    gulp // Compila los recursos
+    
+    gulp watch // Compila y se queda a la escucha de cambios, recompila solo
+    
+    gulp --production // Compila y minifica

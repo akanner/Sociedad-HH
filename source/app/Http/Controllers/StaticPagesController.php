@@ -15,7 +15,7 @@ class StaticPagesController extends Controller {
 	|
 	*/
 
-    public function index() {
+    public function home() {
         return view('pages.home');
     }
 
