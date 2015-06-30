@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\Models\TextQuestion;
 /**
  * This class represents a survey
  *
@@ -56,6 +56,11 @@ class Survey extends Model
   public function getActiveTo()
   {
     return $this->activeTo;
+  }
+
+  public function questions()
+  {
+    return $this->hasMany("App/Models/TextQuestion");
   }
 
 }

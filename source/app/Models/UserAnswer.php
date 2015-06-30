@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\Models\Survey;
+use App\Models\SurveyRespondent;
+use App\Models\TextQuestion;
 /**
  * Represents a SurveyRespondent´s answer to a specific question
  * a survey respondent has only one UserAnswer per question unless the question is a multiple choice with many valid answers,
@@ -15,6 +17,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class UserAnswer extends Model
 {
+
+  protected $fillable = array('answer');
+
   public function getAnswer()
   {
     return $this->answer;
@@ -25,8 +30,29 @@ class UserAnswer extends Model
     $this->answer = $answer;
   }
 
+  public function setSurvey($survey)
+  {
+    $this->forSurvey()->associate($survey);
+  }
+
+  public function getSurvey()
+  {
+    return $this->forSurvey();
+  }
+
   public function respondent()
   {
-    $this->belongsTo('App\Models\SurveyRespondent');
+    return $this->belongsTo('App\Models\SurveyRespondent');
   }
+
+  public function survey()
+  {
+    return $this->belongsTo('App\Models\Survey');
+  }
+
+
+    public function question()
+    {
+      return $this->belongsTo("App\Models\TextQuestion");
+    }
 }

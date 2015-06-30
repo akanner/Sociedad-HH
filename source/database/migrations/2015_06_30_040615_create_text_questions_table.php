@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSurveysTable extends Migration
+class CreateTextQuestionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,12 @@ class CreateSurveysTable extends Migration
      */
     public function up()
     {
-        Schema::create('surveys', function (Blueprint $table) {
+        Schema::create('text_questions', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
-            $table->string('substract');
-            $table->date('activeFrom');
-            $table->date('activeTo')->nullable();
+            $table->string("description");
+            //FK to surveys
+            $table->integer("survey_id")->unsigned();
+            $table->foreign("survey_id")->references("id")->on("surveys");
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateSurveysTable extends Migration
      */
     public function down()
     {
-        Schema::drop('surveys');
+        Schema::drop('text_questions');
     }
 }

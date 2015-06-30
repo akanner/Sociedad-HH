@@ -40,6 +40,5 @@ class SurveyRespondent extends Model
     public function addUserAnswer(UserAnswer $userAnswer)
     {
       $this->userAnswers()->save($userAnswer);
-      //$userAnswer->respondent()->associate($this);
     }
 }

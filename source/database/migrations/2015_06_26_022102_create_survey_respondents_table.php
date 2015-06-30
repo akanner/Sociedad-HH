@@ -26,6 +26,10 @@ class CreateSurveyRespondentsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('survey_respondents');
+      if(Schema::hasTable('user_answers'))
+      {
+        Schema::drop('user_answers');
+      }
+      Schema::drop('survey_respondents');
     }
 }
