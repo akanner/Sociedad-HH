@@ -25,7 +25,7 @@
 
     <link rel="icon" type="image/png" href="{{{ asset('favicon.png') }}}">
 
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ elixir('css/libraries.css') }}" />
     <link rel="stylesheet" href="{{ elixir('css/main.css') }}" />
     @yield('styles')
 
@@ -41,12 +41,12 @@
 
     <div class="container">
         @include('layout.homeheader')
-        {{--@include('layout.nav')--}}
+        @include('layout.nav')
         @yield('content')
     </div>
     <!-- /container -->
 
-    <script type="application/javascript" src="{{asset('js/libraries.js')}}"></script>
+    <script type="application/javascript" src="{{ elixir('js/libraries.js')}}"></script>
     @yield('scripts')
 
 </body>

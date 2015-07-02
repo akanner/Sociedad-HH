@@ -14,12 +14,12 @@ body {
 }
 
 body {
-    width: @site-width;
+    max-width: @site-width;
     margin: 0 auto;
 }
 
 .container {
-    width: @site-width;
+    width: 100%;
     margin: 0 auto;
 }
 
@@ -33,20 +33,31 @@ header.home-header {
     }
 
     .gradient-background {
-        width: 940px;
-        background-color: @main-color;
+        width: 100%;
         margin: 0 auto;
         height: 100%;
+
+        .left-gradient-background {
+            width: 50%;
+            height: 100%;
+            float: left;
+            .lh-background-image(linear-gradient(to right, rgba(193, 35, 45, 0) 0%, #c1232d 55%));
+        }
+
+        .right-gradient-background {
+            width: 50%;
+            height: 100%;
+            float: left;
+            .lh-background-image(linear-gradient(to left, rgba(193, 35, 45, 0) 0%, #c1232d 55%));
+        }
     }
 
     .logo-container {
         width: 441px;
-        height: 267px;
         position: absolute;
         left: 50%;
-        top: 50%;
-        margin-top: -110px;
-        margin-left: -220px;
+        margin-left: -221px;
+        margin-top: 100px;
 
         img {
             width: 100%;
@@ -55,6 +66,27 @@ header.home-header {
     }
 }
 
-.navbar {
-    margin-bottom: 20px;
+nav.main-nav {
+    width: 100%;
+    height: @nav-height;
+    border-radius: 0;
+    background-color: #333333;
+    border: 0;
+    border-bottom: 6px solid #808080;
+    color: white;
+    .lh-box-shadow(0px 5px 9px rgba(20, 20, 20, 0.6));
+
+    .container-fluid {
+        width: @content-width;
+        padding-left: 48px;
+
+        .navbar-brand {
+            margin-left: 0px;
+            float: left;
+            height: 57px;
+            padding: 10px 0px;
+            font-size: 18px;
+            line-height: 20px;
+        }
+    }
 }
