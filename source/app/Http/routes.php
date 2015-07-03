@@ -13,7 +13,10 @@
 use App\Models\SurveyRespondent;
 use App\Models\UserAnswer;
 use App\Models\Survey;
+use App\Models\Question;
+use App\Models\MultipleChoiceOptionQuestion;
 use App\Utils\PrettyJson;
+
 
 /* Páginas estáticas */
 Route::get('/', 'StaticPagesController@home');
@@ -22,7 +25,11 @@ Route::get('home', 'StaticPagesController@home');
 Route::get('test/', function()
 {
 
-  $surveyRespondent =UserAnswer::with('survey','respondent','question')->where("id","=",21)->first();
+  $survey =Survey::where("id","=",1)->with(array("questions"))->first();
+  echo PrettyJson::printPrettyJson($survey->toJson());
 
-  echo PrettyJson::printPrettyJson($surveyRespondent->toJson());
+  foreach ($survey->getQuestions() as $question)
+  {
+      echo $question->whoami() . "</br>";
+  }
 });
