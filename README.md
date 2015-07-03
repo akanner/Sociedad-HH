@@ -5,6 +5,7 @@
     composer
     npm
     nodejs-legacy
+    gulp ( sudo npm install -g gulp)
 
 ###Instalacion###
 
