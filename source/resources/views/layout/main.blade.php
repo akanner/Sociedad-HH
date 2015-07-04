@@ -5,7 +5,7 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta http-equiv="Content-Language" content="es" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
     <meta name="description" content="">
     <meta name="keywords" content="">
@@ -42,9 +42,9 @@
     <div class="container">
         @include('layout.homeheader')
         @include('layout.nav')
-        @yield('content')
+        @include('layout.bodycontent')
+        @include('layout.footer')
     </div>
-    <!-- /container -->
 
     <script type="application/javascript" src="{{ elixir('js/libraries.js')}}"></script>
     @yield('scripts')

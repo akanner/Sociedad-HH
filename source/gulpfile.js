@@ -1,3 +1,5 @@
+/* globals require */
+
 var elixir = require("laravel-elixir");
 
 /*

@@ -1,0 +1,27 @@
+.title-with-underscore {
+    color: @heading-color;
+    margin-bottom: 13px;
+    &:after {
+        content: '';
+        display: block;
+        background: #c1272d;
+        height: 3px;
+        max-width: 25px;
+        width: 100%;
+        margin: 0;
+        margin-top: 12px;
+    }
+}
+
+.header-and-paragraph {
+
+    h3 {
+        .title-with-underscore;
+    }
+
+    p {
+        text-align: justify;
+        -moz-text-align-last: justify;
+        text-align-last: justify;
+    }
+}
