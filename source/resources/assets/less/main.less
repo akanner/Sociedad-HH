@@ -19,13 +19,14 @@ body {
 }
 
 body {
-    max-width: @site-width;
+    width: 100%;
     margin: 0 auto;
 }
 
 .container {
     width: 100%;
     margin: 0 auto;
+    padding: 0;
 }
 
 header.home-header {
@@ -131,6 +132,7 @@ footer {
     }
 
     .content {
+        height: @footer-content-height;
         max-width: @content-width;
         margin: 0 auto;
         padding: 50px @content-width-padding;
