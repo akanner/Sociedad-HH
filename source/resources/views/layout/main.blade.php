@@ -40,7 +40,8 @@
 <body>
 
     <div class="container">
-        @include('layout.homeheader')
+        <!-- Set default header if not overriden -->
+        @yield('header', View::make('layout.header'))
         @include('layout.nav')
         @include('layout.bodycontent')
         @include('layout.footer')

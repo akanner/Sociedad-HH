@@ -8,10 +8,12 @@
 
 // LESS HAT: https://github.com/madebysource/lesshat/blob/master/README.md
 
+
+// --- GENERAL
+
 html,
 body {
     width: 100%;
-    height: 100%;
     min-height: 100%;
     padding: 0;
     margin: 0;
@@ -21,6 +23,8 @@ body {
 body {
     width: 100%;
     margin: 0 auto;
+    font-size: @content-font-size;
+    .font-helvetica-light;
 }
 
 .container {
@@ -29,15 +33,17 @@ body {
     padding: 0;
 }
 
-header.home-header {
-    width: 100%;
-    height: @header-height;
-    .lh-background-image(repeating-linear-gradient( -45deg, @stripes-color, @stripes-color 1px, @main-color 1px, @main-color 10px));
+.row {
+    margin-left: 0px;
+}
 
-    .content-wrapper {
-        height: @header-height;
-    }
+.col-md-6 {
+    padding-left: 0px;
+}
 
+// --- HEADER
+
+header {
     .gradient-background {
         width: 100%;
         margin: 0 auto;
@@ -47,19 +53,54 @@ header.home-header {
             width: 50%;
             height: 100%;
             float: left;
-            .lh-background-image(linear-gradient(to right, rgba(193, 35, 45, 0) 0%, #c1232d 55%));
+            .lh-background-image(linear-gradient(to right, rgba(193, 35, 45, 0) 0%, @main-color 55%));
         }
 
         .right-gradient-background {
             width: 50%;
             height: 100%;
             float: left;
-            .lh-background-image(linear-gradient(to left, rgba(193, 35, 45, 0) 0%, #c1232d 55%));
+            .lh-background-image(linear-gradient(to left, rgba(193, 35, 45, 0) 0%, @main-color 55%));
         }
+    }
+}
+
+header.default-header {
+    width: 100%;
+    height: @header-height;
+    .lh-background-image(repeating-linear-gradient( -45deg, @stripes-color, @stripes-color 1px, @main-color 1px, @main-color 10px));
+
+    .content-wrapper {
+        height: @header-height;
     }
 
     .logo-container {
-        width: 441px;
+        width: @logo-width;
+        position: absolute;
+        left: 50%;
+        margin-left: -222px;
+        margin-top: 65px;
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+
+// --- HOME HEADER
+
+header.home-header {
+    width: 100%;
+    height: @home-header-height;
+    .lh-background-image(repeating-linear-gradient( -45deg, @stripes-color, @stripes-color 1px, @main-color 1px, @main-color 10px));
+
+    .content-wrapper {
+        height: @home-header-height;
+    }
+
+    .logo-container {
+        width: @logo-width;
         position: absolute;
         left: 50%;
         margin-left: -221px;
@@ -72,6 +113,8 @@ header.home-header {
     }
 }
 
+// --- NAV
+
 nav.main-nav {
     width: 100%;
     margin-bottom: 0;
@@ -81,11 +124,11 @@ nav.main-nav {
     border: 0;
     border-bottom: @nav-border-height solid #808080;
     color: white;
+    .font-helvetica;
     .lh-box-shadow(0px 5px 9px rgba(20, 20, 20, 0.6));
 
     .container-fluid {
         max-width: @content-width;
-        padding-left: 48px;
     }
 
     .navbar-brand {
@@ -115,11 +158,15 @@ nav.main-nav {
     }
 }
 
+// --- BODY
+
 div.body-content {
     margin: 0 auto;
-    padding: 70px @content-width-padding 60px @content-width-padding;
+    padding: 70px 0px 60px 0px;
     max-width: @content-width;
 }
+
+// --- FOOTER
 
 footer {
     width: 100%;
@@ -131,34 +178,45 @@ footer {
         .lh-background-image(linear-gradient(to bottom, #FFFFFF 0%, #A6A6A6 100%));
     }
 
+    .icon-text {
+        img {
+            width: @footer-icon-width;
+        }
+
+        span {
+            color: white;
+            padding: 0px 5px;
+            font-size: 17.5px;
+            margin-top: 0px;
+            position: relative;
+            top: 3px;
+        }
+    }
+
     .content {
         height: @footer-content-height;
         max-width: @content-width;
         margin: 0 auto;
-        padding: 50px @content-width-padding;
+        padding: 50px 0px;
 
         ul {
             padding: 0;
+            display: table;
+            width: 100%;
+            .font-helvetica-bold;
 
             li {
-                margin-right: 83px;
-                display: inline-block;
+                text-align: center;
+                margin-right: 0px;
+                display: table-cell;
+
+
+                &:first-child {
+                    text-align: left;
+                }
 
                 &:last-child {
-                    margin-right: 0;
-                }
-
-                img {
-                    width: @footer-icon-width;
-                }
-
-                span {
-                    color: white;
-                    padding: 0px 5px;
-                    font-size: 17.5px;
-                    margin-top: 0px;
-                    position: relative;
-                    top: 3px;
+                    text-align: right;
                 }
             }
         }

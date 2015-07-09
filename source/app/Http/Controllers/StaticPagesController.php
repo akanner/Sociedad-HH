@@ -19,4 +19,8 @@ class StaticPagesController extends Controller {
         return view('pages.home');
     }
 
+    public function contacto() {
+        return view('pages.contacto');
+    }
+
 }
