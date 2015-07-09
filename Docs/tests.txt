@@ -1,0 +1,34 @@
+Tests
+----------------------------------------------
+-Survey
+--crear una encuesta
+--borrar una encuesta
+--Agregar una pregunta de texto
+--Agregar una pregunta multiple choice con una sola respuesta
+--Agregar una pregunta multiple choice con mas de una respuesta
+--Borrar una pregunta
+
+-Question
+--Crear una pregunta
+
+-MultipleChoiceQuestionSingleOption
+--Crear una pregunta
+--borrar una pregunta
+--Agregar una opcion.
+--Agregar varias opciones
+--Agregar una opcion de otros(opcion para escribir texto)
+
+-MultipleChoiceQuestionMulipleOption
+--Crear una pregunta
+--borrar una pregunta
+--Agregar una opcion.
+--Agregar varias opciones
+--Agregar una opcion de otros(opcion para escribir texto)
+
+-SurveyRespondent
+--contestar una pregunta de texto
+--contestar na pregunta multiple choice con una sola opcion
+--contestar una pregunta multiple choice con opcion otros
+--contestar una pregunta multiple choice con muchas opciones
+--contestar una pregunta multiple choice con muchas opciones con opcion otros.
+--contestar una encuesta completa
