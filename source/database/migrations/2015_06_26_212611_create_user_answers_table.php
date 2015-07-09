@@ -21,6 +21,9 @@ class CreateUserAnswersTable extends Migration
             // FK to survey
             $table->integer('survey_id')->unsigned();
             $table->foreign('survey_id')->references('id')->on("surveys");
+            // FK to MultipleChoiceOption
+            $table->integer("multiple_choice_option_id")->unsigned()->null();
+            $table->foreign("multiple_choice_option_id")->references("id")->on("multiple_choice_options");
             $table->timestamps();
         });
     }

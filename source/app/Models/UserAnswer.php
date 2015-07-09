@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\HierarchicalModel;
 use App\Models\Survey;
 use App\Models\SurveyRespondent;
 use App\Models\Question;
@@ -15,9 +15,13 @@ use App\Models\Question;
  *  answer  ::string  represents the user´s answer for a question in a survey
  *
  */
-class UserAnswer extends Model
+class UserAnswer extends HierarchicalModel
 {
 
+  //table´s name
+  protected $table = 'user_answers';
+  //name of the root class of the hierachy
+  protected $stiBaseClass = "App\\Models\\UserAnswer";
   protected $fillable = array('answer');
 
   public function getAnswer()
