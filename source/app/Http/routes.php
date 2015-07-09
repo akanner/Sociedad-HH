@@ -16,3 +16,4 @@
 /* Páginas estáticas */
 Route::get('/', 'StaticPagesController@home');
 Route::get('home', 'StaticPagesController@home');
+Route::get('contacto', 'StaticPagesController@contacto');

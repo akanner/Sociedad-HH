@@ -14,19 +14,17 @@
         </div>
         <div class="navbar-collapse collapse navbar-menu">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">AUTORIDADES</a>
+                <li><a href="autoridades">AUTORIDADES</a>
                 </li>
-                <li><a href="#">INFO PARA PACIENTES</a>
+                <li><a href="info">INFO PARA PACIENTES</a>
                 </li>
-                <li><a href="#">ENCUESTAS</a>
+                <li><a href="encuestas">ENCUESTAS</a>
                 </li>
-                <li><a href="#">NOVEDADES</a>
+                <li><a href="novedades">NOVEDADES</a>
                 </li>
-                <li><a href="#">CONTACTO</a>
+                <li><a href="contacto">CONTACTO</a>
                 </li>
             </ul>
         </div>
-        <!--/.nav-collapse -->
     </div>
-    <!--/.container-fluid -->
 </nav>

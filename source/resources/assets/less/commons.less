@@ -1,10 +1,15 @@
 .title-with-underscore {
-    color: @heading-color;
+    color: @main-color;
+    margin-top: 0px;
     margin-bottom: 13px;
+    text-transform: uppercase;
+    font-size: @content-title-font-size;
+    .font-helvetica-bold;
+
     &:after {
         content: '';
         display: block;
-        background: #c1272d;
+        background: @main-color;
         height: 3px;
         max-width: 25px;
         width: 100%;
@@ -13,15 +18,18 @@
     }
 }
 
-.header-and-paragraph {
+.justified {
+    text-align: justify;
+    -moz-text-align-last: justify;
+    text-align-last: justify;
+}
 
+.header-and-paragraph {
     h3 {
         .title-with-underscore;
     }
 
     p {
-        text-align: justify;
-        -moz-text-align-last: justify;
-        text-align-last: justify;
+        .justified;
     }
 }
