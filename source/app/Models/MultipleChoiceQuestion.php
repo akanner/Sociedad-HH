@@ -10,13 +10,8 @@ use App\Models\MultipleChoiceOption;
  *  description ::string                        contains the question itself as a text
  *  options     ::array[MultipleChoiceOption]   Array with the multiple options defined for this question
  */
-class MultipleChoiceQuestion extends Question
+abstract class MultipleChoiceQuestion extends Question
 {
-  public function whoami()
-  {
-    return "im a multiple choice question and i have overrided the method whoami(), IM A PERSISTED SUBCLASS!!";
-  }
-
   public function options()
   {
     $this->hasMany("App\Models\MultipleChoiceOption");

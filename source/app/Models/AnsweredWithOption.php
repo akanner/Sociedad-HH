@@ -11,4 +11,20 @@ class AnsweredWithOption extends UserAnswer
   {
     $this->HasOne("App\Models\MultipleChoiceOption");
   }
+
+  public function getAnswer()
+  {
+    return $this->option()->get()->description;
+  }
+
+  public function setAnswer($answer)
+  {
+    $this->survey()->associate($answer);
+  }
+
+  public function setSurvey($survey)
+  {
+
+  }
+
 }
