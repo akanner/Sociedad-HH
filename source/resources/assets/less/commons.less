@@ -1,5 +1,15 @@
+.dash {
+    content: '';
+    display: block;
+    background: @main-red;
+    height: 3px;
+    max-width: 25px;
+    width: 100%;
+    margin: 0;
+}
+
 .title-with-underscore {
-    color: @main-color;
+    color: @main-red;
     margin-top: 0px;
     margin-bottom: 13px;
     text-transform: uppercase;
@@ -7,14 +17,17 @@
     .font-helvetica-bold;
 
     &:after {
-        content: '';
-        display: block;
-        background: @main-color;
-        height: 3px;
-        max-width: 25px;
-        width: 100%;
-        margin: 0;
+        .dash;
         margin-top: 12px;
+    }
+}
+
+.title-with-double-dash {
+    .title-with-underscore;
+
+    &:before {
+        .dash;
+        margin-bottom: 12px;
     }
 }
 
@@ -25,11 +38,11 @@
 }
 
 .header-and-paragraph {
-    h3 {
-        .title-with-underscore;
-    }
+    h3 { .title-with-underscore; }
+    p { .justified; }
+}
 
-    p {
-        .justified;
-    }
+.header-double-dash-and-paragraph {
+    h3 { .title-with-double-dash; }
+    p { .justified; }
 }

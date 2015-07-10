@@ -4,7 +4,8 @@
 @import "commons.less";
 
 // Less de cada pagina
-@import "home.less";
+@import "pages/home.less";
+@import "pages/contacto.less";
 
 // LESS HAT: https://github.com/madebysource/lesshat/blob/master/README.md
 
@@ -53,14 +54,14 @@ header {
             width: 50%;
             height: 100%;
             float: left;
-            .lh-background-image(linear-gradient(to right, rgba(193, 35, 45, 0) 0%, @main-color 55%));
+            .lh-background-image(linear-gradient(to right, rgba(193, 35, 45, 0) 0%, @main-red 55%));
         }
 
         .right-gradient-background {
             width: 50%;
             height: 100%;
             float: left;
-            .lh-background-image(linear-gradient(to left, rgba(193, 35, 45, 0) 0%, @main-color 55%));
+            .lh-background-image(linear-gradient(to left, rgba(193, 35, 45, 0) 0%, @main-red 55%));
         }
     }
 }
@@ -68,7 +69,7 @@ header {
 header.default-header {
     width: 100%;
     height: @header-height;
-    .lh-background-image(repeating-linear-gradient( -45deg, @stripes-color, @stripes-color 1px, @main-color 1px, @main-color 10px));
+    .lh-background-image(repeating-linear-gradient( -45deg, @stripes-color, @stripes-color 1px, @main-red 1px, @main-red 10px));
 
     .content-wrapper {
         height: @header-height;
@@ -78,7 +79,7 @@ header.default-header {
         width: @logo-width;
         position: absolute;
         left: 50%;
-        margin-left: -222px;
+        margin-left: -221px;
         margin-top: 65px;
 
         img {
@@ -93,7 +94,7 @@ header.default-header {
 header.home-header {
     width: 100%;
     height: @home-header-height;
-    .lh-background-image(repeating-linear-gradient( -45deg, @stripes-color, @stripes-color 1px, @main-color 1px, @main-color 10px));
+    .lh-background-image(repeating-linear-gradient( -45deg, @stripes-color, @stripes-color 1px, @main-red 1px, @main-red 10px));
 
     .content-wrapper {
         height: @home-header-height;
@@ -162,7 +163,7 @@ nav.main-nav {
 
 div.body-content {
     margin: 0 auto;
-    padding: 70px 0px 60px 0px;
+    padding: 35px 0px 60px 0px;
     max-width: @content-width;
 }
 

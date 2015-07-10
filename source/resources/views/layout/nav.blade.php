@@ -12,7 +12,7 @@
                 <img src="{{asset('img/logo/logo-nav.png')}}" alt="Logo barra de navegación">
             </a>
         </div>
-        <div class="navbar-collapse collapse navbar-menu">
+        <div id="navbar" class="navbar-collapse collapse navbar-menu">
             <ul class="nav navbar-nav">
                 <li><a href="autoridades">AUTORIDADES</a>
                 </li>
