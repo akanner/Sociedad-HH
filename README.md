@@ -6,6 +6,10 @@
     npm
     nodejs-legacy
     gulp ( sudo npm install -g gulp)
+##### para testear
+    phpunit (sudo apt-get install phpunit)
+    sqlite (sudo apt-get install sqlite)
+    
 
 ###Instalacion###
 
