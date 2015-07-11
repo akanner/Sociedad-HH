@@ -32,3 +32,9 @@ Tests
 --contestar una pregunta multiple choice con muchas opciones
 --contestar una pregunta multiple choice con muchas opciones con opcion otros.
 --contestar una encuesta completa
+
+-admin
+--agregar una encuesta.
+--setear un mail de agradecimiento.
+--ver un reporte de torta de una encuesta
+--ver un reporte tipo grilla sobre una encuesta
