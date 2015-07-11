@@ -8,8 +8,8 @@
     gulp ( sudo npm install -g gulp)
 ##### para testear
     phpunit (sudo apt-get install phpunit)
-    sqlite (sudo apt-get install sqlite)
-    
+    sqlite (sudo apt-get install sqlite php5-sqlite)
+
 
 ###Instalacion###
 
@@ -24,7 +24,7 @@
 ####Base de Datos####
 Crear una base de datos llamada db_sociedadhh
     CREATE DATABASE db_sociedadhh;
-    
+
 Configurar base de datos en la aplicacion
 
     #modify path/to/laravel/project/.env
@@ -35,7 +35,7 @@ Configurar base de datos en la aplicacion
 
 Ejecutar la migracion de la base de datos
     php artisan migrate
-    
+
 ####Configuracion Apache####
 
 #####Copiar el archivo por defecto de apache (Puede variar el nombre)#####
@@ -68,13 +68,13 @@ queda así
 
     sudo a2ensite sociedadhh.conf
     sudo service apache2 restart
-    
+
 ### Compilar CSS y JS con GULP ###
 
 Desde consola, en el root del proyecto, tirar:
 
     gulp // Compila los recursos
-    
+
     gulp watch // Compila y se queda a la escucha de cambios, recompila solo
-    
+
     gulp --production // Compila y minifica
