@@ -12,12 +12,16 @@ div.intro-wrapper {
 }
 
 div.contacts-wrapper {
-    padding: 20px 0px 20px 5px;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
 
     div.contact {
         @contact-image-width: 164px;
+
+        padding: 20px 0px 20px 5px;
+        border-top: 1px solid black;
+
+        &:last-child {
+            border-bottom: 1px solid black;
+        }
 
         div.contact-image {
             float: left;
@@ -25,7 +29,7 @@ div.contacts-wrapper {
 
             img {
                 .lh-filter(grayscale(100%));
-                border-radius: 70px;
+                border-radius: 90px;
             }
         }
 
