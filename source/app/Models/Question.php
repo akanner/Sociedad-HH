@@ -44,9 +44,6 @@ class Question extends HierarchicalModel
     return $this->belongsTo("App/Models/Survey");
   }
 
-  public function whoami()
-  {
-    return "im a text question";
-  }
+  public function options(){return [];}
 
 }
