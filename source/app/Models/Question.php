@@ -17,7 +17,7 @@ class Question extends HierarchicalModel
   //name of the root class of the hierachy
   protected $stiBaseClass = "App\\Models\\Question";
 
-  protected $fillable = array("description");
+  public $fillable = array("description","survey_id");
 
   public function getDescription()
   {
