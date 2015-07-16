@@ -1,5 +1,5 @@
 @extends('layout.main')
-@section('title') Home :: @parent @stop
+@section('title') Home :: @parent @endsection
 
 @section('header')
     <header class="home-header">
@@ -128,5 +128,3 @@
     <!-- Valores -->
 
 @endsection
-
-@stop
