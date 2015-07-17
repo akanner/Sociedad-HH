@@ -15,7 +15,7 @@ class CreateSurveysTable extends Migration
         Schema::create('surveys', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->string('substract');
+            $table->text('substract');
             $table->date('activeFrom');
             $table->date('activeTo')->nullable();
             $table->timestamps();

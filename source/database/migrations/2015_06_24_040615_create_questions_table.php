@@ -14,7 +14,7 @@ class CreateQuestionsTable extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->increments('id');
-            $table->string("description");
+            $table->text("description");
             //FK to surveys
             $table->integer("survey_id")->unsigned();
             $table->foreign("survey_id")->references("id")->on("surveys");

@@ -36,8 +36,8 @@ class SurveysTableSeeder extends Seeder
 
         Survey::create(
           array(
-            'title'=>'Mejor musica del mundo',
-            'substract'=> 'Nuestros clientes utilizaran esta información para construir ilegalmente un robot que sera capas de generar musica secretamente para luego vender merchandising \n Changos, no se porque dije que era mi cliente \n changos, no se porque dije que era ilegal.',
+            'title'=>'La mejor musica del mundo',
+            'substract'=> 'Nuestros clientes utilizaran esta información para construir ilegalmente un robot que sera capas de generar musica secretamente para luego vender merchandising </br> Changos, no se porque dije que era mi cliente </br> Changos, no se porque dije que era ilegal.',
             'activeFrom' => date("2015-06-30"),
             'activeTo'=>null));
     }
@@ -74,7 +74,7 @@ class OptionsTableSeeder extends Seeder
       'question_id'=>2
     ));
     MultipleChoiceOption::create(array(
-      'description'=>'Pibull',
+      'description'=>'Pitbull',
       'question_id'=>2
     ));
     MultipleChoiceOption::create(array(

@@ -14,7 +14,7 @@ class CreateMultipleChoiceOptionsTable extends Migration
     {
         Schema::create('multiple_choice_options', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('description');
+            $table->text('description');
             $table->boolean('is_other_option')->default(FALSE);
             //FK to MultipleChoiceQuestion
             $table->integer("question_id")->unsigned();

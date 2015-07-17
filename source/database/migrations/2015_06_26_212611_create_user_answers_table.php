@@ -14,7 +14,7 @@ class CreateUserAnswersTable extends Migration
     {
         Schema::create('user_answers', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('answer');
+            $table->text('answer');
             // FK to survey_respondents
             $table->integer('survey_respondent_id')->unsigned();
             $table->foreign('survey_respondent_id')->references('id')->on("survey_respondents");
