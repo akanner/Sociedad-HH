@@ -14,9 +14,10 @@ abstract class MultipleChoiceQuestion extends Question
 {
   //eager loading of the options, there is no point in a MultipleChoiceQuestion without options
   public $with = "options";
+
   public function options()
   {
-    $this->hasMany("App\Models\MultipleChoiceOption");
+    return $this->hasMany("App\Models\MultipleChoiceOption","question_id");
   }
 
   public function getDescription()

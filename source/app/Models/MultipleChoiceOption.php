@@ -16,7 +16,6 @@ class MultipleChoiceOption extends Model
 
   public $fillable = array("description","question_id","is_other_option");
 
-
   public function getDescription()
   {
     return $this->description;
@@ -29,12 +28,12 @@ class MultipleChoiceOption extends Model
 
   public function getIsOtherOption()
   {
-    return $this->isOtherOption;
+    return $this->is_other_option=="1" ? TRUE : FALSE ;
   }
 
   public function setIsOtherOption($isOtherOption)
   {
-    $this->isOtherOption = $isOtherOption;
+    $this->is_other_option = $isOtherOption;
   }
 
   public function question()

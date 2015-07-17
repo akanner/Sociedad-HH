@@ -17,7 +17,7 @@ use App\Models\Question;
  */
 class Survey extends Model
 {
-  protected $fillable = array('title','substract','activeFrom','activeTo');
+  public $fillable = array('title','substract','activeFrom','activeTo');
 
   public function setTitle($title)
   {
