@@ -7,7 +7,6 @@
       <h3><a href="/encuestas/{{$survey->id}}">{{ $survey->getTitle() }}</a></h3>
       <p>
         {{$survey->getSubstract()}}
-        {{$survey}}
       </p>
     @endforeach
   </div>
