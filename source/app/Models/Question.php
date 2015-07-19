@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\HierarchicalModel;
 use App\Models\Survey;
+use App\Models\Picture;
 /**
  * Represents a survey question
  * Properties:
@@ -58,11 +59,11 @@ class Question extends HierarchicalModel
 
     public function survey()
     {
-        return $this->belongsTo("App/Models/Survey");
+        return $this->belongsTo("App\Models\Survey");
     }
 
     public function pictures()
     {
-        return $this->hasMany("Pictures");
+        return $this->hasMany("App\Models\Picture",'question_id');
     }
 }

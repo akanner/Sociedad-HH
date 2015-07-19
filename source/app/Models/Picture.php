@@ -9,4 +9,11 @@ use Illuminate\Database\Eloquent\Model;
 class Picture extends Model
 {
     public $fillable = ['path'];
+
+
+    public function getPath()
+    {
+        //gets the variable called 'uploaded_images_folder' from the app.php file
+        return config('app.uploaded_images_folder') ."/". $this->path;
+    }
 }

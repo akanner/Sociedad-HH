@@ -9,6 +9,7 @@ use App\Models\MultipleChoiceQuestionMultipleOptions;
 use App\Models\MultipleChoiceOption;
 use App\Models\Email;
 use App\Models\SurveyRespondent;
+use App\Models\Picture;
 
 class DatabaseSeeder extends Seeder
 {
@@ -26,6 +27,7 @@ class DatabaseSeeder extends Seeder
         $this->call('OptionsTableSeeder');
         $this->call('EmailsTableSeeder');
         $this->call('SurveyRespondentsTableSeeder');
+        $this->call('PictureTableSeeder');
 
         Model::reguard();
     }
@@ -129,5 +131,19 @@ class SurveyRespondentsTableSeeder extends Seeder
         DB::table('survey_respondents')->delete();
         SurveyRespondent::create(
         array('email_id'=>1));
+    }
+}
+
+class PictureTableSeeder extends Seeder
+{
+    public function run()
+    {
+        DB::table('pictures')->delete();
+        Picture::create(
+            array(
+                'path'=>'/home/akanner/Imágenes/jazz_bass-wallpaper-1600x900.jpg',
+                'question_id'=>2
+            )
+        );
     }
 }
