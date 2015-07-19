@@ -12,45 +12,58 @@ use App\Models\Survey;
 class Question extends HierarchicalModel
 {
     //
-  //table´s name
-  protected $table = 'questions';
-  //name of the root class of the hierachy
-  protected $stiBaseClass = "App\\Models\\Question";
+    //table´s name
+    protected $table = 'questions';
+    //name of the root class of the hierachy
+    protected $stiBaseClass = "App\\Models\\Question";
 
-  public $fillable = array("description","survey_id");
+    public $fillable = array("description","survey_id");
 
-  public function getDescription()
-  {
-    return $this->description;
-  }
+    /**
+    * Returns the name of the template that will be rendered in the view
+    */
+    public function getTemplateName()
+    {
+        return 'pages.surveys.templates.textQuestion';
+    }
 
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
+    public function getDescription()
+    {
+        return $this->description;
+    }
 
-  public function getSurvey()
-  {
-    return $this->survey()->get();
-  }
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
 
-  public function setSurvey($survey)
-  {
-    return $this->survey()->associate($survey);
-  }
+    public function getSurvey()
+    {
+        return $this->survey()->get();
+    }
 
-  public function survey()
-  {
-    return $this->belongsTo("App/Models/Survey");
-  }
+    public function setSurvey(Survey $survey)
+    {
+        return $this->survey()->associate($survey);
+    }
 
-  public function options(){return [];}
+    public function getPictures()
+    {
+        return $this->pictures()->get();
+    }
 
-  /**
-   * Returns the name of the template that will be rendered in the view
-   */
-  public function getTemplateName()
-  {
-    return 'pages.surveys.templates.textQuestion';
-  }
+    public function addPicture(Picture $picture)
+    {
+        return $this->pictures()->save($pictures);
+    }
+
+    public function survey()
+    {
+        return $this->belongsTo("App/Models/Survey");
+    }
+
+    public function pictures()
+    {
+        return $this->hasMany("Pictures");
+    }
 }
