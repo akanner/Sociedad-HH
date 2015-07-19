@@ -78,3 +78,9 @@ Desde consola, en el root del proyecto, tirar:
     gulp watch // Compila y se queda a la escucha de cambios, recompila solo
 
     gulp --production // Compila y minifica
+
+### Comandos básicos para configurar y correr todo el stack ###
+
+composer dumpautoload
+gulp
+php artisan migrate:refresh --seed

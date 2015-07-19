@@ -22,6 +22,8 @@ class DatabaseSeeder extends Seeder
         $this->call('SurveysTableSeeder');
         $this->call('QuestionsTableSeeder');
         $this->call('OptionsTableSeeder');
+        $this->call('EmailsTableSeeder');
+        $this->call('EmailsTableSeeder');
 
         Model::reguard();
     }
@@ -46,24 +48,29 @@ class SurveysTableSeeder extends Seeder
 
 class QuestionsTableSeeder extends Seeder
 {
-  public function run()
-  {
-    DB::table('questions')->delete();
-    Question::create(
-      array(
-        'description'=>'Indique con sus palabras que le gusta de los cantantes de disney?',
-        'survey_id' => 1));
+    public function run()
+    {
+        DB::table('questions')->delete();
+        Question::create(
+        array(
+            'description'=>'Indique con sus palabras que le gusta de los cantantes de disney?',
+            'survey_id' => 1
+        ));
 
-    MultipleChoiceQuestionMultipleOptions::create(
-      array(
-        'description'=>'para usted, el pop deberia tener más...."',
-        'survey_id' => 1));
-    MultipleChoiceQuestionSingleOption::create(array(
-      'description'=>'Indique la opción que usted asemeja más a la musica "dubstep"',
-      'survey_id' => 1
-    ));
-  }
+        MultipleChoiceQuestionMultipleOptions::create(
+        array(
+            'description'=>'para usted, el pop deberia tener más...."',
+            'survey_id' => 1
+        ));
+
+        MultipleChoiceQuestionSingleOption::create(
+        array(
+            'description'=>'Indique la opción que usted asemeja más a la musica "dubstep"',
+            'survey_id' => 1
+        ));
+    }
 }
+
 class OptionsTableSeeder extends Seeder
 {
   public function run()
@@ -101,4 +108,24 @@ class OptionsTableSeeder extends Seeder
       'question_id'     =>3
     ));
   }
+}
+
+class EmailsTableSeeder extends Seeder
+{
+    public function run()
+    {
+        DB::table('emails')->delete();
+        Email::create(
+        array('address'=>'leian1306@gmail.com'));
+    }
+}
+
+class SurveyRespondentsTableSeeder extends Seeder
+{
+    public function run()
+    {
+        DB::table('survey_respondents')->delete();
+        SurveyRespondent::create(
+        array('email_id'=>1));
+    }
 }
