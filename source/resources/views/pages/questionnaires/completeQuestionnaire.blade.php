@@ -2,12 +2,12 @@
 @section('title') Completar Encuesta :: @parent @stop
 
 @section('content')
-  <h2>{{$survey->getTitle()}}</h2>
+  <h2>{{$questionnaire->getTitle()}}</h2>
   <form method="post">
     <div>
-      @foreach ($survey->getQuestions() as $question)
-        <div class="survey-question">
-          @include('pages.surveys.templates.question',['question'=>$question,'questionNumber'=>1])
+      @foreach ($questionnaire->getQuestions() as $question)
+        <div class="questionnaire-question">
+          @include('pages.questionnaires.templates.question',['question'=>$question,'questionNumber'=>1])
         </div>
       @endforeach
     </div>

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEmailsTable extends Migration
+class CreateQuestionnairesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,9 +12,12 @@ class CreateEmailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('emails', function (Blueprint $table) {
+        Schema::create('questionnaires', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('address');
+            $table->string('title');
+            $table->text('description');
+            $table->date('activeFrom');
+            $table->date('activeTo')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +29,6 @@ class CreateEmailsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('emails');
+        Schema::drop('questionnaires');
     }
 }

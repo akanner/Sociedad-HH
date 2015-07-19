@@ -3,10 +3,10 @@
 namespace App\Models;
 
 use App\Models\HierarchicalModel;
-use App\Models\Survey;
+use App\Models\Questionnaire;
 use App\Models\Picture;
 /**
- * Represents a survey question
+ * Represents a questionnaire question
  * Properties:
  *  description ::string  contains the question itself as a text
  */
@@ -17,14 +17,14 @@ class Question extends HierarchicalModel
     //name of the root class of the hierachy
     protected $stiBaseClass = "App\\Models\\Question";
 
-    public $fillable = array("description","survey_id");
+    public $fillable = array("description","questionnaire_id");
 
     /**
     * Returns the name of the template that will be rendered in the view
     */
     public function getTemplateName()
     {
-        return 'pages.surveys.templates.textQuestion';
+        return 'pages.questionnaires.templates.textQuestion';
     }
 
     public function getDescription()
@@ -37,14 +37,14 @@ class Question extends HierarchicalModel
         $this->description = $description;
     }
 
-    public function getSurvey()
+    public function getQuestionnaire()
     {
-        return $this->survey()->get();
+        return $this->questionnaire()->get();
     }
 
-    public function setSurvey(Survey $survey)
+    public function setQuestionnaire(Questionnaire $questionnaire)
     {
-        return $this->survey()->associate($survey);
+        return $this->questionnaire()->associate($questionnaire);
     }
 
     public function getPictures()
@@ -57,9 +57,9 @@ class Question extends HierarchicalModel
         return $this->pictures()->save($pictures);
     }
 
-    public function survey()
+    public function questionnaire()
     {
-        return $this->belongsTo("App\Models\Survey");
+        return $this->belongsTo("App\Models\Questionnaire");
     }
 
     public function pictures()

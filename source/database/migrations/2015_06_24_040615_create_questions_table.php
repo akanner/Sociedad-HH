@@ -15,9 +15,9 @@ class CreateQuestionsTable extends Migration
         Schema::create('questions', function (Blueprint $table) {
             $table->increments('id');
             $table->text("description");
-            // FK to surveys
-            $table->integer("survey_id")->unsigned();
-            $table->foreign("survey_id")->references("id")->on("surveys");
+            // FK to questionnaires
+            $table->integer("questionnaire_id")->unsigned();
+            $table->foreign("questionnaire_id")->references("id")->on("questionnaires");
             // field used to find the class of the question, this table represents a single table hierarchy
             $table->string('class_name')->index();
             $table->timestamps();

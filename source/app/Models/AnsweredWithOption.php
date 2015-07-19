@@ -19,10 +19,10 @@ class AnsweredWithOption extends UserAnswer
 
   public function setAnswer($answer)
   {
-    $this->survey()->associate($answer);
+    $this->questionnaire()->associate($answer);
   }
 
-  public function setSurvey($survey)
+  public function setQuestionnaire($questionnaire)
   {
 
   }

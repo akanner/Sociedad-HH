@@ -3,16 +3,16 @@
 namespace App\Models;
 
 use App\Models\HierarchicalModel;
-use App\Models\Survey;
-use App\Models\SurveyRespondent;
+use App\Models\Questionnaire;
+use App\Models\QuestionnaireRespondent;
 use App\Models\Question;
 /**
- * Represents a SurveyRespondent´s answer to a specific question
- * a survey respondent has only one UserAnswer per question unless the question is a multiple choice with many valid answers,
+ * Represents a QuestionnaireRespondent´s answer to a specific question
+ * a questionnaire respondent has only one UserAnswer per question unless the question is a multiple choice with many valid answers,
  * in that case the respondent may have multiple answers for a question
  *
  * Properties
- *  answer  ::string  represents the user´s answer for a question in a survey
+ *  answer  ::string  represents the user´s answer for a question in a questionnaire
  *
  */
 class UserAnswer extends HierarchicalModel
@@ -34,19 +34,19 @@ class UserAnswer extends HierarchicalModel
     $this->answer = $answer;
   }
 
-  public function setSurvey($survey)
+  public function setQuestionnaire($questionnaire)
   {
-    $this->survey()->associate($survey);
+    $this->questionnaire()->associate($questionnaire);
   }
 
-  public function getSurvey()
+  public function getQuestionnaire()
   {
-    return $this->forSurvey()->get();
+    return $this->forQuestionnaire()->get();
   }
 
   public function setRespondent($respondent)
   {
-    $this->respondent()->associate($survey);
+    $this->respondent()->associate($questionnaire);
   }
 
   public function getRespondent()
@@ -70,12 +70,12 @@ class UserAnswer extends HierarchicalModel
 
   public function respondent()
   {
-    return $this->belongsTo('App\Models\SurveyRespondent');
+    return $this->belongsTo('App\Models\QuestionnaireRespondent');
   }
 
-  public function survey()
+  public function questionnaire()
   {
-    return $this->belongsTo('App\Models\Survey');
+    return $this->belongsTo('App\Models\Questionnaire');
   }
 
 

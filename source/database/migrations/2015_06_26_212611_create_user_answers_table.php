@@ -15,12 +15,12 @@ class CreateUserAnswersTable extends Migration
         Schema::create('user_answers', function (Blueprint $table) {
             $table->increments('id');
             $table->text('answer');
-            // FK to survey_respondents
-            $table->integer('survey_respondent_id')->unsigned();
-            $table->foreign('survey_respondent_id')->references('id')->on("survey_respondents");
-            // FK to survey
-            $table->integer('survey_id')->unsigned();
-            $table->foreign('survey_id')->references('id')->on("surveys");
+            // FK to questionnaire_respondents
+            $table->integer('questionnaire_respondent_id')->unsigned();
+            $table->foreign('questionnaire_respondent_id')->references('id')->on("questionnaire_respondents");
+            // FK to questionnaire
+            $table->integer('questionnaire_id')->unsigned();
+            $table->foreign('questionnaire_id')->references('id')->on("questionnaires");
             // FK to MultipleChoiceOption
             $table->integer("multiple_choice_option_id")->unsigned()->null();
             $table->foreign("multiple_choice_option_id")->references("id")->on("multiple_choice_options");

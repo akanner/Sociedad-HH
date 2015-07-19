@@ -2,15 +2,14 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Survey;
+use App\Models\Questionnaire;
 use App\Models\Question;
 use App\Models\MultipleChoiceQuestionSingleOption;
 use App\Models\MultipleChoiceQuestionMultipleOptions;
 use App\Models\MultipleChoiceOption;
 use App\Models\Email;
-use App\Models\SurveyRespondent;
+use App\Models\QuestionnaireRespondent;
 use App\Models\Picture;
-
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -22,28 +21,28 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        $this->call('SurveysTableSeeder');
+        $this->call('QuestionnairesTableSeeder');
         $this->call('QuestionsTableSeeder');
         $this->call('OptionsTableSeeder');
+        $this->call('QuestionnaireRespondentsTableSeeder');
         $this->call('EmailsTableSeeder');
-        $this->call('SurveyRespondentsTableSeeder');
         $this->call('PictureTableSeeder');
 
         Model::reguard();
     }
 }
 
-class SurveysTableSeeder extends Seeder
+class QuestionnairesTableSeeder extends Seeder
 {
 
     public function run()
     {
-        DB::table('surveys')->delete();
+        DB::table('questionnaires')->delete();
 
-        Survey::create(
+        Questionnaire::create(
           array(
             'title'=>'La mejor musica del mundo',
-            'substract'=> 'Nuestros clientes utilizaran esta información para construir ilegalmente un robot que sera capas de generar musica secretamente para luego vender merchandising </br> Changos, no se porque dije que era mi cliente </br> Changos, no se porque dije que era ilegal.',
+            'description'=> 'Nuestros clientes utilizaran esta información para construir ilegalmente un robot que sera capas de generar musica secretamente para luego vender merchandising </br> Changos, no se porque dije que era mi cliente </br> Changos, no se porque dije que era ilegal.',
             'activeFrom' => date("2015-06-30"),
             'activeTo'=>null));
     }
@@ -58,19 +57,19 @@ class QuestionsTableSeeder extends Seeder
         Question::create(
         array(
             'description'=>'Indique con sus palabras que le gusta de los cantantes de disney?',
-            'survey_id' => 1
+            'questionnaire_id' => 1
         ));
 
         MultipleChoiceQuestionMultipleOptions::create(
         array(
             'description'=>'para usted, el pop deberia tener más...."',
-            'survey_id' => 1
+            'questionnaire_id' => 1
         ));
 
         MultipleChoiceQuestionSingleOption::create(
         array(
             'description'=>'Indique la opción que usted asemeja más a la musica "dubstep"',
-            'survey_id' => 1
+            'questionnaire_id' => 1
         ));
     }
 }
@@ -114,23 +113,26 @@ class OptionsTableSeeder extends Seeder
   }
 }
 
+class QuestionnaireRespondentsTableSeeder extends Seeder
+{
+    public function run()
+    {
+        DB::table('questionnaire_respondents')->delete();
+        QuestionnaireRespondent::create(
+        array());
+    }
+}
+
 class EmailsTableSeeder extends Seeder
 {
     public function run()
     {
         DB::table('emails')->delete();
         Email::create(
-        array('address'=>'leian1306@gmail.com'));
-    }
-}
-
-class SurveyRespondentsTableSeeder extends Seeder
-{
-    public function run()
-    {
-        DB::table('survey_respondents')->delete();
-        SurveyRespondent::create(
-        array('email_id'=>1));
+        array(
+            'address'=>'leian1306@gmail.com',
+            'questionnaire_respondent_id' => 1
+        ));
     }
 }
 
