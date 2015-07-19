@@ -11,9 +11,10 @@ use App\Models\Survey;
  */
 class Question extends HierarchicalModel
 {
-    //
+
   //table´s name
   protected $table = 'questions';
+
   //name of the root class of the hierachy
   protected $stiBaseClass = "App\\Models\\Question";
 

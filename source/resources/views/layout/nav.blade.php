@@ -16,12 +16,12 @@
             <ul class="nav navbar-nav">
                 <li><a href="autoridades">AUTORIDADES</a>
                 </li>
-                <li><a href="info">INFO PARA PACIENTES</a>
-                </li>
+                <!--<li><a href="info">INFO PARA PACIENTES</a>
+                </li>-->
                 <li><a href="encuestas">ENCUESTAS</a>
                 </li>
-                <li><a href="novedades">NOVEDADES</a>
-                </li>
+                <!--<li><a href="novedades">NOVEDADES</a>
+                </li>-->
                 <li><a href="contacto">CONTACTO</a>
                 </li>
             </ul>
