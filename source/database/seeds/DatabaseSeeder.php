@@ -85,7 +85,7 @@ class OptionsTableSeeder extends Seeder
       'question_id'=>2
     ));
     MultipleChoiceOption::create(array(
-      'description' =>'Adolesentes rubias',
+      'description' =>'Adolescentes rubias',
       'question_id' =>2
     ));
     MultipleChoiceOption::create(array(
@@ -95,11 +95,11 @@ class OptionsTableSeeder extends Seeder
     ));
 
     MultipleChoiceOption::create(array(
-      'description'=>'Llaves en una liquadora',
+      'description'=>'Llaves en una licuadora',
       'question_id'=>3
     ));
     MultipleChoiceOption::create (array(
-      'description'=>'Modem de 54k conectandose a internet',
+      'description'=>'Modem de 56k conectandose a internet',
       'question_id'=>3
     ));
     MultipleChoiceOption::create(array(
