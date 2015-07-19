@@ -7,6 +7,8 @@ use App\Models\Question;
 use App\Models\MultipleChoiceQuestionSingleOption;
 use App\Models\MultipleChoiceQuestionMultipleOptions;
 use App\Models\MultipleChoiceOption;
+use App\Models\Email;
+use App\Models\SurveyRespondent;
 
 class DatabaseSeeder extends Seeder
 {
@@ -23,7 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->call('QuestionsTableSeeder');
         $this->call('OptionsTableSeeder');
         $this->call('EmailsTableSeeder');
-        $this->call('EmailsTableSeeder');
+        $this->call('SurveyRespondentsTableSeeder');
 
         Model::reguard();
     }
