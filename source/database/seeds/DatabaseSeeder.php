@@ -24,8 +24,8 @@ class DatabaseSeeder extends Seeder
         $this->call('SurveysTableSeeder');
         $this->call('QuestionsTableSeeder');
         $this->call('OptionsTableSeeder');
-        $this->call('EmailsTableSeeder');
         $this->call('SurveyRespondentsTableSeeder');
+        $this->call('EmailsTableSeeder');
 
         Model::reguard();
     }
@@ -41,7 +41,7 @@ class SurveysTableSeeder extends Seeder
         Survey::create(
           array(
             'title'=>'La mejor musica del mundo',
-            'substract'=> 'Nuestros clientes utilizaran esta información para construir ilegalmente un robot que sera capas de generar musica secretamente para luego vender merchandising </br> Changos, no se porque dije que era mi cliente </br> Changos, no se porque dije que era ilegal.',
+            'description'=> 'Nuestros clientes utilizaran esta información para construir ilegalmente un robot que sera capas de generar musica secretamente para luego vender merchandising </br> Changos, no se porque dije que era mi cliente </br> Changos, no se porque dije que era ilegal.',
             'activeFrom' => date("2015-06-30"),
             'activeTo'=>null));
     }
@@ -112,22 +112,25 @@ class OptionsTableSeeder extends Seeder
   }
 }
 
-class EmailsTableSeeder extends Seeder
-{
-    public function run()
-    {
-        DB::table('emails')->delete();
-        Email::create(
-        array('address'=>'leian1306@gmail.com'));
-    }
-}
-
 class SurveyRespondentsTableSeeder extends Seeder
 {
     public function run()
     {
         DB::table('survey_respondents')->delete();
         SurveyRespondent::create(
-        array('email_id'=>1));
+        array());
+    }
+}
+
+class EmailsTableSeeder extends Seeder
+{
+    public function run()
+    {
+        DB::table('emails')->delete();
+        Email::create(
+        array(
+            'address'=>'leian1306@gmail.com',
+            'survey_respondent_id' => 1
+        ));
     }
 }

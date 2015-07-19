@@ -9,7 +9,7 @@ use App\Models\Question;
  *
  * Properties:
  *  title       ::string  The title of the survey
- *  substract   ::string  Some description about the survey
+ *  description   ::string  Some description about the survey
  *  activeFrom  ::date    Creation date of the survey
  *  activeTo    ::date    Date when the survey went out of use, will be null if the survey is still in use
  *
@@ -17,7 +17,7 @@ use App\Models\Question;
  */
 class Survey extends Model
 {
-  public $fillable = array('title','substract','activeFrom','activeTo');
+  public $fillable = array('title','description','activeFrom','activeTo');
 
   public function setTitle($title)
   {
@@ -29,14 +29,14 @@ class Survey extends Model
     return $this->title;
   }
 
-  public function setSubstract($substract)
+  public function setDescription($description)
   {
-    $this->substract = $substract;
+    $this->description = $description;
   }
 
-  public function getSubstract()
+  public function getDescription()
   {
-    return $this->substract;
+    return $this->description;
   }
   public function setActiveFrom($activeFrom)
   {

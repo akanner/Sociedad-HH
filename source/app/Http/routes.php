@@ -18,5 +18,7 @@ Route::get('/', 'StaticPagesController@home');
 Route::get('home', 'StaticPagesController@home');
 Route::get('autoridades', 'StaticPagesController@autoridades');
 Route::get('contacto', 'StaticPagesController@contacto');
-Route::get("encuestas",'SurveyController@index');
+
+/* Encuestas */
+Route::get('encuestas','SurveyController@listAll');
 Route::get('encuestas/{id}','SurveyController@details');

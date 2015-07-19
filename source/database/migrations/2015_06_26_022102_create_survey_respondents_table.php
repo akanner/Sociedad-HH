@@ -14,11 +14,6 @@ class CreateSurveyRespondentsTable extends Migration
     {
         Schema::create('survey_respondents', function (Blueprint $table) {
             $table->increments('id');
-
-            // FK to email
-            $table->integer("email_id")->unsigned();
-            $table->foreign("email_id")->references("id")->on("emails");
-
             $table->timestamps();
         });
     }

@@ -2,15 +2,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Survey;
+use App\Models\SurveyRespondent;
+
 /**
  *
  */
 class SurveyController extends Controller
 {
-  public function index()
+  public function listAll()
   {
     $surveys = Survey::all();
-    return view('pages.surveys.index',['surveys' => $surveys]);
+    $respondents = SurveyRespondent::all();
+
+    return view('pages.surveys.list',['surveys' => $surveys, 'respondents' => $respondents]);
   }
 
   public function details($id)

@@ -16,7 +16,7 @@ class SurveyTest extends BasicTest
   public function setUp()
   {
     parent::setUp();
-    Survey::create(array('title'=>'survey test','substract'=> 'a test','activeFrom' => date("2015-06-30"),'activeTo'=>null));
+    Survey::create(array('title'=>'survey test','description'=> 'a test','activeFrom' => date("2015-06-30"),'activeTo'=>null));
   }
   public function testSurvey()
   {

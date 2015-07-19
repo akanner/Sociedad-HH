@@ -24,6 +24,11 @@ class SurveyRespondent extends Model
         return $this->hasOne('App\Models\Email');
     }
 
+    public function getEmail()
+    {
+        return $this->email()->get();
+    }
+
     /**
      * Adds an answer to this survey respondent
      *

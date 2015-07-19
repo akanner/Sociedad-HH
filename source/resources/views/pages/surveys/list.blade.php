@@ -6,7 +6,16 @@
     @foreach ($surveys as $survey)
       <h3><a href="/encuestas/{{$survey->id}}">{{ $survey->getTitle() }}</a></h3>
       <p>
-        {{$survey->getSubstract()}}
+        {{$survey->getDescription()}}
+      </p>
+    @endforeach
+  </div>
+
+  <div>
+    @foreach ($respondents as $respondent)
+      <h3><a href="#">{{ $respondent }}</a></h3>
+      <p>
+        {{$respondent->email}}
       </p>
     @endforeach
   </div>
