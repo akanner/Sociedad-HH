@@ -16,9 +16,9 @@ class CreateEmailsTable extends Migration
             $table->increments('id');
             $table->string('address');
 
-            // FK to survey_respondents
-            $table->integer("survey_respondent_id")->unsigned();
-            $table->foreign("survey_respondent_id")->references("id")->on("survey_respondents");
+            // FK to questionnaire_respondents
+            $table->integer("questionnaire_respondent_id")->unsigned();
+            $table->foreign("questionnaire_respondent_id")->references("id")->on("questionnaire_respondents");
 
             $table->timestamps();
         });

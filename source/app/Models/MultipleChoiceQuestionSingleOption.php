@@ -13,6 +13,6 @@ class MultipleChoiceQuestionSingleOption extends MultipleChoiceQuestion
    */
   public function getTemplateName()
   {
-    return 'pages.surveys.templates.multipleChoiceQuestionSingleOption';
+    return 'pages.questionnaires.templates.multipleChoiceQuestionSingleOption';
   }
 }

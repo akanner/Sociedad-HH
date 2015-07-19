@@ -20,5 +20,5 @@ Route::get('autoridades', 'StaticPagesController@autoridades');
 Route::get('contacto', 'StaticPagesController@contacto');
 
 /* Encuestas */
-Route::get('encuestas','SurveyController@listAll');
-Route::get('encuestas/{id}','SurveyController@details');
+Route::get('encuestas','QuestionnaireController@listAll');
+Route::get('encuestas/{id}','QuestionnaireController@details');

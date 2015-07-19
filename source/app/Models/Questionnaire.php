@@ -5,17 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Question;
 /**
- * This class represents a survey
+ * This class represents a questionnaire
  *
  * Properties:
- *  title       ::string  The title of the survey
- *  description   ::string  Some description about the survey
- *  activeFrom  ::date    Creation date of the survey
- *  activeTo    ::date    Date when the survey went out of use, will be null if the survey is still in use
+ *  title       ::string  The title of the questionnaire
+ *  description   ::string  Some description about the questionnaire
+ *  activeFrom  ::date    Creation date of the questionnaire
+ *  activeTo    ::date    Date when the questionnaire went out of use, will be null if the questionnaire is still in use
  *
  * @author Agustin Ignacio Kanner <agustinkanner@gmail.com>
  */
-class Survey extends Model
+class Questionnaire extends Model
 {
   public $fillable = array('title','description','activeFrom','activeTo');
 

@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Represents a person who has responded to a survey
+ * Represents a person who has responded to a questionnaire
  *
  */
-class SurveyRespondent extends Model
+class QuestionnaireRespondent extends Model
 {
     protected $with = array('userAnswers');
     //table´s name
-    protected $table="survey_respondents";
+    protected $table="questionnaire_respondents";
 
     public function userAnswers()
     {
@@ -30,9 +30,9 @@ class SurveyRespondent extends Model
     }
 
     /**
-     * Adds an answer to this survey respondent
+     * Adds an answer to this questionnaire respondent
      *
-     * @param UserAnswer $userAnswer a new answer of the survey respondent
+     * @param UserAnswer $userAnswer a new answer of the questionnaire respondent
      */
     public function addUserAnswer(UserAnswer $userAnswer)
     {

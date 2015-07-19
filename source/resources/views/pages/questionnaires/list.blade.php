@@ -3,10 +3,10 @@
 
 @section('content')
   <div>
-    @foreach ($surveys as $survey)
-      <h3><a href="/encuestas/{{$survey->id}}">{{ $survey->getTitle() }}</a></h3>
+    @foreach ($questionnaires as $questionnaire)
+      <h3><a href="/encuestas/{{$questionnaire->id}}">{{ $questionnaire->getTitle() }}</a></h3>
       <p>
-        {{$survey->getDescription()}}
+        {{$questionnaire->getDescription()}}
       </p>
     @endforeach
   </div>
