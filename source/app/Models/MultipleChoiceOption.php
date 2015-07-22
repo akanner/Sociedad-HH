@@ -36,6 +36,16 @@ class MultipleChoiceOption extends Model
     $this->is_other_option = $isOtherOption;
   }
 
+  public function setIsCorrectAnswer($isCorrectAnswer)
+  {
+      $this->correct_answer = $isCorrectAnswer;
+  }
+
+  public function getIsCorrectAnswer()
+  {
+      return $this->correct_answer=="1" ? TRUE : FALSE;
+  }
+
   public function question()
   {
     return $this->belongsTo("Question");
