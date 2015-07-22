@@ -16,6 +16,7 @@ class CreateMultipleChoiceOptionsTable extends Migration
             $table->increments('id');
             $table->text('description');
             $table->boolean('is_other_option')->default(FALSE);
+            $table->boolean('correct_answer') ->default(FALSE);
             //FK to MultipleChoiceQuestion
             $table->integer("question_id")->unsigned();
             $table->foreign("question_id")->references("id")->on("questions");

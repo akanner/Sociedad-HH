@@ -45,6 +45,12 @@ class QuestionnairesTableSeeder extends Seeder
             'description'=> 'Nuestros clientes utilizaran esta información para construir ilegalmente un robot que sera capas de generar musica secretamente para luego vender merchandising </br> Changos, no se porque dije que era mi cliente </br> Changos, no se porque dije que era ilegal.',
             'activeFrom' => date("2015-06-30"),
             'activeTo'=>null));
+        Questionnaire::create(
+        array(
+            'title' => 'Series de televisión',
+            'description' => 'las mejores series de televisión (entre los canales 60 al 70)',
+            'activeFrom' => date("2015-07-21"),
+            'activeTo'   => null));
     }
 
 }
@@ -71,6 +77,17 @@ class QuestionsTableSeeder extends Seeder
             'description'=>'Indique la opción que usted asemeja más a la musica "dubstep"',
             'questionnaire_id' => 1
         ));
+
+        MultipleChoiceQuestionSingleOption::create(
+        array(
+            'description'=>'Cual es el mejor programa de eliminación de tatuajes?',
+            'questionnaire_id' => 2
+        ));
+        MultipleChoiceQuestionSingleOption::create(
+        array(
+            'description'=>'Usted cree que Don cangrejo se va a afeitar?',
+            'questionnaire_id' => 2
+        ));
     }
 }
 
@@ -85,6 +102,7 @@ class OptionsTableSeeder extends Seeder
     ));
     MultipleChoiceOption::create(array(
       'description'=>'Pitbull',
+      'correct_answer'=>TRUE,
       'question_id'=>2
     ));
     MultipleChoiceOption::create(array(
@@ -109,6 +127,33 @@ class OptionsTableSeeder extends Seeder
       'description'     =>'Otra:',
       'is_other_option' =>TRUE,
       'question_id'     =>3
+    ));
+    MultipleChoiceOption::create(array(
+        'description'=>'El que los removedores parecen judios-amish',
+        'question_id'=>4
+    ));
+    MultipleChoiceOption::create(array(
+        'description'=>'El que te cuentan las historias de forma muy exagerada',
+        'correct_answer' => TRUE,
+        'question_id'=>4
+    ));
+    MultipleChoiceOption::create(array(
+        'description'=>'Yo diria que si',
+        'question_id'=>5
+    ));
+    MultipleChoiceOption::create(array(
+        'description'=>'no veo por que no',
+        'correct_answer' => TRUE,
+        'question_id'=>5
+    ));
+    MultipleChoiceOption::create(array(
+        'description'=>'Dejame llamar a mi amigo que es experto en hombres que estan apunto de afeitarse',
+        'question_id'=> 5
+    ));
+    MultipleChoiceOption::create(array(
+        'description'=>'Otra',
+        'is_other_option'=>TRUE,
+        'question_id'=>5
     ));
   }
 }
