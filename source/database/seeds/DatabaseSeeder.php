@@ -143,7 +143,7 @@ class PictureTableSeeder extends Seeder
         DB::table('pictures')->delete();
         Picture::create(
             array(
-                'path'=>'/home/akanner/Imágenes/jazz_bass-wallpaper-1600x900.jpg',
+                'path'=>'jazz_bass-wallpaper-1600x900.jpg',
                 'question_id'=>2
             )
         );
