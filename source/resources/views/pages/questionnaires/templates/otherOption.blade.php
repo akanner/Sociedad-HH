@@ -1,3 +1,3 @@
 @if($option->getIsOtherOption())
-  <input type="text" name="question_{{$question->id}}_otherOption">
+    {!! Form::text("question_" . $question->id . "_otherOption") !!}
 @endif
