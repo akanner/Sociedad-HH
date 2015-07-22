@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Questionnaire;
 use App\Models\QuestionnaireRespondent;
+use Illuminate\Support\Facades\Input;
 
 /**
  *
@@ -21,5 +22,10 @@ class QuestionnaireController extends Controller
   {
     $questionnaire = Questionnaire::where("id","=",$id)->first();
     return view('pages.questionnaires.completeQuestionnaire',['questionnaire'=>$questionnaire]);
+  }
+
+  public function completeQuestionnaire()
+  {
+      die("<pre>" . print_r(Input::all(),TRUE) . "</pre>" );
   }
 }
