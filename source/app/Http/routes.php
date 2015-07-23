@@ -20,6 +20,12 @@ Route::get('autoridades', 'StaticPagesController@autoridades');
 Route::get('contacto', 'StaticPagesController@contacto');
 
 /* Encuestas */
-Route::get('encuestas','QuestionnaireController@listAll');
-Route::get('encuestas/{id}','QuestionnaireController@details');
-Route::post('encuestas/completeQuestionnaire','QuestionnaireController@completeQuestionnaire');
+Route::get('encuestas', 'QuestionnaireController@listAll');
+Route::get('encuestas/{id}', 'QuestionnaireController@details');
+Route::post('encuestas/completeQuestionnaire', 'QuestionnaireController@completeQuestionnaire');
+
+/* Email */
+Route::post('contacto/enviar', 'EmailController@sendEmail');
+
+/* Backend */
+Route::get('adminhh', 'BackendController@show');
