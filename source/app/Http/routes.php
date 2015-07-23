@@ -22,4 +22,9 @@ Route::get('contacto', 'StaticPagesController@contacto');
 /* Encuestas */
 Route::get('encuestas','QuestionnaireController@listAll');
 Route::get('encuestas/{id}','QuestionnaireController@details');
-Route::post('encuestas/enviarQuestionario','QuestionnaireController@completeQuestionnaire');
+Route::post('encuestas/enviarCuestionario','QuestionnaireController@completeQuestionnaire');
+/* Email */
+Route::post('contacto/enviar', 'EmailController@sendEmail');
+
+/* Backend */
+Route::get('adminhh', 'BackendController@show');
