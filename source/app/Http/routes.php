@@ -22,4 +22,4 @@ Route::get('contacto', 'StaticPagesController@contacto');
 /* Encuestas */
 Route::get('encuestas','QuestionnaireController@listAll');
 Route::get('encuestas/{id}','QuestionnaireController@details');
-Route::post('encuestas/completeQuestionnaire','QuestionnaireController@completeQuestionnaire');
+Route::post('encuestas/enviarQuestionario','QuestionnaireController@completeQuestionnaire');
