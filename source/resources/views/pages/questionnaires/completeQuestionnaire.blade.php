@@ -5,6 +5,10 @@
     <h2>{{$questionnaire->getTitle()}}</h2>
     {!! Form::open(array('action' => 'QuestionnaireController@completeQuestionnaire')) !!}
         {!! Form::hidden("questionnaireId",$questionnaire->id) !!}
+        <div class="user-email">
+            {!! Form::label('email', 'Dirección de Email') !!}
+            {!! Form::email('email_address',null,["required"]) !!}
+        </div>
         <div>
             @for ($i = 0; $i < $questionnaire->getQuestions()->count(); $i++)
                 <div class="questionnaire-question">
