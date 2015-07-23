@@ -46,7 +46,7 @@ class UserAnswer extends HierarchicalModel
 
   public function setRespondent($respondent)
   {
-    $this->respondent()->associate($questionnaire);
+    $this->respondent()->associate($respondent);
   }
 
   public function getRespondent()

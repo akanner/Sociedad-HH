@@ -22,9 +22,4 @@ class AnsweredWithOption extends UserAnswer
     $this->questionnaire()->associate($answer);
   }
 
-  public function setQuestionnaire($questionnaire)
-  {
-
-  }
-
 }
