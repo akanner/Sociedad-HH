@@ -10,15 +10,6 @@
       </p>
     @endforeach
   </div>
-
-  <div>
-    @foreach ($respondents as $respondent)
-      <h3><a href="#">{{ $respondent }}</a></h3>
-      <p>
-        {{$respondent->email}}
-      </p>
-    @endforeach
-  </div>
 @endsection
 
 @stop
