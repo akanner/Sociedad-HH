@@ -1,5 +1,5 @@
 @extends('layout.main')
-@section('title') Encuestas :: @parent @stop
+@section('title') Encuestas :: @parent @endsection
 
 @section('content')
   <div>
@@ -11,5 +11,3 @@
     @endforeach
   </div>
 @endsection
-
-@stop

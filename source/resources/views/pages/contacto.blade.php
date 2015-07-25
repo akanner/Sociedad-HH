@@ -1,5 +1,7 @@
 @extends('layout.main')
-@section('title') Contacto :: @parent @endsection @section('content')
+@section('title') Contacto :: @parent @endsection
+
+@section('content')
 
     <div class="row">
         @include('errors.messageBagErrors')

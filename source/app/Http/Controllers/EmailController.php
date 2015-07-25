@@ -21,13 +21,17 @@ class EmailController extends Controller {
         $subject = $request->input(self::REQUEST_PARAM_SUBJECT);
         $userMessage = $request->input(self::REQUEST_PARAM_MESSAGE);
 
-        Mail::send('emails.prueba', ['userMessage' => $userMessage], function ($message) use ($email, $fullName, $subject) {
+        Mail::send("emails.prueba", ["userMessage" => $userMessage], function ($message) use ($email, $fullName, $subject) {
             $message->from($email, $fullName)
-                    ->to('leito.vm3@hotmail.com')
+                    ->to("leito.vm3@hotmail.com")
                     ->subject($subject);
         });
 
-        return redirect()->action('StaticPagesController@home');
+        return view("confirmations.confirmationMessage", [
+            "message" => "¡Gracias por comunicarse!",
+            "linkTo" => "/home",
+            "linkLabel" => "Volver al home"
+        ]);
     }
 
 }
