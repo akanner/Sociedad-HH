@@ -10,6 +10,7 @@ use App\Models\MultipleChoiceOption;
 use App\Models\Email;
 use App\Models\QuestionnaireRespondent;
 use App\Models\Picture;
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -42,7 +43,7 @@ class QuestionnairesTableSeeder extends Seeder
         Questionnaire::create(
           array(
             'title'=>'La mejor musica del mundo',
-            'description'=> 'Nuestros clientes utilizaran esta información para construir ilegalmente un robot que sera capas de generar musica secretamente para luego vender merchandising </br> Changos, no se porque dije que era mi cliente </br> Changos, no se porque dije que era ilegal.',
+            'description'=> 'Nuestros clientes utilizarán esta información para construir ilegalmente un robot que sera capaz de generar música secretamente para luego vender merchandising </br> Changos, no se por qué dije que era mi cliente </br> Changos, no se por qué dije que era ilegal.',
             'activeFrom' => date("2015-06-30"),
             'activeTo'=>null));
         Questionnaire::create(
@@ -80,7 +81,7 @@ class QuestionsTableSeeder extends Seeder
 
         MultipleChoiceQuestionSingleOption::create(
         array(
-            'description'=>'Cual es el mejor programa de eliminación de tatuajes?',
+            'description'=>'Cuál es el mejor programa de eliminación de tatuajes?',
             'questionnaire_id' => 2
         ));
         MultipleChoiceQuestionSingleOption::create(
@@ -120,7 +121,7 @@ class OptionsTableSeeder extends Seeder
       'question_id'=>3
     ));
     MultipleChoiceOption::create (array(
-      'description'=>'Modem de 56k conectandose a internet',
+      'description'=>'Modem de 56k conectándose a internet',
       'question_id'=>3
     ));
     MultipleChoiceOption::create(array(
@@ -138,16 +139,16 @@ class OptionsTableSeeder extends Seeder
         'question_id'=>4
     ));
     MultipleChoiceOption::create(array(
-        'description'=>'Yo diria que si',
+        'description'=>'Yo diría que si',
         'question_id'=>5
     ));
     MultipleChoiceOption::create(array(
-        'description'=>'no veo por que no',
+        'description'=>'no veo por qué no',
         'correct_answer' => TRUE,
         'question_id'=>5
     ));
     MultipleChoiceOption::create(array(
-        'description'=>'Dejame llamar a mi amigo que es experto en hombres que estan apunto de afeitarse',
+        'description'=>'Déjame llamar a mi amigo que es experto en hombres que están apunto de afeitarse',
         'question_id'=> 5
     ));
     MultipleChoiceOption::create(array(

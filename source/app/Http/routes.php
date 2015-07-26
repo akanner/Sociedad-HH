@@ -12,6 +12,11 @@
 */
 
 
+/**
+ * =============================
+ * ========= FRONT END =========
+ * =============================
+ */
 
 /* Páginas estáticas */
 Route::get('/', 'StaticPagesController@home');
@@ -27,5 +32,13 @@ Route::post('encuestas/enviarCuestionario','QuestionnaireController@completeQues
 /* Email */
 Route::post('contacto/enviar', 'EmailController@sendEmail');
 
-/* Backend */
-Route::get('adminhh', 'BackendController@show');
+/**
+ * =============================
+ * ========= BACK END ==========
+ * =============================
+ */
+
+/* Encuestas */
+Route::get('adminhh', 'Backend\DashboardController@show');
+Route::get('adminhh/encuestas', 'Backend\QuestionnaireBackendController@listAll');
+Route::get('adminhh/encuestas/nueva', 'Backend\QuestionnaireBackendController@add');
