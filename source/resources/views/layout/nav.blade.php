@@ -1,4 +1,3 @@
-<!-- Static navbar -->
 <nav class="navbar navbar-default main-nav">
     <div class="container-fluid">
         <div class="navbar-header">

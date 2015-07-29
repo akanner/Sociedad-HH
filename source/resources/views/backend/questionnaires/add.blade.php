@@ -4,21 +4,24 @@
 @section("content")
 
 <div class="row">
-    {!! Form::open(array("action" => "EmailController@sendEmail")) !!}
+    {!! Form::open(array("action" => "EmailController@sendEmail", "class" => "questionnaire-form")) !!}
+
         <div class="form-group">
-            {!! Form::text("title", null,["id" => "title-input", "class" => "form-control", "placeholder" => "T&iacute;tulo", "required", "style" => "font-size:24px;"]) !!}
+            {!! Form::label("title-input", "T&iacute;tulo", ["class" => "sr-only"]) !!}
+            {!! Form::text("title", null,["id" => "title-input", "class" => "form-control title", "placeholder" => "T&iacute;tulo", "required"]) !!}
         </div>
         <div class="form-group">
-            {!! Form::text("description", null,["id" => "description-input", "class" => "form-control", "placeholder" => "Descripci&oacute;n", "required", "style" => "font-size:18px;"]) !!}
+            {!! Form::label("description-input", "Descripci&oacute;n", ["class" => "sr-only"]) !!}
+            {!! Form::text("description", null,["id" => "description-input", "class" => "form-control description", "placeholder" => "Descripci&oacute;n", "required"]) !!}
         </div>
 
         <hr>
 
-        <div class="form-group">
+        <div class="form-group inline-content">
             {!! Form::label("question-title-input", "T&iacute;tulo de la pregunta") !!}
             {!! Form::text("questionTitle", null,["id" => "question-title-input", "class" => "form-control"]) !!}
         </div>
-        <div class="form-group">
+        <div class="form-group inline-content">
             {!! Form::label("question-type-input", "Tipo de pregunta") !!}
             {!! Form::select("questionType", ["1" => "Multiple choice"], null,["id" => "question-type-input", "class" => "form-control", "required"]) !!}
         </div>
@@ -29,6 +32,7 @@
             {!! Form::radio("questionValue", "3") !!}
         </div>
         <button type="submit" class="btn btn-error">Enviar</button>
+
     {!! Form::close() !!}
 </div>
 
