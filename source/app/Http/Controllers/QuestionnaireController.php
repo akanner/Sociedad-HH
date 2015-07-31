@@ -49,6 +49,7 @@ class QuestionnaireController extends Controller
         $this->persistCompletedQuestionnaire($questionnaireInfo);
 
         MailHelper::getInstance()->sendMail('agustinkanner@gmail.com','leito.vm3@hotmail.com','Leandro "el duro" Vilas','Testing',"emails.prueba", ["userMessage" => 'quiero almendrado']);
+
         return view("confirmations.confirmationMessage", [
             "message" => "¡Gracias por completar la encuesta, un mail le llegara pronto!",
             "linkTo" => "/home",
@@ -90,12 +91,23 @@ class QuestionnaireController extends Controller
      */
     public function filterQuestionParameters($requestParameters)
     {
-        return array_filter($requestParameters,
-        function($value, $key)
+        // return array_filter($requestParameters,
+        // function($value, $key)
+        // {
+        //     return strpos($key,self::REQUEST_PARAM_QUESTION) !== false;
+        // },
+        // ARRAY_FILTER_USE_BOTH);
+        $filteredParameters = array();
+        foreach ($requestParameters as $key => $value)
         {
-            return strpos($key,self::REQUEST_PARAM_QUESTION) !== false;
-        },
-        ARRAY_FILTER_USE_BOTH);
+            if(strpos($key,self::REQUEST_PARAM_QUESTION) !== false)
+            {
+                $filteredParameters[$key] = $value;
+            }
+
+
+        }
+        return $filteredParameters;
     }
     /**
      * builds an array of objects with the information of the questions
