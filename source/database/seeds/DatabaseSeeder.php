@@ -46,12 +46,21 @@ class QuestionnairesTableSeeder extends Seeder
             'description'=> 'Nuestros clientes utilizarán esta información para construir ilegalmente un robot que sera capaz de generar música secretamente para luego vender merchandising </br> Changos, no se por qué dije que era mi cliente </br> Changos, no se por qué dije que era ilegal.',
             'activeFrom' => date("2015-06-30"),
             'activeTo'=>null));
+
         Questionnaire::create(
         array(
             'title' => 'Series de televisión',
             'description' => 'las mejores series de televisión (entre los canales 60 al 70)',
             'activeFrom' => date("2015-07-21"),
             'activeTo'   => null));
+
+        /* EL Cuestionario!!! */
+        Questionnaire::create(
+          array(
+            'title'=>'CUESTIONARIO PARA MÉDICOS',
+            'description'=> 'Cuestionario sobre enfermedades raras',
+            'activeFrom' => date("2015-07-31"),
+            'activeTo'=>null));
     }
 
 }
@@ -61,6 +70,7 @@ class QuestionsTableSeeder extends Seeder
     public function run()
     {
         DB::table('questions')->delete();
+
         Question::create(
         array(
             'description'=>'Indique con sus palabras que le gusta de los cantantes de disney?',
@@ -84,10 +94,24 @@ class QuestionsTableSeeder extends Seeder
             'description'=>'Cuál es el mejor programa de eliminación de tatuajes?',
             'questionnaire_id' => 2
         ));
+
         MultipleChoiceQuestionSingleOption::create(
         array(
             'description'=>'Usted cree que Don cangrejo se va a afeitar?',
             'questionnaire_id' => 2
+        ));
+
+        /* EL Cuestionario!!! */
+        MultipleChoiceQuestionSingleOption::create(
+        array(
+            'description'=>'Frente a un hombre de 42 años con Anemia leve, Trombocitopenia moderada, Hepatomegalia leve, Esplenomegalia grado 3 a 4, y dolor óseo crónico: ¿En cuál de los posibles diagnósticos pensaría para ese paciente?',
+            'questionnaire_id' => 3
+        ));
+
+        MultipleChoiceQuestionSingleOption::create(
+        array(
+            'description'=>'Ante las siguientes imágenes de Resonancia  y Rx. de un paciente con historial de anemia y dolor óseo ¿qué diagnóstico considera correcto?',
+            'questionnaire_id' => 3
         ));
     }
 }
@@ -156,6 +180,59 @@ class OptionsTableSeeder extends Seeder
         'is_other_option'=>TRUE,
         'question_id'=>5
     ));
+
+    /* EL Cuestionario!!! */
+
+    MultipleChoiceOption::create(array(
+        'description'=>'Leucemia',
+        'question_id'=>6
+    ));
+
+    MultipleChoiceOption::create(array(
+        'description'=>'Linfoma',
+        'question_id'=>6
+    ));
+
+    MultipleChoiceOption::create(array(
+        'description'=>'Mieloma Múltiple',
+        'question_id'=>6
+    ));
+
+    MultipleChoiceOption::create(array(
+        'description'=>'Enfermedad de Gaucher',
+        'question_id'=>6
+    ));
+
+    MultipleChoiceOption::create(array(
+        'description'=>'Leucemia Granulocítica Crónica',
+        'question_id'=>6
+    ));
+
+    MultipleChoiceOption::create(array(
+        'description'=>'Desórdenes de Sangrado',
+        'question_id'=>6
+    ));
+
+    MultipleChoiceOption::create(array(
+        'description'=>'Otra',
+        'is_other_option'=>TRUE,
+        'question_id'=>6
+    ));
+
+    MultipleChoiceOption::create(array(
+        'description'=>'Mieloma Múltiple',
+        'question_id'=>7
+    ));
+
+    MultipleChoiceOption::create(array(
+        'description'=>'Enfermedad de Gaucher',
+        'question_id'=>7
+    ));
+
+    MultipleChoiceOption::create(array(
+        'description'=>'Leucemia Granulocítica Crónica',
+        'question_id'=>7
+    ));
   }
 }
 
@@ -176,9 +253,71 @@ class EmailsTableSeeder extends Seeder
         DB::table('emails')->delete();
         Email::create(
         array(
-            'address'=>'leian1306@gmail.com',
+            'address'=>'leito.vm3@hotmail.com',
             'questionnaire_respondent_id' => 1
         ));
+        /*
+        Email::create(array( 'address'=>'kleingra@speedy.com.ar' ));
+        Email::create(array( 'address'=>'britinez@yahoo.com.ar' ));
+        Email::create(array( 'address'=>'sandraargello@hotmail.com' ));
+        Email::create(array( 'address'=>'celinavila@yahoo.com.ar' ));
+        Email::create(array( 'address'=>'aznaraquino@hotmail.com' ));
+        Email::create(array( 'address'=>'mercedesbol@hotmail.com' ));
+        Email::create(array( 'address'=>'bunzelsu@hotmail.com' ));
+        Email::create(array( 'address'=>'amcatt@intramed.net' ));
+        Email::create(array( 'address'=>'martin_ciappa@yahoo.com.ar' ));
+        Email::create(array( 'address'=>'a.cicchetti@hotmail.com' ));
+        Email::create(array( 'address'=>'alcosmil@hotmail.com' ));
+        Email::create(array( 'address'=>'fladamiani@hotmail.com' ));
+        Email::create(array( 'address'=>'nestor.degaetano@speedy.com.ar' ));
+        Email::create(array( 'address'=>'dsandro@speedy.com.ar' ));
+        Email::create(array( 'address'=>'noraduy@hotmail.com' ));
+        Email::create(array( 'address'=>'noraduy@fibertel.com.ar' ));
+        Email::create(array( 'address'=>'enrico@netverk.com.ar' ));
+        Email::create(array( 'address'=>'patriciagfazio@yahoo.com.ar' ));
+        Email::create(array( 'address'=>'rifernan@infovia.com.ar' ));
+        Email::create(array( 'address'=>'sandraformisano@yahoo.com.ar' ));
+        Email::create(array( 'address'=>'gggagliardino@ciudad.com.ar' ));
+        Email::create(array( 'address'=>'bramirezborga@yahoo.com.ar' ));
+        Email::create(array( 'address'=>'martagelemur@hotmail.com' ));
+        Email::create(array( 'address'=>'farinaoh@netverk.com.ar' ));
+        Email::create(array( 'address'=>'giljuliet@gmail.com' ));
+        Email::create(array( 'address'=>'sgrasso@lpsat.net' ));
+        Email::create(array( 'address'=>'sebastianisnardi@yahoo.com.ar' ));
+        Email::create(array( 'address'=>'ojakus@ciudad.com.ar' ));
+        Email::create(array( 'address'=>'rcjau@hotmail.com' ));
+        Email::create(array( 'address'=>'kleingra@speedy.com.ar' ));
+        Email::create(array( 'address'=>'gmarin@netverk.com.ar' ));
+        Email::create(array( 'address'=>'msmatano@yahoo.com.ar' ));
+        Email::create(array( 'address'=>'milonejh@netverk.com.ar' ));
+        Email::create(array( 'address'=>'orlando@way.com.ar' ));
+        Email::create(array( 'address'=>'elsabpalomino@yahoo.com.ar' ));
+        Email::create(array( 'address'=>'claudiaparodi05@hotmail.com' ));
+        Email::create(array( 'address'=>'marielana@ciudad.com.ar' ));
+        Email::create(array( 'address'=>'carlopon@fibertel.com.ar' ));
+        Email::create(array( 'address'=>'mvprates@hotmail.com' ));
+        Email::create(array( 'address'=>'oaromano57@gmail.com' ));
+        Email::create(array( 'address'=>'garosiere@fibertel.com.ar' ));
+        Email::create(array( 'address'=>'sandrar_hemato@hotmail.com' ));
+        Email::create(array( 'address'=>'sabasilvia@speedy.com.ar' ));
+        Email::create(array( 'address'=>'dianascebba@hotmail.com' ));
+        Email::create(array( 'address'=>'mfschifini@yahoo.com.ar' ));
+        Email::create(array( 'address'=>'schutten@netverk.com.ar' ));
+        Email::create(array( 'address'=>'gladystebaldi@yahoo.com.ar' ));
+        Email::create(array( 'address'=>'marcelatittarelli@yahoo.com.ar' ));
+        Email::create(array( 'address'=>'vidaosca@ciudad.com.ar' ));
+        Email::create(array( 'address'=>'sebastianyantorno@gmail.com' ));
+        Email::create(array( 'address'=>'sabasilvia@hotmail.com' ));
+        Email::create(array( 'address'=>'solecruset@hotmail.com' ));
+        Email::create(array( 'address'=>'julietadalmaroni@hotmail.com' ));
+        Email::create(array( 'address'=>'mariacecidacun@hotmail.com' ));
+        Email::create(array( 'address'=>'citometriacucaiba@gmail.com' ));
+        Email::create(array( 'address'=>'drabunzel@yahoo.com' ));
+        Email::create(array( 'address'=>'hematologiahospitalrossi@hotmail.com' ));
+        Email::create(array( 'address'=>'biolmol_ludovica@hotmail.com' ));
+        Email::create(array( 'address'=>'sebastianisnardi@hotmail.com' ));
+        Email::create(array( 'address'=>'spplatensehh@gmail.com' ));
+        */
     }
 }
 
@@ -187,10 +326,25 @@ class PictureTableSeeder extends Seeder
     public function run()
     {
         DB::table('pictures')->delete();
+
         Picture::create(
             array(
                 'path'=>'jazz_bass-wallpaper-1600x900.jpg',
                 'question_id'=>2
+            )
+        );
+
+        Picture::create(
+            array(
+                'path'=>'cuestionario1.png',
+                'question_id'=>7
+            )
+        );
+
+        Picture::create(
+            array(
+                'path'=>'cuestionario2.png',
+                'question_id'=>7
             )
         );
     }

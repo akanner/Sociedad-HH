@@ -8,7 +8,7 @@ use App\Http\Requests\SendEmailRequest;
 // http://laravel.com/docs/5.1/requests
 // https://mailtrap.io
 
-class EmailController extends Controller {
+class ContactController extends Controller {
 
     const REQUEST_PARAM_FULLNAME = "fullName";
     const REQUEST_PARAM_EMAIL = "email";
