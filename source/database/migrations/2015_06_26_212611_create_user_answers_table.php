@@ -14,7 +14,8 @@ class CreateUserAnswersTable extends Migration
     {
         Schema::create('user_answers', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('answer');
+            $table->text('answer')->nullable();
+            $table->string('class_name');
             // FK to questionnaire_respondents
             $table->integer('questionnaire_respondent_id')->unsigned();
             $table->foreign('questionnaire_respondent_id')->references('id')->on("questionnaire_respondents");
@@ -22,7 +23,7 @@ class CreateUserAnswersTable extends Migration
             $table->integer('questionnaire_id')->unsigned();
             $table->foreign('questionnaire_id')->references('id')->on("questionnaires");
             // FK to MultipleChoiceOption
-            $table->integer("multiple_choice_option_id")->unsigned()->null();
+            $table->integer("multiple_choice_option_id")->unsigned()->nullable();
             $table->foreign("multiple_choice_option_id")->references("id")->on("multiple_choice_options");
             $table->timestamps();
         });

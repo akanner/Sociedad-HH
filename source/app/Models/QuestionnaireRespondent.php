@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Represents a person who has responded to a questionnaire
@@ -24,6 +25,11 @@ class QuestionnaireRespondent extends Model
         return $this->hasOne('App\Models\Email');
     }
 
+    public function setEmail(Email $email)
+    {
+        $this->email()->save($email);
+    }
+
     public function getEmail()
     {
         return $this->email()->get();
@@ -37,5 +43,37 @@ class QuestionnaireRespondent extends Model
     public function addUserAnswer(UserAnswer $userAnswer)
     {
       $this->userAnswers()->save($userAnswer);
+    }
+
+    public static function getQueryToFindUserWithEmail($email)
+    {
+        $query = static::whereHas('email',
+        function($query) use ($email)
+        {
+            $query->where('address',"=",$email);
+        });
+        return $query;
+    }
+    /**
+     * returns the first questionnaire respondent where its email is equals to $email or a new one
+     */
+    public static function findFirstWithEmailOrNew($email)
+    {
+        $query = self::getQueryToFindUserWithEmail($email);
+        $questionnaireRespondent = $query->first();
+
+        if(empty($questionnaireRespondent))
+        {
+            //creates the email entity
+            $emailEntity = new Email();
+            $emailEntity->setAddress($email);
+            //creates a new questionnaireRespondent
+            $questionnaireRespondent = new QuestionnaireRespondent();
+            $questionnaireRespondent->save();
+            $questionnaireRespondent->setEmail($emailEntity);
+
+
+        }
+        return $questionnaireRespondent;
     }
 }

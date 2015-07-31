@@ -2,10 +2,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Questionnaire;
+use App\Models\Question;
 use App\Models\QuestionnaireRespondent;
+use App\Models\MultipleChoiceOption;
+use App\Models\AnsweredWithOption;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use \StdClass as StdClass;
+use App\Utils\MailHelper;
 
 /**
  *
@@ -16,6 +20,9 @@ class QuestionnaireController extends Controller
     const REQUEST_PARAM_QUESTIONNAIRE_ID= "questionnaireId";
     const REQUEST_PARAM_QUESTION        = "question_";
     const REQUEST_PARAM_EMAIL           = "email_address";
+    /* ----------------------------------------------------- */
+    const EMAIL_KEY                     = "email";
+
 
     public function listAll()
     {
@@ -25,7 +32,7 @@ class QuestionnaireController extends Controller
 
     public function details($id)
     {
-        $questionnaire = Questionnaire::where("id","=",$id)->first();
+        $questionnaire = Questionnaire::findById($id);
         return view('pages.questionnaires.completeQuestionnaire',['questionnaire'=>$questionnaire]);
     }
 
@@ -39,11 +46,45 @@ class QuestionnaireController extends Controller
         $questionnaireInfo->email = $request->input(self::REQUEST_PARAM_EMAIL);
         $questionnaireInfo->questionnaireId = $request->input(self::REQUEST_PARAM_QUESTIONNAIRE_ID);
         $questionnaireInfo->questions = $this->processQuestionParameters($parametersOfTheQuestions);
+        $this->persistCompletedQuestionnaire($questionnaireInfo);
 
-
-        die("<pre>" . print_r($questionnaireInfo,TRUE) . "</pre>" );
+        MailHelper::getInstance()->sendMail('agustinkanner@gmail.com','leito.vm3@hotmail.com','Leandro "el duro" Vilas','Testing',"emails.prueba", ["userMessage" => 'quiero almendrado']);
+        return view("confirmations.confirmationMessage", [
+            "message" => "¡Gracias por completar la encuesta, un mail le llegara pronto!",
+            "linkTo" => "/home",
+            "linkLabel" => "Volver al home"
+        ]);
     }
 
+    /**
+     * persists a questionnaire completed by the user
+     *
+     * @param array $questionnaireInfo
+     */
+    public function persistCompletedQuestionnaire($questionnaireInfo)
+    {
+        //finds the user who has completed the questionnaire or creates a new one
+        $emailKey = self::EMAIL_KEY;
+        $email = $questionnaireInfo->$emailKey;
+        //gets the respondent
+        $respondent = QuestionnaireRespondent::findFirstWithEmailOrNew($email);
+        //-----------------------------------------------------------------------
+        //gets the questionnaire
+        $questionnaireKey   =  self::REQUEST_PARAM_QUESTIONNAIRE_ID;
+        $questionnaireId    = $questionnaireInfo->$questionnaireKey;
+        $questionnaire      = Questionnaire::findById($questionnaireId);
+        //-----------------------------------------------------------------------
+
+        foreach ($questionnaireInfo->questions as $idQuestion => $answer)
+        {   //gets the question
+            $question = Question::getById($idQuestion);
+            //gets the selected option
+            $optionSelected =MultipleChoiceOption::getById($answer->option);
+            //saves the answer
+            $textOtherOption = isset($answer->text) ? $answer->text : NULL;//probably null, i dont care
+            $answer = AnsweredWithOption::createNewAnswerFor($respondent,$questionnaire,$optionSelected,$textOtherOption);
+        }
+    }
     /**
      * filters the parameters that have the substring "question_" in their key
      */

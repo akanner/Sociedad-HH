@@ -68,4 +68,12 @@ class Questionnaire extends Model
     return $this->hasMany("App\Models\Question");
   }
 
+
+  ///static methods
+
+  public static function findById($id)
+  {
+      return static::where("id","=",$id)->first();
+  }
+
 }

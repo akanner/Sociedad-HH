@@ -70,7 +70,7 @@ class UserAnswer extends HierarchicalModel
 
   public function respondent()
   {
-    return $this->belongsTo('App\Models\QuestionnaireRespondent');
+    return $this->belongsTo('App\Models\QuestionnaireRespondent',"questionnaire_respondent_id");
   }
 
   public function questionnaire()

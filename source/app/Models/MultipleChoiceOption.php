@@ -56,4 +56,11 @@ class MultipleChoiceOption extends Model
     return $this->question->first();
   }
 
+  //static methods
+
+  public static function getById($id)
+  {
+      return static::where("id","=",$id)->first();
+  }
+
 }

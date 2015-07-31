@@ -1,7 +1,5 @@
 <?php
 namespace App\Models;
-use App\Models\UserAnswer;
-use App\Models\MultipleChoiceOption;
 /**
  * represents an answer of a multiplechoiceQuestion
  */
@@ -9,17 +7,47 @@ class AnsweredWithOption extends UserAnswer
 {
   public function option()
   {
-    $this->HasOne("App\Models\MultipleChoiceOption");
+    return $this->belongsTo("App\Models\MultipleChoiceOption",'multiple_choice_option_id');
   }
 
+  public function setOption(MultipleChoiceOption $option)
+  {
+      $this->option()->associate($option);
+  }
+  /**
+   * get the real answer of the user
+   *
+   * @return string
+   */
   public function getAnswer()
   {
     return $this->option()->get()->description;
   }
 
-  public function setAnswer($answer)
+  //static methods
+  /**
+   * creates a new answer for a question
+   *
+   * @param QuestionnaireRespondent A person who has responded the questionnaire
+   * @param Questionnaire           The responded questionnaire
+   * @param MultipleChoiceOption    the option selected by the user
+   * @param string||null            if the option is flagged as "otherOption" this is the value of that answer
+   *
+   * @return AnsweredWithOption
+   */
+  public static function createNewAnswerFor(
+  QuestionnaireRespondent $respondent,
+  Questionnaire $questionnaire,
+  MultipleChoiceOption $optionSelected,
+  $textOtherOption=NULL)
   {
-    $this->questionnaire()->associate($answer);
+        $newAnswer = new AnsweredWithOption();
+        $newAnswer->setAnswer($textOtherOption);
+        $newAnswer->setOption($optionSelected);
+        $newAnswer->setRespondent($respondent);
+        $newAnswer->setQuestionnaire($questionnaire);
+        $newAnswer->save();
+        return $newAnswer;
   }
 
 }
