@@ -20,6 +20,7 @@ class QuestionnaireController extends Controller
     const REQUEST_PARAM_QUESTIONNAIRE_ID= "questionnaireId";
     const REQUEST_PARAM_QUESTION        = "question_";
     const REQUEST_PARAM_EMAIL           = "email_address";
+    const REQUEST_PARAM_NAME            = "userName";
     /* ----------------------------------------------------- */
     const EMAIL_KEY                     = "email";
 
@@ -44,6 +45,7 @@ class QuestionnaireController extends Controller
         //build an object with all the parameters
         $questionnaireInfo=new StdClass();
         $questionnaireInfo->email = $request->input(self::REQUEST_PARAM_EMAIL);
+        $questionnaireInfo->userName = $request->input(self::REQUEST_PARAM_NAME);
         $questionnaireInfo->questionnaireId = $request->input(self::REQUEST_PARAM_QUESTIONNAIRE_ID);
         $questionnaireInfo->questions = $this->processQuestionParameters($parametersOfTheQuestions);
         $this->persistCompletedQuestionnaire($questionnaireInfo);
@@ -69,6 +71,11 @@ class QuestionnaireController extends Controller
         $email = $questionnaireInfo->$emailKey;
         //gets the respondent
         $respondent = QuestionnaireRespondent::findFirstWithEmailOrNew($email);
+        //-----------------------------------------------------------------------
+        // if the user didn't have a name, sets it with the request's, even if it's blank (no need for validation)
+        if($respondent->getName() == "" || $respondent->getName() == null) {
+            $respondent->setName($questionnaireInfo->userName);
+        }
         //-----------------------------------------------------------------------
         //gets the questionnaire
         $questionnaireKey   =  self::REQUEST_PARAM_QUESTIONNAIRE_ID;
