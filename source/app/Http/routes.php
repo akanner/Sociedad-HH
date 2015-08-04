@@ -29,8 +29,8 @@ Route::get('encuestas','QuestionnaireController@listAll');
 Route::get('encuestas/{id}','QuestionnaireController@details');
 Route::post('encuestas/enviarCuestionario','QuestionnaireController@completeQuestionnaire');
 
-/* Email */
-Route::post('contacto/enviar', 'EmailController@sendEmail');
+/* Contacto */
+Route::post('contacto/enviar', 'ContactController@sendEmail');
 
 /**
  * =============================
@@ -42,3 +42,4 @@ Route::post('contacto/enviar', 'EmailController@sendEmail');
 Route::get('adminhh', 'Backend\DashboardController@show');
 Route::get('adminhh/encuestas', 'Backend\QuestionnaireBackendController@listAll');
 Route::get('adminhh/encuestas/nueva', 'Backend\QuestionnaireBackendController@add');
+Route::post('adminhh/encuestas/nueva/guardar', 'Backend\QuestionnaireBackendController@save');
