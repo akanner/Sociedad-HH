@@ -4,7 +4,7 @@
 @section("content")
 
 <div class="row">
-    {!! Form::open(array("action" => "Backend\QuestionnaireBackendController@save", "class" => "questionnaire-form")) !!}
+    {!! Form::open(["action" => "Backend\QuestionnaireBackendController@save", "id" => "add-questionnaire-form" ,"class" => "questionnaire-form"]) !!}
 
         <div class="form-group">
             {!! Form::label("title-input", "T&iacute;tulo", ["class" => "sr-only"]) !!}
@@ -20,20 +20,22 @@
         <div class="question">
             <div class="form-group inline-content">
                 {!! Form::label("question-title-input", "T&iacute;tulo de la pregunta") !!}
-                {!! Form::text("questionTitle", null, ["id" => "question-title-input", "class" => "form-control", "placeholder" => "T&iacute;tulo de ejemplo", "required"]) !!}
+                {!! Form::text("questionTitle", null, ["class" => "form-control question-title-input", "placeholder" => "T&iacute;tulo de ejemplo", "required"]) !!}
             </div>
             <div class="form-group inline-content">
                 {!! Form::label("question-type-input", "Tipo de pregunta") !!}
-                {!! Form::select("questionType", ["1" => "Multiple choice"], null, ["id" => "question-type-input", "class" => "form-control", "required"]) !!}
+                {!! Form::select("questionType", ["MultipleChoiceQuestionSingleOption" => "Multiple choice"], null, ["class" => "form-control question-type-input", "required"]) !!}
             </div>
-            <div class="form-group question-multiple-choice">
-                {!! Form::radio("questionValue", "1", ["required"]) !!}
-                {!! Form::text("questionValueText", null, ["class" => "form-control", "placeholder" => "Opci&oacute;n", "required"]) !!}
-                <button title="Borrar respuesta" type="button" class="delete-choice-button btn btn-xs btn-danger">X</button>
-            </div>
-            <div class="add-question-multiple-choice">
-                <button type="button" id="add-choice-button" class="btn btn-xs btn-primary">+ Agregar opci&oacute;n</button> o
-                <button type="button" id="add-other-choice-button">Agregar "Otra"</button>
+            <div class="question-multiple-choice">
+                <div class="form-group option-multiple-choice">
+                    {!! Form::radio("questionValue", "1", ["required"]) !!}
+                    {!! Form::text("questionValueText", null, ["class" => "form-control", "placeholder" => "Opci&oacute;n", "required"]) !!}
+                    <button title="Borrar respuesta" type="button" class="delete-option-button btn btn-xs btn-danger">X</button>
+                </div>
+                <div class="add-option-multiple-choice">
+                    <button type="button" class="add-option-button btn btn-xs btn-primary">+ Agregar opci&oacute;n</button> o
+                    <button type="button" class="add-other-option-button">Agregar "Otra"</button>
+                </div>
             </div>
         </div>
 

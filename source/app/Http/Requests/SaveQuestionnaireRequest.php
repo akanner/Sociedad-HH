@@ -15,10 +15,7 @@ class SaveQuestionnaireRequest extends Request
     public function rules()
     {
         return [
-            'fullName' => 'required',
-            'email' => 'required|email',
-            'subject' => 'required',
-            'message' => 'required'
+            'json' => 'JsonQuestionnaire',
         ];
     }
 }

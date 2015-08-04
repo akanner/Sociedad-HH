@@ -11,7 +11,7 @@
         </div>
         <div class="user-name">
             {!! Form::label('name', 'Nombre y apellido') !!}
-            {!! Form::text('userName',null) !!}
+            {!! Form::text('userName') !!}
         </div>
         <div>
             @for ($i = 0; $i < $questionnaire->getQuestions()->count(); $i++)

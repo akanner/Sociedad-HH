@@ -75,6 +75,7 @@ class QuestionnaireController extends Controller
         // if the user didn't have a name, sets it with the request's, even if it's blank (no need for validation)
         if($respondent->getName() == "" || $respondent->getName() == null) {
             $respondent->setName($questionnaireInfo->userName);
+            $respondent->save();
         }
         //-----------------------------------------------------------------------
         //gets the questionnaire
