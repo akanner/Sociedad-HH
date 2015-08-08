@@ -15,6 +15,8 @@ class QuestionnaireRespondent extends Model
     //table´s name
     protected $table="questionnaire_respondents";
 
+    public $fillable = array("name");
+
     public function userAnswers()
     {
       return $this->hasMany("App\Models\UserAnswer");
@@ -33,6 +35,16 @@ class QuestionnaireRespondent extends Model
     public function getEmail()
     {
         return $this->email()->get();
+    }
+
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**
@@ -71,9 +83,8 @@ class QuestionnaireRespondent extends Model
             $questionnaireRespondent = new QuestionnaireRespondent();
             $questionnaireRespondent->save();
             $questionnaireRespondent->setEmail($emailEntity);
-
-
         }
+
         return $questionnaireRespondent;
     }
 }

@@ -9,6 +9,10 @@
             {!! Form::label('email', 'Dirección de Email') !!}
             {!! Form::email('email_address',null,["required"]) !!}
         </div>
+        <div class="user-name">
+            {!! Form::label('name', 'Nombre y apellido') !!}
+            {!! Form::text('userName') !!}
+        </div>
         <div>
             @for ($i = 0; $i < $questionnaire->getQuestions()->count(); $i++)
                 <div class="questionnaire-question">

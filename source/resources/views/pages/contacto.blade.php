@@ -12,7 +12,7 @@
             <p>Explicacion breve: Jwqvfliywesafcvsavx ch ujasx yeqaisfc saxzvieasd cxuvascixuz ujasjxz ceiqwfsc uevwdc x veidas xzj idavsx ievsciv dsuxvic uevsiced xjevc vdc eidsafobqes ageifas c dosvqke ivoiwevdsxjqwisocvjhw edj. Mbfiew iebf egd gi as iuwisac isuadvc usaic uvsdiuv udi buds bwisdbv sdgj irfdgibs.</p>
         </div>
 
-        {!! Form::open(array('action' => 'EmailController@sendEmail', 'class' => 'stylish-form')) !!}
+        {!! Form::open(array('action' => 'ContactController@sendEmail', 'class' => 'stylish-form')) !!}
             <div class="form-group">
                 {!! Form::label('fullName-input', 'Nombre y apellido', ["class" => "required"]) !!}
                 {!! Form::text('fullName', null,["id" => "fullName-input", "class" => "form-control", "required"]) !!}

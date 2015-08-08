@@ -47,6 +47,7 @@ class AnsweredWithOption extends UserAnswer
         $newAnswer->setRespondent($respondent);
         $newAnswer->setQuestionnaire($questionnaire);
         $newAnswer->save();
+
         return $newAnswer;
   }
 

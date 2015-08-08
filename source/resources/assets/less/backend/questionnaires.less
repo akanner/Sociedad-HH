@@ -1,5 +1,10 @@
 .questionnaire-form {
 
+    hr {
+        margin-bottom: 10px;
+        margin-top: 10px;
+    }
+
     .title {
         font-size: 20px;
     }
@@ -20,6 +25,65 @@
         input {
             display: table-cell;
         }
+    }
 
+    .question {
+        padding: 15px;
+    }
+
+    .question-value {
+        @base-padding-left: 125px;
+
+        padding-left: @base-padding-left;
+        width: 100%;
+    }
+
+    .option-multiple-choice {
+        .question-value;
+        display: table;
+
+        input {
+           display: table-cell;
+        }
+
+        input[type="radio"] {
+            width: 5%;
+        }
+
+        input[type="radio"]:checked:before {
+            content: 'Correcta!';
+            position: relative;
+            right: 55px;
+            bottom: 2px;
+            color: #2ecc71;
+            font-size: 13px;
+        }
+
+        input[type="text"] {
+            width: 55%;
+        }
+
+        .delete-option-button {
+            height: 34px;
+            padding: 6px 12px;
+            font-size: 14px;
+            line-height: 1.42857143;
+            margin-left: 5px;
+            margin-top: -4px;
+        }
+    }
+
+    .add-option-multiple-choice {
+        .question-value;
+
+        padding-left: @base-padding-left + 28;
+
+        .add-other-option-button {
+            border: none;
+            padding: 0;
+            background: none;
+            text-decoration: underline;
+            color: darkslateblue;
+        }
     }
 }

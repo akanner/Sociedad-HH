@@ -14,6 +14,7 @@ class CreateQuestionnairesRespondentsTable extends Migration
     {
         Schema::create('questionnaire_respondents', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
             $table->timestamps();
         });
     }
