@@ -69,11 +69,4 @@ class Questionnaire extends Model
   }
 
 
-  ///static methods
-
-  public static function findById($id)
-  {
-      return static::where("id","=",$id)->first();
-  }
-
 }

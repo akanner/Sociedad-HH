@@ -33,7 +33,7 @@ class QuestionnaireController extends Controller
 
     public function details($id)
     {
-        $questionnaire = Questionnaire::findById($id);
+        $questionnaire = Questionnaire::find($id);
         return view('pages.questionnaires.completeQuestionnaire',['questionnaire'=>$questionnaire]);
     }
 
@@ -81,14 +81,14 @@ class QuestionnaireController extends Controller
         //gets the questionnaire
         $questionnaireKey   =  self::REQUEST_PARAM_QUESTIONNAIRE_ID;
         $questionnaireId    = $questionnaireInfo->$questionnaireKey;
-        $questionnaire      = Questionnaire::findById($questionnaireId);
+        $questionnaire      = Questionnaire::find($questionnaireId);
         //-----------------------------------------------------------------------
 
         foreach ($questionnaireInfo->questions as $idQuestion => $answer)
         {   //gets the question
-            $question = Question::getById($idQuestion);
+            $question = Question::find($idQuestion);
             //gets the selected option
-            $optionSelected =MultipleChoiceOption::getById($answer->option);
+            $optionSelected =MultipleChoiceOption::find($answer->option);
             //saves the answer
             $textOtherOption = isset($answer->text) ? $answer->text : NULL;//probably null, i dont care
             $answer = AnsweredWithOption::createNewAnswerFor($respondent,$questionnaire,$optionSelected,$textOtherOption);
