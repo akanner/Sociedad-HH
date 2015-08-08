@@ -87,7 +87,8 @@ $(function () {
             questionnaire.questions.push(getJsonForQuestion($(this)));
         });
 
-        return questionnaire;
+        //adds csrf token to the request
+        return {'questionnaire': questionnaire,'_token': $("input[name='_token']").val()};
     }
 
     $("#add-questionnaire-form").submit(function (event) {
@@ -98,6 +99,7 @@ $(function () {
         $.post(postUrl, questionnaireFormToJSON(), function (result) {
             console.log("::: POST RESULT => ", result);
         });
+        return false;
     });
 
 });
