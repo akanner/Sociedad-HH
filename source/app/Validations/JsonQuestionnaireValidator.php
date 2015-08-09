@@ -8,10 +8,23 @@ use Illuminate\Validation\Validator as IlluminateValidator;
 class JsonQuestionnaireValidator extends IlluminateValidator
 {
 
+    const NO_QUESTIONS_ERROR            = "Debe agregar al menos una pregunta";
+    const INVALID_QUESTION              = "Todas las preguntas deben tener una descripción y un tipo";
+    const NO_TITLE_ERROR                = "El cuestionario debe tener un titulo y una descripción";
+    const ZERO_OPTIONS_ERROR            = "Cada respuesta debe tener al menos una opción";
+    const OPTION_DESCRIPTION_ERROR      = "Cada opción debe tener una descripción";
+    const MORE_THAN_ONE_CORRECT_ANSWER  = "Cada pregunta solo puede tener una opción correcta";
+
     private $_custom_messages = array(
-        "alpha_dash_spaces" => "The :attribute may only contain letters, spaces, and dashes.",
-        "alpha_num_spaces" => "The :attribute may only contain letters, numbers, and spaces.",
-    );
+        "questionnaire_json" => "");
+
+    /**
+     * Adds an error to the stack
+     */
+    private function addErrorMessage($message)
+    {
+        $this->customMessages["questionnaire_json"] = $this->customMessages["questionnaire_json"] . "\n-" . $message;
+    }
 
     public function __construct( $translator, $data, $rules, $messages = array(), $customAttributes = array() )
     {
@@ -51,15 +64,22 @@ class JsonQuestionnaireValidator extends IlluminateValidator
 
     protected function validateTitleAndDescription($questionnaire)
     {
-        return $this->validateRequiredField($questionnaire,'title') && $this->validateRequiredField($questionnaire,'description');
+        $isValid = $this->validateRequiredField($questionnaire,'title') && $this->validateRequiredField($questionnaire,'description');
+        if(!$isValid)
+        {
+            $this->addErrorMessage(self::NO_TITLE_ERROR);
+        }
+        return $isValid;
     }
 
     protected function validateQuestions($questionnaire)
     {
+        $isValid = TRUE;
         $hasQuestions = $this->validateRequiredField($questionnaire, 'questions');
         if(!$hasQuestions)
         {
-            return FALSE;
+            $isValid = FALSE;
+            $this->addErrorMessage(self::NO_QUESTIONS_ERROR);
         }
         else
         {
@@ -68,28 +88,31 @@ class JsonQuestionnaireValidator extends IlluminateValidator
                 $validQuestion =$this->validateQuestion($question);
                 if(!$validQuestion)
                 {
-                    return FALSE;
+                    $isValid = FALSE;
                 }
             }
         }
 
-        return TRUE;
+        return $isValid;
     }
 
     protected function validateQuestion($question)
     {
-        $validTitle     = $this->validateRequiredField($question,'title');
+        $validTitle       = $this->validateRequiredField($question,'title');
         $validType      = TRUE; //TODO
+        if(!$validTitle || !$validType) $this->addErrorMessage(self::INVALID_QUESTION);
         $validOptions   = $this->validateMultipleChoiceOptions($question->options);
         return $validTitle && $validType && $validOptions;
     }
 
     protected function validateMultipleChoiceOptions($arrayOfOptions)
     {
+        $isValid = TRUE;
         $isEmpty = empty($arrayOfOptions);
         if($isEmpty)
         {
-            return FALSE;
+            $isValid = FALSE;
+            $this->addErrorMessage(self::ZERO_OPTIONS_ERROR);
         }
         $correctAnswersCount = 0;
         foreach ($arrayOfOptions as $key => $option)
@@ -100,7 +123,8 @@ class JsonQuestionnaireValidator extends IlluminateValidator
 
             if(!$hasDescription || !$hasPropertyIsCorrect)
             {
-                return FALSE;
+                $isValid = FALSE;
+                $this->addErrorMessage(self::OPTION_DESCRIPTION_ERROR);
             }
             else
             {
@@ -110,7 +134,13 @@ class JsonQuestionnaireValidator extends IlluminateValidator
             }
 
         }
-        return $correctAnswersCount == 1; //only one option can be flagged as correct
+        if($correctAnswersCount > 1) //only one option can be flagged as correct
+        {
+            $isValid = FALSE;
+            $this->addErrorMessage(self::MORE_THAN_ONE_CORRECT_ANSWER);
+        }
+
+        return $isValid;
     }
 
 
