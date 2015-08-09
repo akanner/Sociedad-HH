@@ -3,12 +3,22 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Models\Questionnaire;
 use App\Http\Requests\SaveQuestionnaireRequest;
 
+use App\Models\Questionnaire;
+use App\Models\QuestionFactory;
+use App\Exceptions\NotValidQuestionClassException;
+
 use App\Utils\PrettyJson;
+use Carbon\Carbon;
 
 class QuestionnaireBackendController extends Controller {
+
+
+    public function createQuestionByFormQuestion($formQuestion) {
+        $question = QuestionFactory::getInstance()->getQuestionByClassName($formQuestion->type);
+        $question->setDescription($formQuestion->title);
+    }
 
     private function hashImageName($imageName) {
         return md5(Carbon::now()->toDateTimeString().$imageName);
@@ -35,6 +45,24 @@ class QuestionnaireBackendController extends Controller {
 
     public function save(SaveQuestionnaireRequest $request) {
 
+        try {
+            $formQuestionnaire = json_decode(json_encode($request->input("questionnaire")));
+            $questionnaire = new Questionnaire();
+
+            $questionnaire->setTitle($formQuestionnaire->title);
+            $questionnaire->setDescription($formQuestionnaire->description);
+            $questionnaire->setActiveFrom(Carbon::now());
+
+            foreach ($formQuestionnaire->questions as $formQuestion) {
+                $question = $this->createQuestionByFormQuestion($formQuestion);
+            }
+
+        } catch(NotValidQuestionClassException $e) {
+
+        }
+
+
+        var_dump($questionnaire);
     }
 
     /*

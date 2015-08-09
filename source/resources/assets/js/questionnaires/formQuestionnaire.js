@@ -88,17 +88,17 @@ $(function () {
         });
 
         //adds csrf token to the request
-        return {'questionnaire': questionnaire,'_token': $("input[name='_token']").val()};
+        return {"questionnaire": questionnaire,"_token": $("input[name='_token']").val()};
     }
 
     $("#add-questionnaire-form").submit(function (event) {
         event.preventDefault();
         var postUrl = $(this).attr("action");
 
-        console.log("::: JSON => ", questionnaireFormToJSON());
         $.post(postUrl, questionnaireFormToJSON(), function (result) {
             console.log("::: POST RESULT => ", result);
         });
+
         return false;
     });
 

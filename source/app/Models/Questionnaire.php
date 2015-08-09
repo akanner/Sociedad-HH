@@ -63,6 +63,7 @@ class Questionnaire extends Model
   {
     return $this->questions()->get();
   }
+
   public function questions()
   {
     return $this->hasMany("App\Models\Question");
