@@ -67,10 +67,4 @@ class Question extends HierarchicalModel
         return $this->hasMany("App\Models\Picture",'question_id');
     }
 
-    //static methods
-
-    public static function getById($id)
-    {
-        return static::where("id","=",$id)->first();
-    }
 }

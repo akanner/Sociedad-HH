@@ -15,7 +15,7 @@ class SaveQuestionnaireRequest extends Request
     public function rules()
     {
         return [
-            'json' => 'JsonQuestionnaire',
+            'questionnaire' => 'questionnaireJson',
         ];
     }
 }

@@ -31,15 +31,100 @@ class JsonQuestionnaireValidator extends IlluminateValidator
    }
 
    /**
-     * Allow only alphabets, spaces and dashes (hyphens and underscores)
+     *
      *
      * @param string $attribute
      * @param mixed $value
      * @return bool
      */
-    protected function validateJsonQuestionnaire( $attribute, $value )
+    protected function validateQuestionnaireJson( $attribute, $value )
     {
+        $questionnaire = json_decode(json_encode($value)); //Turn it into an stdClass
+        //validates the title and the description
+        $hasTitleAndDescription = $this->validateTitleAndDescription($questionnaire);
+        //validates the questions
+        $hasValidQuestions      = $this->validateQuestions($questionnaire);
+
+        return $hasTitleAndDescription && $hasValidQuestions;
+    }
+
+
+    protected function validateTitleAndDescription($questionnaire)
+    {
+        return $this->validateRequiredField($questionnaire,'title') && $this->validateRequiredField($questionnaire,'description');
+    }
+
+    protected function validateQuestions($questionnaire)
+    {
+        $hasQuestions = $this->validateRequiredField($questionnaire, 'questions');
+        if(!$hasQuestions)
+        {
+            return FALSE;
+        }
+        else
+        {
+            foreach ($questionnaire->questions as $key => $question)
+            {
+                $validQuestion =$this->validateQuestion($question);
+                if(!$validQuestion)
+                {
+                    return FALSE;
+                }
+            }
+        }
+
         return TRUE;
+    }
+
+    protected function validateQuestion($question)
+    {
+        $validTitle     = $this->validateRequiredField($question,'title');
+        $validType      = TRUE; //TODO
+        $validOptions   = $this->validateMultipleChoiceOptions($question->options);
+        return $validTitle && $validType && $validOptions;
+    }
+
+    protected function validateMultipleChoiceOptions($arrayOfOptions)
+    {
+        $isEmpty = empty($arrayOfOptions);
+        if($isEmpty)
+        {
+            return FALSE;
+        }
+        $correctAnswersCount = 0;
+        foreach ($arrayOfOptions as $key => $option)
+        {
+            //checks the existance of the properties description and isCorrect
+            $hasDescription = $this->validateRequiredField($option, 'description');
+            $hasPropertyIsCorrect = isset($option->isCorrect);
+
+            if(!$hasDescription || !$hasPropertyIsCorrect)
+            {
+                return FALSE;
+            }
+            else
+            {
+                if($option->isCorrect == "true"){
+                    $correctAnswersCount = $correctAnswersCount + 1;
+                }
+            }
+
+        }
+        return $correctAnswersCount == 1; //only one option can be flagged as correct
+    }
+
+
+    protected function validateRequiredField($object,$field)
+    {
+        $isset = isset($object->$field);
+        if($isset)
+        {
+            return !empty($object->$field);
+        }
+        else
+        {
+            return FALSE;
+        }
     }
 
 }
