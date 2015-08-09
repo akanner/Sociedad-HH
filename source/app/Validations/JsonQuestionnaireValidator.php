@@ -40,11 +40,11 @@ class JsonQuestionnaireValidator extends IlluminateValidator
     protected function validateQuestionnaireJson( $attribute, $value )
     {
         $questionnaire = json_decode(json_encode($value)); //Turn it into an stdClass
+        //validates the title and the description
         $hasTitleAndDescription = $this->validateTitleAndDescription($questionnaire);
+        //validates the questions
         $hasValidQuestions      = $this->validateQuestions($questionnaire);
 
-
-        //die(var_dump($hasValidQuestions));
         return $hasTitleAndDescription && $hasValidQuestions;
     }
 
@@ -81,33 +81,36 @@ class JsonQuestionnaireValidator extends IlluminateValidator
         $validTitle     = $this->validateRequiredField($question,'title');
         $validType      = TRUE; //TODO
         $validOptions   = $this->validateMultipleChoiceOptions($question->options);
-        return TRUE;
+        return $validTitle && $validType && $validOptions;
     }
 
     protected function validateMultipleChoiceOptions($arrayOfOptions)
     {
-        $isNotEmpty = empty($arrayOfOptions);
-        if(!$isNotEmpty)
+        $isEmpty = empty($arrayOfOptions);
+        if($isEmpty)
         {
             return FALSE;
         }
         $correctAnswersCount = 0;
         foreach ($arrayOfOptions as $key => $option)
         {
+            //checks the existance of the properties description and isCorrect
             $hasDescription = $this->validateRequiredField($option, 'description');
             $hasPropertyIsCorrect = isset($option->isCorrect);
+
             if(!$hasDescription || !$hasPropertyIsCorrect)
             {
                 return FALSE;
             }
             else
             {
-                if($option->isCorrect) $correctAnswersCount++;
+                if($option->isCorrect == "true"){
+                    $correctAnswersCount = $correctAnswersCount + 1;
+                }
             }
 
         }
-
-        return $correctAnswersCount == 1;
+        return $correctAnswersCount == 1; //only one option can be flagged as correct
     }
 
 
