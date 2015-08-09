@@ -59,7 +59,8 @@ $(function () {
             var selfOption = $(this);
             var option = {
                 description: selfOption.find("input[type='text']").val(),
-                isCorrect: selfOption.find("input[type='radio']").prop("checked")
+                isCorrect: selfOption.find("input[type='radio']").prop("checked"),
+                isOtherOption: false
             };
 
             question.options.push(option);
@@ -87,15 +88,19 @@ $(function () {
             questionnaire.questions.push(getJsonForQuestion($(this)));
         });
 
-        //adds csrf token to the request
-        return {"questionnaire": questionnaire,"_token": $("input[name='_token']").val()};
+        return questionnaire;
     }
 
     $("#add-questionnaire-form").submit(function (event) {
         event.preventDefault();
         var postUrl = $(this).attr("action");
 
-        $.post(postUrl, questionnaireFormToJSON(), function (result) {
+        //adds csrf token to the request
+        return {"questionnaire": questionnaire,"_token": $("input[name='_token']").val()};
+        var params = [];
+        var questionnaire = questionnaireFormToJSON();
+
+        $.post(postUrl, , function (result) {
             console.log("::: POST RESULT => ", result);
         });
 

@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Models\Question;
+use Illuminate\Database\Eloquent\Model;
+
 /**
  * This class represents a questionnaire
  *
@@ -58,10 +59,14 @@ class Questionnaire extends Model
     return $this->activeTo;
   }
 
-
   public function getQuestions()
   {
     return $this->questions()->get();
+  }
+
+  public function addQuestion($question)
+  {
+    $this->questions()->save($question);
   }
 
   public function questions()

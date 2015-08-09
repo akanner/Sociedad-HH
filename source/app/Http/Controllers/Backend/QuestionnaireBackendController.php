@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Backend;
 
+use Exception;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SaveQuestionnaireRequest;
 
 use App\Models\Questionnaire;
+use App\Models\Question;
 use App\Models\QuestionFactory;
-use App\Exceptions\NotValidQuestionClassException;
+use App\Models\MultipleChoiceOption;
 
 use App\Utils\PrettyJson;
 use Carbon\Carbon;
@@ -15,9 +17,22 @@ use Carbon\Carbon;
 class QuestionnaireBackendController extends Controller {
 
 
-    public function createQuestionByFormQuestion($formQuestion) {
+    public function createQuestionByFormQuestion($formQuestion, $questionnaire) {
         $question = QuestionFactory::getInstance()->getQuestionByClassName($formQuestion->type);
         $question->setDescription($formQuestion->title);
+        $question->setQuestionnaire($questionnaire);
+        $question->save();
+
+        foreach($formQuestion->options as $formOption) {
+            $option = new MultipleChoiceOption();
+            $option->setDescription($formOption->description);
+            $option->setIsCorrectAnswer($formOption->isCorrect);
+            $option->setIsOtherOption($formOption->isOtherOption);
+            $option->setQuestion($question);
+            $option->save();
+        }
+
+        return $question;
     }
 
     private function hashImageName($imageName) {
@@ -45,6 +60,9 @@ class QuestionnaireBackendController extends Controller {
 
     public function save(SaveQuestionnaireRequest $request) {
 
+        $result = new \stdClass();
+        $result->statusOk = true;
+
         try {
             $formQuestionnaire = json_decode(json_encode($request->input("questionnaire")));
             $questionnaire = new Questionnaire();
@@ -53,16 +71,17 @@ class QuestionnaireBackendController extends Controller {
             $questionnaire->setDescription($formQuestionnaire->description);
             $questionnaire->setActiveFrom(Carbon::now());
 
+            $questionnaire->save();
+
             foreach ($formQuestionnaire->questions as $formQuestion) {
-                $question = $this->createQuestionByFormQuestion($formQuestion);
+                $this->createQuestionByFormQuestion($formQuestion, $questionnaire);
             }
 
-        } catch(NotValidQuestionClassException $e) {
-
+        } catch(Exception $e) {
+            $result->statusOk = false;
+        } finally {
+            return json_encode($result);
         }
-
-
-        var_dump($questionnaire);
     }
 
     /*

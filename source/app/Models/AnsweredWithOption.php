@@ -35,7 +35,7 @@ class AnsweredWithOption extends UserAnswer
    *
    * @return AnsweredWithOption
    */
-  public static function createNewAnswerFor(QuestionnaireRespondent $respondent, Questionnaire $questionnaire, MultipleChoiceOption, $optionSelected, $textOtherOption=NULL)
+  public static function createNewAnswerFor(QuestionnaireRespondent $respondent, Questionnaire $questionnaire, MultipleChoiceOption $optionSelected, $textOtherOption=NULL)
   {
       $newAnswer = new AnsweredWithOption();
       $newAnswer->setAnswer($textOtherOption);

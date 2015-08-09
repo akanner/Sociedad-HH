@@ -21,6 +21,11 @@ abstract class MultipleChoiceQuestion extends Question
     return $this->hasMany("App\Models\MultipleChoiceOption","question_id");
   }
 
+  public function addOption($option)
+  {
+    $this->options()->save($option);
+  }
+
   public function getDescription()
   {
     return $this->description;

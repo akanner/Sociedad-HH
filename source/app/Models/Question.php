@@ -44,7 +44,7 @@ class Question extends HierarchicalModel
 
     public function setQuestionnaire(Questionnaire $questionnaire)
     {
-        return $this->questionnaire()->associate($questionnaire);
+        $this->questionnaire()->associate($questionnaire);
     }
 
     public function getPictures()

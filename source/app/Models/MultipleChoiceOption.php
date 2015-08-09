@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Question;
 use Illuminate\Database\Eloquent\Model;
+
 /**
  * Represents an option of one multiple choice question
  *
@@ -38,7 +40,7 @@ class MultipleChoiceOption extends Model
 
   public function setIsCorrectAnswer($isCorrectAnswer)
   {
-      $this->correct_answer = $isCorrectAnswer;
+    $this->correct_answer = $isCorrectAnswer;
   }
 
   public function getIsCorrectAnswer()
@@ -48,12 +50,17 @@ class MultipleChoiceOption extends Model
 
   public function question()
   {
-    return $this->belongsTo("Question");
+    return $this->belongsTo("App\Models\Question");
   }
 
   public function getQuestion()
   {
     return $this->question->first();
+  }
+
+  public function setQuestion(Question $question)
+  {
+    $this->question()->associate($question);
   }
 
 
