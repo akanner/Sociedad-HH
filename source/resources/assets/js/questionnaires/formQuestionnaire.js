@@ -96,11 +96,7 @@ $(function () {
         var postUrl = $(this).attr("action");
 
         //adds csrf token to the request
-        return {"questionnaire": questionnaire,"_token": $("input[name='_token']").val()};
-        var params = [];
-        var questionnaire = questionnaireFormToJSON();
-
-        $.post(postUrl, , function (result) {
+        $.post(postUrl, {"questionnaire": JSON.stringify(questionnaireFormToJSON()), "_token": $("input[name='_token']").val()} , function (result) {
             console.log("::: POST RESULT => ", result);
         });
 

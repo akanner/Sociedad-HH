@@ -64,7 +64,7 @@ class QuestionnaireBackendController extends Controller {
         $result->statusOk = true;
 
         try {
-            $formQuestionnaire = json_decode(json_encode($request->input("questionnaire")));
+            $formQuestionnaire = json_decode($request->input("questionnaire"));
             $questionnaire = new Questionnaire();
 
             $questionnaire->setTitle($formQuestionnaire->title);

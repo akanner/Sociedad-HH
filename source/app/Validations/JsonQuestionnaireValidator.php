@@ -52,7 +52,7 @@ class JsonQuestionnaireValidator extends IlluminateValidator
      */
     protected function validateQuestionnaireJson( $attribute, $value )
     {
-        $questionnaire = json_decode(json_encode($value)); //Turn it into an stdClass
+        $questionnaire = json_decode($value); //Turn it into an stdClass
         //validates the title and the description
         $hasTitleAndDescription = $this->validateTitleAndDescription($questionnaire);
         //validates the questions
@@ -128,7 +128,7 @@ class JsonQuestionnaireValidator extends IlluminateValidator
             }
             else
             {
-                if($option->isCorrect == "true"){
+                if($option->isCorrect){
                     $correctAnswersCount = $correctAnswersCount + 1;
                 }
             }
