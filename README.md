@@ -22,6 +22,8 @@
     php artisan key:generate
     -----quizas debas copiar la clave al archivo /config/app.php
 ####Base de Datos####
+Instalar MySql PDO
+    sudo apr-get install php5-mysql
 Crear una base de datos llamada db_sociedadhh
     CREATE DATABASE db_sociedadhh;
 
