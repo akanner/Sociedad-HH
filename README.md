@@ -20,8 +20,12 @@
     composer install && npm install
     cp .env.example .env
     php artisan key:generate
-    -----quizas debas copiar la clave al archivo /config/app.php
+    
 ####Base de Datos####
+
+Instalar MySql PDO
+    sudo apr-get install php5-mysql
+    
 Crear una base de datos llamada db_sociedadhh
     CREATE DATABASE db_sociedadhh;
 
@@ -40,7 +44,7 @@ Ejecutar la migracion de la base de datos
 
 #####Copiar el archivo por defecto de apache (Puede variar el nombre)#####
 
-    cp /etc/apache/sites-available/000-default.conf /etc/apache/sites-available/sociedadhh.conf
+    cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/sociedadhh.conf
 
 queda así
 

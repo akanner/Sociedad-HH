@@ -49,3 +49,4 @@ Route::get('adminhh', 'Backend\DashboardController@show');
 Route::get('adminhh/encuestas', 'Backend\QuestionnaireBackendController@listAll');
 Route::get('adminhh/encuestas/nueva', 'Backend\QuestionnaireBackendController@add');
 Route::post('adminhh/encuestas/nueva/guardar', 'Backend\QuestionnaireBackendController@save');
+Route::get('adminhh/encuestas/reporte/{id}','Backend\QuestionnaireBackendController@report');

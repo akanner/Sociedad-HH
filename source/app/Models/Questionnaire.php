@@ -18,60 +18,72 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Questionnaire extends Model
 {
-  public $fillable = array('title','description','activeFrom','activeTo');
 
-  public function setTitle($title)
-  {
-    $this->title = $title;
-  }
+    public $fillable = array('title','description','activeFrom','activeTo');
 
-  public function getTitle()
-  {
-    return $this->title;
-  }
+      public function setTitle($title)
+      {
+        $this->title = $title;
+      }
 
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
+      public function getTitle()
+      {
+        return $this->title;
+      }
 
-  public function getDescription()
-  {
-    return $this->description;
-  }
-  public function setActiveFrom($activeFrom)
-  {
-    $this->activeFrom = $activeFrom;
-  }
+      public function setDescription($description)
+      {
+        $this->description = $description;
+      }
 
-  public function getActiveFrom()
-  {
-    return $this->activeFrom;
-  }
+      public function getDescription()
+      {
+        return $this->description;
+      }
+      public function setActiveFrom($activeFrom)
+      {
+        $this->activeFrom = $activeFrom;
+      }
 
-  public function setActiveTo($activeTo)
-  {
-    $this->activeTo = $activeTo;
-  }
+      public function getActiveFrom()
+      {
+        return $this->activeFrom;
+      }
 
-  public function getActiveTo()
-  {
-    return $this->activeTo;
-  }
+      public function setActiveTo($activeTo)
+      {
+        $this->activeTo = $activeTo;
+      }
 
-  public function getQuestions()
-  {
-    return $this->questions()->get();
-  }
+      public function getActiveTo()
+      {
+        return $this->activeTo;
+      }
 
-  public function addQuestion($question)
-  {
-    $this->questions()->save($question);
-  }
+      public function getQuestions()
+      {
+        return $this->questions()->get();
+      }
 
-  public function questions()
+      public function addQuestion($question)
+      {
+        $this->questions()->save($question);
+      }
+
+      public function questions()
+      {
+        return $this->hasMany("App\Models\Question");
+      }
+  /**
+   * Generates the stadistics of the questionnaire
+   */
+  public function getReport()
   {
-    return $this->hasMany("App\Models\Question");
+      //gets the users responses
+      $usersResponses = UserAnswer::where("questionnaire_id","=",$this->id)->get();
+      //gets the questions of the questionnaire
+      $questions = Question::where("questionnaire_id","=",$this->id)->get();
+      return $questions;
   }
 
 

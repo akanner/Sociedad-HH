@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use \StdClass as StdClass;
 use App\Utils\MailHelper;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
  *
@@ -33,21 +34,27 @@ class QuestionnaireController extends Controller
 
     public function details($id)
     {
-        $questionnaire = Questionnaire::find($id);
-        return view('pages.questionnaires.completeQuestionnaire',['questionnaire'=>$questionnaire]);
+        try
+        {
+            $questionnaire = Questionnaire::findOrFail($id);
+            return view('pages.questionnaires.completeQuestionnaire',['questionnaire'=>$questionnaire]);
+        }
+        catch (ModelNotFoundException $e)
+        {
+            abort(404);
+        }
     }
 
     public function completeQuestionnaire(Request $request)
     {
         //gets the parameters of the questions
         $parametersOfTheQuestions = $this->filterQuestionParameters($request->all());
-
+        $email = $request->input(self::REQUEST_PARAM_EMAIL);
+        $userName = $request->input(self::REQUEST_PARAM_NAME);
+        $questionnaireId = $request->input(self::REQUEST_PARAM_QUESTIONNAIRE_ID);
         //build an object with all the parameters
-        $questionnaireInfo=new StdClass();
-        $questionnaireInfo->email = $request->input(self::REQUEST_PARAM_EMAIL);
-        $questionnaireInfo->userName = $request->input(self::REQUEST_PARAM_NAME);
-        $questionnaireInfo->questionnaireId = $request->input(self::REQUEST_PARAM_QUESTIONNAIRE_ID);
-        $questionnaireInfo->questions = $this->processQuestionParameters($parametersOfTheQuestions);
+        $questionnaireInfo = $this->buildQuestionnaireInfo($email,$userName,$questionnaireId,$parametersOfTheQuestions);
+
         $this->persistCompletedQuestionnaire($questionnaireInfo);
 
         MailHelper::getInstance()->sendMail('agustinkanner@gmail.com','leito.vm3@hotmail.com','Leandro "el duro" Vilas','Testing',"emails.prueba", ["userMessage" => 'quiero almendrado']);
@@ -59,6 +66,15 @@ class QuestionnaireController extends Controller
         ]);
     }
 
+    private function buildQuestionnaireInfo($email,$userName,$questionnaireId,$parametersOfTheQuestions)
+    {
+        $questionnaireInfo=new StdClass();
+        $questionnaireInfo->email = $email;
+        $questionnaireInfo->userName = $userName;
+        $questionnaireInfo->questionnaireId = $questionnaireId;
+        $questionnaireInfo->questions = $this->processQuestionParameters($parametersOfTheQuestions);
+        return $questionnaireInfo;
+    }
     /**
      * persists a questionnaire completed by the user
      *
