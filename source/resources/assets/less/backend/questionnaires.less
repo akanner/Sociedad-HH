@@ -27,8 +27,33 @@
         }
     }
 
+    button.add-question {
+        margin-bottom: 20px;
+        border-radius: 60px;
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        margin-right: 20px;
+        padding: 25px;
+        border: none;
+        background-color: @main-red;
+
+        &:hover {
+            background-color: #BD4448;
+        }
+
+        img {
+            width: 18px;
+        }
+    }
+
     .question {
         padding: 15px;
+        border-bottom: 1px solid #eee;
+
+        &:last-of-type {
+            border-bottom: 0;
+        }
     }
 
     .question-value {
@@ -70,6 +95,15 @@
             line-height: 1.42857143;
             margin-left: 5px;
             margin-top: -4px;
+            color: black;
+            background-color: #ECF0F1;
+            border-color: #95a5a6;
+
+            &:hover {
+                color: #fff;
+                background-color: #bdc3c7;
+                border-color: #7f8c8d;
+            }
         }
     }
 
@@ -84,6 +118,14 @@
             background: none;
             text-decoration: underline;
             color: darkslateblue;
+        }
+    }
+
+    #send-new-questionnaire-button {
+        background-color: #5cb85c;
+
+        &:hover {
+            background-color: #27ae60;
         }
     }
 }

@@ -1,53 +1,20 @@
 /*jshint bitwise: false, camelcase: true, curly: true, eqeqeq: true, globals: false, freeze: true, immed: true, nocomma: true, newcap: true, noempty: true, nonbsp: true, nonew: true, quotmark: double, undef: true, unused: true, strict: true, latedef: true*/
 
-/* globals $, console */
+/* globals $, console, window, document */
 
 $(function () {
     "use strict";
 
-    // ----------- USER INTERACTION
-
-    $(".add-option-button").click(function () {
-        var optionToClone = $(this).parents(".add-option-multiple-choice").siblings(".option-multiple-choice").last(),
-            clonedOption = optionToClone.clone(true);
-
-        clonedOption.find("input[type='radio']").attr("checked", false);
-        clonedOption.find("input[type='text']").val("");
-
-        optionToClone.after(clonedOption);
-    });
-
-    $(".question").on("click", ".delete-option-button", function () {
-        var optionsCount = $(".option-multiple-choice").size();
-
-        if (optionsCount > 1) {
-            $(this).parent(".option-multiple-choice").remove();
-        }
-    });
-
-    $(".questionnaire-form").on("click", ".question", function (event) {
-        event.stopPropagation();
-        $(".question").removeClass("black-border-shadow");
-        $(this).addClass("black-border-shadow");
-    });
-
-    $("body").click(function () {
-        $(".question").removeClass("black-border-shadow");
-    });
-
-    $(".option-multiple-choice").on("click", "input[type='radio']", function () {
-        $(this).parents(".question-multiple-choice").find("input[type='radio']").prop("checked", false);
-        $(this).prop("checked", true);
-    });
-
     // ----------- FORM PROCESSING
 
+    /* Returns an array of valid question types asociated with it handler */
     function questionHandlerForType() {
         return {
-            "MultipleChoiceQuestionSingleOption" : getJsonForMultipleChoiceQuestionSingleOption
+            "MultipleChoiceQuestionSingleOption": getJsonForMultipleChoiceQuestionSingleOption
         };
     }
 
+    /* Makes a JSON from a multiple choice question */
     function getJsonForMultipleChoiceQuestionSingleOption(questionElement) {
         var question = {
             title: questionElement.find(".question-title-input").val(),
@@ -69,6 +36,7 @@ $(function () {
         return question;
     }
 
+    /* Makes a JSON from a question */
     function getJsonForQuestion(questionElement) {
         var questionType = questionElement.find(".question-type-input").val(),
             jsonHandler = questionHandlerForType()[questionType];
@@ -76,6 +44,7 @@ $(function () {
         return jsonHandler(questionElement);
     }
 
+    /* Parses the questionnaire form and returns it as JSON */
     function questionnaireFormToJSON() {
         var questionnaire = {
             title: $("#title-input").val(),
@@ -88,15 +57,80 @@ $(function () {
             questionnaire.questions.push(getJsonForQuestion($(this)));
         });
 
+        console.log(":: QUESTIONNAIRE: ", questionnaire);
         return questionnaire;
     }
 
+    // ----------- USER INTERACTION
+
+    var modelQuestion = $(".question").clone(),
+        questionNumber = 0;
+
+    /* Removes the border shadow from the focused question */
+    $("body").click(function () {
+        $(".question").removeClass("black-border-shadow");
+    });
+
+    /* Duplicates a model multiple choice question and attachs it to the end of the questionnaire */
+    $("#add-question-button").click(function () {
+        var newQuestion = modelQuestion.clone(true),
+            mustChangeOption = newQuestion.find("[data-changeMyName]"),
+            currentName = mustChangeOption.prop("name");
+
+        // console.log("::: FIRST NAME ", currentName);
+        mustChangeOption.prop("name", currentName + questionNumber.toString());
+        // console.log("::: AFTER NAME ", mustChangeOption.prop("name"));
+        questionNumber++;
+
+        $(".question").last().after(newQuestion);
+        window.scrollTo(0, document.body.scrollHeight);
+    });
+
+    /* Adds the border shadow to the focused question */
+    $(".questionnaire-form").on("click", ".question", function (event) {
+        event.stopPropagation();
+        $(".question").removeClass("black-border-shadow");
+        $(this).addClass("black-border-shadow");
+    });
+
+    /* Deletes a multiple choice question option, if there is at least 1 option */
+    $(".questionnaire-form").on("click", ".question .question-multiple-choice .delete-option-button", function () {
+        var optionsCount = $(this).parents(".question-multiple-choice").find(".option-multiple-choice").size();
+
+        // If there is more than 1 option
+        if (optionsCount > 1) {
+            $(this).parent(".option-multiple-choice").remove();
+        }
+    });
+
+    /* Adds an option to a multiple choice question */
+    $(".questionnaire-form").on("click", ".question .question-multiple-choice .add-option-button", function () {
+        var optionToClone = $(this).parents(".add-option-multiple-choice").siblings(".option-multiple-choice").last(),
+            clonedOption = optionToClone.clone(true);
+
+        clonedOption.find("input[type='radio']").attr("checked", false);
+        clonedOption.find("input[type='text']").val("");
+
+        optionToClone.after(clonedOption);
+    });
+
+    $(".option-multiple-choice").on("click", "input[type='radio']", function () {
+        // Uncheck every option from this question
+        $(this).parents(".question-multiple-choice").find("input[type='radio']").prop("checked", false);
+        // Check this one as correct
+        $(this).prop("checked", true);
+    });
+
+    /* Creates a JSON for submiting the form and posts it to the server */
     $("#add-questionnaire-form").submit(function (event) {
         event.preventDefault();
         var postUrl = $(this).attr("action");
 
         //adds csrf token to the request
-        $.post(postUrl, {"questionnaire": JSON.stringify(questionnaireFormToJSON()), "_token": $("input[name='_token']").val()} , function (result) {
+        $.post(postUrl, {
+            "questionnaire": JSON.stringify(questionnaireFormToJSON()),
+            "_token": $("input[name='_token']").val()
+        }, function (result) {
             console.log("::: POST RESULT => ", result);
         });
 

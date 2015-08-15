@@ -4,6 +4,10 @@
 @section("content")
 
 <div class="row">
+    <div class="header-and-paragraph">
+        <h3>Agregar encuesta</h3>
+    </div>
+
     {!! Form::open(["action" => "Backend\QuestionnaireBackendController@save", "id" => "add-questionnaire-form" ,"class" => "questionnaire-form"]) !!}
 
         <div class="form-group">
@@ -17,6 +21,9 @@
 
         <hr>
 
+        <button title="Agregar pregunta" id="add-question-button" type="button" class="btn btn-sm add-question">
+            <img src="{{asset('img/questionnaire/plus.png')}}" alt="Agregar pregunta" class="img-rounded">
+        </button>
         <div class="question">
             <div class="form-group inline-content">
                 {!! Form::label("question-title-input", "T&iacute;tulo de la pregunta") !!}
@@ -28,12 +35,12 @@
             </div>
             <div class="question-multiple-choice">
                 <div class="form-group option-multiple-choice">
-                    {!! Form::radio("questionValue", "1", ["required"]) !!}
+                    {!! Form::radio("questionValue", "1", false, ["required", "data-changeMyName" => true]) !!}
                     {!! Form::text("questionValueText", null, ["class" => "form-control", "placeholder" => "Opci&oacute;n", "required"]) !!}
-                    <button title="Borrar respuesta" type="button" class="delete-option-button btn btn-xs btn-danger">X</button>
+                    <button title="Borrar respuesta" type="button" class="delete-option-button btn btn-xs btn-danger">Eliminar</button>
                 </div>
                 <div class="add-option-multiple-choice">
-                    <button type="button" class="add-option-button btn btn-xs btn-primary">+ Agregar opci&oacute;n</button> o
+                    <button type="button" class="add-option-button btn btn-xs btn-primary">Agregar opci&oacute;n</button> o
                     <button type="button" class="add-other-option-button">Agregar "Otra"</button>
                 </div>
             </div>
@@ -41,7 +48,7 @@
 
         <hr>
 
-        <button type="submit" class="btn btn-error">Enviar</button>
+        <button id="send-new-questionnaire-button" type="submit" class="btn btn-success">Enviar</button>
 
     {!! Form::close() !!}
 </div>
