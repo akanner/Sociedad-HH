@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Backend;
 use Exception;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SaveQuestionnaireRequest;
+use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 use App\Models\Questionnaire;
 use App\Models\Question;
@@ -51,7 +53,22 @@ class QuestionnaireBackendController extends Controller {
 
     public function listAll() {
         $questionnaires = Questionnaire::all();
-        return PrettyJson::printPrettyJson($questionnaires);
+        return view("backend.questionnaires.list",
+        ['questionnaires' => $questionnaires]);
+        //return PrettyJson::printPrettyJson($questionnaires);
+    }
+
+    public function report($id)
+    {
+        try
+        {
+            $questionnaire = Questionnaire::findOrFail($id);
+            die(var_dump($questionnaire->getReport()));
+        }
+        catch (ModelNotFoundException $e)
+        {
+            abort(404);
+        }
     }
 
     public function add() {
