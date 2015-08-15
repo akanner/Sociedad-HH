@@ -39,6 +39,11 @@ Route::post('contacto/enviar', 'ContactController@sendEmail');
  * =============================
  */
 
+/* Authentication */
+Route::get('auth/login', 'Auth\AuthController@getLogin');
+Route::post('auth/login', 'Auth\AuthController@postLogin');
+Route::get('auth/logout', 'Auth\AuthController@getLogout');
+
 /* Encuestas */
 Route::get('adminhh', 'Backend\DashboardController@show');
 Route::get('adminhh/encuestas', 'Backend\QuestionnaireBackendController@listAll');
