@@ -4,7 +4,7 @@
 @section("content")
 <div class="row">
     <div class="header-and-paragraph">
-        <h3>Listado de encuestas</h3>
+        <h3>Listado de cuestionarios</h3>
     </div>
 
 

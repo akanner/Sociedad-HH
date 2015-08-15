@@ -5,7 +5,7 @@
 
 <div class="row">
     <div class="header-and-paragraph">
-        <h3>Agregar encuesta</h3>
+        <h3>Nuevo cuestionario</h3>
     </div>
 
     {!! Form::open(["action" => "Backend\QuestionnaireBackendController@save", "id" => "add-questionnaire-form" ,"class" => "questionnaire-form"]) !!}
