@@ -1,5 +1,5 @@
 @extends("backend.layout.main")
-@section("title") Administraci&oacute;n :: Listar Encuestas @parent @endsection
+@section("title") Administraci&oacute;n :: Listar Cuestionarios @parent @endsection
 
 @section("content")
 <div class="row">

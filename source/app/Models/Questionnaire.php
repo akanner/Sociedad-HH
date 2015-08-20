@@ -99,6 +99,7 @@ class Questionnaire extends Model
           $stadistics[$questionId] = $this->getReportForQuestion($question);
 
       }
+
       return $stadistics;
   }
 
@@ -126,7 +127,6 @@ class Questionnaire extends Model
 
           $questionInformation->options[$optionId] = $optionInformation;
       }
-
 
       return $questionInformation;
   }

@@ -30,7 +30,6 @@ Route::get('encuestas/{id}','QuestionnaireController@details');
 Route::post('encuestas/enviarCuestionario','QuestionnaireController@completeQuestionnaire');
 
 /* Contacto */
-
 Route::post('contacto/enviar', 'ContactController@sendEmail');
 
 /**
