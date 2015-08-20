@@ -8,7 +8,7 @@
         <h3>Nuevo cuestionario</h3>
     </div>
 
-    {!! Form::open(["action" => "Backend\QuestionnaireBackendController@save", "id" => "add-questionnaire-form" ,"class" => "questionnaire-form"]) !!}
+    {!! Form::open(["action" => "Backend\QuestionnaireBackendController@save", "id" => "add-questionnaire-form" ,"class" => "questionnaire-form","enctype" =>"multipart/form-data"]) !!}
 
         <div class="form-group">
             {!! Form::label("title-input", "T&iacute;tulo", ["class" => "sr-only"]) !!}
@@ -22,7 +22,7 @@
             <!--<label for="file-tosend">Material devuelto</label>
             <input type="file" id="file-tosend" name="fileReturned">-->
             {!! Form::label("file-tosend", "Material devuelto") !!}
-            {!! Form::file("attachedFile", ["id" => "file-tosend"]) !!}
+            {!! Form::file("attachedFile", ["id" => "file-tosend","multiple"]) !!}
             <p class="help-block">El archivo que se enviar&aacute; por mail luego de llenar el cuestionario</p>
         </div>
 
