@@ -5,6 +5,8 @@ namespace App\Models;
 use App\Models\Question;
 use Illuminate\Database\Eloquent\Model;
 
+use stdClass;
+
 /**
  * This class represents a questionnaire
  *
@@ -79,11 +81,54 @@ class Questionnaire extends Model
    */
   public function getReport()
   {
-      //gets the users responses
-      $usersResponses = UserAnswer::where("questionnaire_id","=",$this->id)->get();
       //gets the questions of the questionnaire
       $questions = Question::where("questionnaire_id","=",$this->id)->get();
-      return $questions;
+
+      $stadistics = $this->getReportFor($questions);
+
+      return json_encode($stadistics);
+  }
+
+  public function getReportFor($questions)
+  {
+      $stadistics = array();
+      foreach ($questions as $key => $question)
+      {
+          $questionId = $question->id;
+
+          $stadistics[$questionId] = $this->getReportForQuestion($question);
+
+      }
+      return $stadistics;
+  }
+
+  public function getReportForQuestion($question)
+  {
+      $questionInformation = new stdClass();
+      //--------------------------------------
+      $questionInformation->description = $question->getDescription();
+      $questionInformation->options = array();
+      //process the users answers
+      foreach ($question->getOptions() as $key => $option)
+      {
+          $optionInformation = new stdClass();
+          $optionInformation->description = $option->getDescription();
+          $optionInformation->correctAnswer = $option->getIsCorrectAnswer();
+          //gets the number of questions responded with the current option
+          //--------------------------------------------------------------------
+          $optionId = $option->id;
+          $optionInformation->answersCount = $question->getAnswers()->filter(
+          function($answer) use ($optionId)
+          {
+              return $answer->getOption()->id == $optionId;
+          })->count();
+          //--------------------------------------------------------------------
+
+          $questionInformation->options[$optionId] = $optionInformation;
+      }
+
+
+      return $questionInformation;
   }
 
 
