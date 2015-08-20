@@ -107,7 +107,7 @@ class QuestionnaireController extends Controller
             $optionSelected =MultipleChoiceOption::find($answer->option);
             //saves the answer
             $textOtherOption = isset($answer->text) ? $answer->text : NULL;//probably null, i dont care
-            $answer = AnsweredWithOption::createNewAnswerFor($respondent,$questionnaire,$optionSelected,$textOtherOption);
+            $answer = AnsweredWithOption::createNewAnswerFor($respondent,$questionnaire,$question,$optionSelected,$textOtherOption);
         }
     }
     /**
