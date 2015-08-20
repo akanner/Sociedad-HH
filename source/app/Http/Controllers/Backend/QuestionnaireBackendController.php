@@ -67,7 +67,7 @@ class QuestionnaireBackendController extends Controller {
         try
         {
             $questionnaire = Questionnaire::findOrFail($id);
-            die(var_dump($questionnaire->getReport()));
+            return PrettyJson::printPrettyJson($questionnaire->getReport());
         }
         catch (ModelNotFoundException $e)
         {
