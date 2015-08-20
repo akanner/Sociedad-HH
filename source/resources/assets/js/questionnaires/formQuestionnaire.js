@@ -135,19 +135,20 @@ $(function () {
     function getAttachedFileFormData() {
         var formData = new FormData(),
             // Get the selected files from the input.
-            files = $("#file-tosend").get(0).files;
+            files = $("#file-tosend").get(0).files[0];
 
         console.log(":: fileS ", files);
 
-        // Loop through each of the selected files.
-        for (var i = 0; i < files.length; i++) {
-            var file = files[i];
-            console.log(":: currentfile ", file);
-            // Add the file to the request.
-            formData.append($("#file-tosend").prop("name"), file, file.name);
-        }
+//        // Loop through each of the selected files.
+//        for (var i = 0; i < files.length; i++) {
+//            var file = files[i];
+//            console.log(":: currentfile ", file);
+//            // Add the file to the request.
+//            formData.append("attachedFile", file, file.name);
+//        }
 
-        return formData;
+
+        return files;
     }
 
     /* Creates a JSON for submiting the form and posts it to the server */
@@ -161,21 +162,22 @@ $(function () {
         console.log(":: FORM DATA: ", fileFormData);
 
         // Some UI feedback
-        /*
+
         sendButton.prop("disabled", true);
         feedback.show();
 
         $.post(postUrl, {
             "questionnaire": JSON.stringify(questionnaireFormToJSON()),
             //adds csrf token to the request
-            "_token": $("input[name='_token']").val()
+            "_token": $("input[name='_token']").val(),
+            "attachedFile": JSON.stringify(fileFormData)
         }, function (result) {
             console.log("::: POST RESULT => ", result);
             result = JSON.parse(result);
             if(result.statusOk) {
                 feedback.html("Listo! Cuestionario guardado");
                 window.setTimeout(function() {
-                    window.location.replace("/adminhh/encuestas");
+                    //window.location.replace("/adminhh/encuestas");
                 }, 3000);
             }
             else {
@@ -183,7 +185,7 @@ $(function () {
                 feedback.html("Ocurrió un error, intentalo nuevamente");
             }
         });
-        */
+
 
         return false;
     });
