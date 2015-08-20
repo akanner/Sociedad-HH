@@ -10,6 +10,11 @@ class AnsweredWithOption extends UserAnswer
     return $this->belongsTo("App\Models\MultipleChoiceOption",'multiple_choice_option_id');
   }
 
+  public function getOption()
+  {
+      return $this->option()->first();
+  }
+
   public function setOption(MultipleChoiceOption $option)
   {
       $this->option()->associate($option);
@@ -35,12 +40,13 @@ class AnsweredWithOption extends UserAnswer
    *
    * @return AnsweredWithOption
    */
-  public static function createNewAnswerFor(QuestionnaireRespondent $respondent, Questionnaire $questionnaire, MultipleChoiceOption $optionSelected, $textOtherOption=NULL)
+  public static function createNewAnswerFor(QuestionnaireRespondent $respondent, Questionnaire $questionnaire,Question $question, MultipleChoiceOption $optionSelected, $textOtherOption=NULL)
   {
       $newAnswer = new AnsweredWithOption();
       $newAnswer->setAnswer($textOtherOption);
       $newAnswer->setOption($optionSelected);
       $newAnswer->setRespondent($respondent);
+      $newAnswer->setQuestion($question);
       $newAnswer->setQuestionnaire($questionnaire);
       $newAnswer->save();
 

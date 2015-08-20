@@ -24,6 +24,8 @@ class UserAnswer extends HierarchicalModel
   protected $stiBaseClass = "App\\Models\\UserAnswer";
   protected $fillable = array('answer');
 
+  //eager loading
+  public $with = 'question';
   public function getAnswer()
   {
     return $this->answer;
@@ -41,7 +43,7 @@ class UserAnswer extends HierarchicalModel
 
   public function getQuestionnaire()
   {
-    return $this->forQuestionnaire()->get();
+    return $this->forQuestionnaire()->first();
   }
 
   public function setRespondent($respondent)
@@ -51,7 +53,7 @@ class UserAnswer extends HierarchicalModel
 
   public function getRespondent()
   {
-    return $this->respondent()->get();
+    return $this->respondent()->first();
   }
 
   public function setQuestion($question)
@@ -61,7 +63,7 @@ class UserAnswer extends HierarchicalModel
 
   public function getQuestion()
   {
-    return $this->question()->get();
+    return $this->question()->first();
   }
 
 

@@ -25,6 +25,9 @@ class CreateUserAnswersTable extends Migration
             // FK to MultipleChoiceOption
             $table->integer("multiple_choice_option_id")->unsigned()->nullable();
             $table->foreign("multiple_choice_option_id")->references("id")->on("multiple_choice_options");
+            // FK to question
+            $table->integer("question_id")->unsigned()->nullable();
+            $table->foreign("question_id")->references("id")->on("questions");
             $table->timestamps();
         });
     }

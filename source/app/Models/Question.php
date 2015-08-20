@@ -47,6 +47,11 @@ class Question extends HierarchicalModel
         $this->questionnaire()->associate($questionnaire);
     }
 
+    public function getAnswers()
+    {
+        return $this->answers()->get();
+    }
+
     public function getPictures()
     {
         return $this->pictures()->get();
@@ -65,6 +70,11 @@ class Question extends HierarchicalModel
     public function pictures()
     {
         return $this->hasMany("App\Models\Picture",'question_id');
+    }
+
+    public function answers()
+    {
+        return $this->hasMany("App\Models\UserAnswer","question_id");
     }
 
 }
