@@ -18,6 +18,7 @@ class CreateQuestionnairesTable extends Migration
             $table->text('description');
             $table->date('activeFrom');
             $table->date('activeTo')->nullable();
+            $table->text('attachedFile')->nullable();
             $table->timestamps();
         });
     }

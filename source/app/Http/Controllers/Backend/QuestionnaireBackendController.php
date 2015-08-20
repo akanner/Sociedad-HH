@@ -19,6 +19,10 @@ use Carbon\Carbon;
 class QuestionnaireBackendController extends Controller {
 
 
+    public function add() {
+        return view("backend.questionnaires.add");
+    }
+
     public function createQuestionByFormQuestion($formQuestion, $questionnaire) {
         $question = QuestionFactory::getInstance()->getQuestionByClassName($formQuestion->type);
         $question->setDescription($formQuestion->title);
@@ -37,13 +41,14 @@ class QuestionnaireBackendController extends Controller {
         return $question;
     }
 
-    private function hashImageName($imageName) {
+    private function hashedImageName($imageName) {
         return md5(Carbon::now()->toDateTimeString().$imageName);
     }
 
     /**
      * Symfony\Component\HttpFoundation\File\UploadedFile $file
      * $request->file('photo')
+     * http://laravel.com/docs/5.1/requests
      * http://stackoverflow.com/questions/2704314/multiple-file-upload-in-php
      * http://www.w3bees.com/2013/02/multiple-file-upload-with-php.html
      */
@@ -55,7 +60,6 @@ class QuestionnaireBackendController extends Controller {
         $questionnaires = Questionnaire::all();
         return view("backend.questionnaires.list",
         ['questionnaires' => $questionnaires]);
-        //return PrettyJson::printPrettyJson($questionnaires);
     }
 
     public function report($id)
@@ -69,10 +73,6 @@ class QuestionnaireBackendController extends Controller {
         {
             abort(404);
         }
-    }
-
-    public function add() {
-        return view("backend.questionnaires.add");
     }
 
     public function save(SaveQuestionnaireRequest $request) {

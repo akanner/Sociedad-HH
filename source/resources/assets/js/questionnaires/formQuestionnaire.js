@@ -1,6 +1,6 @@
 /*jshint bitwise: false, camelcase: true, curly: true, eqeqeq: true, globals: false, freeze: true, immed: true, nocomma: true, newcap: true, noempty: true, nonbsp: true, nonew: true, quotmark: double, undef: true, unused: true, strict: true, latedef: true*/
 
-/* globals $, console, window, document */
+/* globals $, console, window, document, FormData */
 
 $(function () {
     "use strict";
@@ -121,18 +121,69 @@ $(function () {
         $(this).prop("checked", true);
     });
 
+
+    // Variable to store the attached file
+    /*var attachedFile = {};
+
+    // Add events
+    $("#file-tosend").on("change", function (event) {
+        console.log("entro al change papa!!!");
+        attachedFile = event.target.files;
+        console.log(attachedFile);
+    });*/
+
+    function getAttachedFileFormData() {
+        var formData = new FormData(),
+            // Get the selected files from the input.
+            files = $("#file-tosend").get(0).files;
+
+        console.log(":: fileS ", files);
+
+        // Loop through each of the selected files.
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            console.log(":: currentfile ", file);
+            // Add the file to the request.
+            formData.append($("#file-tosend").prop("name"), file, file.name);
+        }
+
+        return formData;
+    }
+
     /* Creates a JSON for submiting the form and posts it to the server */
     $("#add-questionnaire-form").submit(function (event) {
         event.preventDefault();
-        var postUrl = $(this).attr("action");
+        var postUrl = $(this).attr("action"),
+            fileFormData = getAttachedFileFormData(),
+            sendButton = $("#send-new-questionnaire-button"),
+            feedback = $(".submit-feedback");
 
-        //adds csrf token to the request
+        console.log(":: FORM DATA: ", fileFormData);
+
+        // Some UI feedback
+        /*
+        sendButton.prop("disabled", true);
+        feedback.show();
+
         $.post(postUrl, {
             "questionnaire": JSON.stringify(questionnaireFormToJSON()),
+            //adds csrf token to the request
             "_token": $("input[name='_token']").val()
         }, function (result) {
             console.log("::: POST RESULT => ", result);
+            result = JSON.parse(result);
+            if(result.statusOk) {
+                feedback.html("Listo! Cuestionario guardado");
+                window.setTimeout(function() {
+                    window.location.replace("/adminhh/encuestas");
+                }, 3000);
+            }
+            else {
+                sendButton.prop("disabled", false);
+                feedback.html("Ocurrió un error, intentalo nuevamente");
+            }
         });
+        */
 
         return false;
     });

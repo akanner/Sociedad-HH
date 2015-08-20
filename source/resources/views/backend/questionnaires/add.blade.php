@@ -18,6 +18,13 @@
             {!! Form::label("description-input", "Descripci&oacute;n", ["class" => "sr-only"]) !!}
             {!! Form::text("description", null, ["id" => "description-input", "class" => "form-control description", "placeholder" => "Descripci&oacute;n del cuestionario", "required"]) !!}
         </div>
+        <div class="add-file-container form-group">
+            <!--<label for="file-tosend">Material devuelto</label>
+            <input type="file" id="file-tosend" name="fileReturned">-->
+            {!! Form::label("file-tosend", "Material devuelto") !!}
+            {!! Form::file("attachedFile", ["id" => "file-tosend"]) !!}
+            <p class="help-block">El archivo que se enviar&aacute; por mail luego de llenar el cuestionario</p>
+        </div>
 
         <hr>
 
@@ -49,6 +56,7 @@
         <hr>
 
         <button id="send-new-questionnaire-button" type="submit" class="btn btn-success">Enviar</button>
+        <span class="submit-feedback">Guardando cuestionario...</span>
 
     {!! Form::close() !!}
 </div>
