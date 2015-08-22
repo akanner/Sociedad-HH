@@ -9,11 +9,14 @@
         </div>
 
         <input type="hidden" id="report-info" value="{{ $questionnaireReport }}" />
-        <canvas id="myChart" width="400" height="400"></canvas>
+        <div class="question-chart">
+            <h5 class="title"></h5>
+            <canvas class="chart" width="400" height="250"></canvas>
+        </div>
     </div>
 
 @endsection
 
 @section("scripts")
-    <script type="application/javascript" src="{{ elixir('js/questionnaires.js')}}"></script>
+    <script type="application/javascript" src="{{ elixir('js/reps.js')}}"></script>
 @endsection

@@ -7,6 +7,8 @@ use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
+// http://laravel.com/docs/5.1/authentication
+
 class AuthController extends Controller
 {
     /*

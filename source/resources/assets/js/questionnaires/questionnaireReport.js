@@ -1,159 +1,174 @@
-$(function() {
-    var reportInfo = $('#report-info').val().trim();
-    console.log(reportInfo);
-    // Get context with jQuery - using jQuery's .get() method.
-    var canvas = $("#myChart").get(0);
-    var ctx = canvas.getContext("2d");
-    // This will get the first returned node in the jQuery collection.
-    var myNewChart = new Chart(ctx);
-    var data = [
-        {
-            value: 300,
-            color:"#F7464A",
-            highlight: "#FF5A5E",
-            label: "Red"
+/* jshint bitwise: false, camelcase: true, curly: true, eqeqeq: true, globals: false, freeze: true, immed: true, nocomma: true, newcap: true, noempty: true, nonbsp: true, nonew: true, quotmark: double, undef: true, unused: true, strict: true, latedef: true */
+
+/* globals $, console, document, Chart */
+
+$(function () {
+    "use strict";
+
+    // ----------- COLOR HELPER
+    // Color Helper object that serves the next chart color and highlight values
+
+    var colorHelper = {
+        colorIndex : 0,
+        colorObjects : [
+            {color: "#F7464A", highlight: "#FF5A5E"},
+            {color: "#46BFBD", highlight: "#5AD3D1"},
+            {color: "#FDB45C", highlight: "#FFC870"},
+            {color: "#5B90BF", highlight: "#78B0E2"},
+            {color: "#a3be8c", highlight: "#B4D29B"},
+            {color: "#b48ead", highlight: "#CCA2C4"},
+        ],
+
+        getNextColor : function() {
+            var colorObject = this.colorObjects[this.colorIndex];
+            this.colorIndex++;
+            if(this.colorIndex === this.colorObjects.length) {
+                this.colorIndex = 0;
+            }
+
+            return colorObject;
         },
-        {
-            value: 50,
-            color: "#46BFBD",
-            highlight: "#5AD3D1",
-            label: "Green"
-        },
-        {
-            value: 100,
-            color: "#FDB45C",
-            highlight: "#FFC870",
-            label: "Yellow"
+
+        getEmptyColor : function() {
+            return { color : "#EEE", highlight: "#EEE" };
         }
-    ];
-
-    var options = {
-        //Boolean - Whether we animate the rotation of the Doughnut
-        animateRotate : false,
-
-        //String - A legend template
-        //legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
     };
 
-    var data = [
-        {
-            value: 300,
-            color:"#F7464A",
-            highlight: "#FF5A5E",
-            label: "Red"
-        },
-        {
-            value: 50,
-            color: "#46BFBD",
-            highlight: "#5AD3D1",
-            label: "Green"
-        },
-        {
-            value: 100,
-            color: "#FDB45C",
-            highlight: "#FFC870",
-            label: "Yellow"
-        }
-    ];
-    var moduleDoughnut = new Chart(ctx).Doughnut(data, options);
+    // ----------- VIEW SETUP
+    var questionChartElement = $(".question-chart"),
+        reportInfo = JSON.parse($("#report-info").val().trim());
 
-    var legendHolder = document.createElement('div');
+    // Removes the info input from the DOM
+    $("#report-info").remove();
+
+    var questionReportObject = {};
+    var canvas = questionChartElement.find(".chart").get(0);
+    var ctx = canvas.getContext("2d");
+    $.each(reportInfo, function(index, currentQuestion) {
+        questionReportObject.optionsData = [];
+        questionReportObject.description = currentQuestion.description;
+
+        $.each(currentQuestion.options, function(index, currentOption) {
+            var optionReportObject = {},
+                colorObject = {};
+
+            optionReportObject.value = currentOption.answersCount;
+            optionReportObject.label = currentOption.description;
+
+            if(optionReportObject.value >= 0) {
+                colorObject = colorHelper.getNextColor();
+            }
+            else {
+                colorObject = colorHelper.getEmptyColor();
+            }
+
+            optionReportObject.color = colorObject.color;
+            optionReportObject.highlight = colorObject.highlight;
+
+            questionReportObject.optionsData.push(optionReportObject);
+        });
+
+        questionChartElement.find(".title").html(questionReportObject.description);
+        return false;
+
+    });
+
+    var chart = new Chart(ctx).Doughnut(questionReportObject.optionsData, {
+        animateRotate: false,
+        tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= value %> respuestas",
+        animation: false
+    });
+
+    // ----------- USER INTERACTION
+
+    /* Legend hover highlight */
+    // Tira algunas magias locas de Chart... no discuto los resultados
+    // pero tampoco estoy muy seguro de todo lo que hace
+    var legendHolder = document.createElement("div");
     var helpers = Chart.helpers;
-    legendHolder.innerHTML = moduleDoughnut.generateLegend();
+    legendHolder.innerHTML = chart.generateLegend();
     // Include a html legend template after the module doughnut itself
-    helpers.each(legendHolder.firstChild.childNodes, function(legendNode, index){
-        helpers.addEvent(legendNode, 'mouseover', function(){
-            var activeSegment = moduleDoughnut.segments[index];
+    helpers.each(legendHolder.firstChild.childNodes, function (legendNode, index) {
+        helpers.addEvent(legendNode, "mouseover", function () {
+            var activeSegment = chart.segments[index];
             activeSegment.save();
             activeSegment.fillColor = activeSegment.highlightColor;
-            moduleDoughnut.showTooltip([activeSegment]);
+            chart.showTooltip([activeSegment]);
             activeSegment.restore();
         });
     });
-    helpers.addEvent(legendHolder.firstChild, 'mouseout', function(){
-        moduleDoughnut.draw();
+    helpers.addEvent(legendHolder.firstChild, "mouseout", function () {
+        chart.draw();
     });
-    canvas.parentNode.parentNode.appendChild(legendHolder.firstChild);
+    canvas.parentNode.appendChild(legendHolder.firstChild);
 });
 
-/*
-// Modular doughnut
-	(function(){
+/*var questionChartElement = $(".question-chart"),
+        reportInfo = JSON.parse($("#report-info").val().trim());
 
-		var canvas = $id('modular-doughnut'),
-			colours = {
-				"Core": blue,
-				"Line": orange,
-				"Bar": teal,
-				"Polar Area": purple,
-				"Radar": brown,
-				"Doughnut": green
-			};
+    // Removes the info input from the DOM
+    $("#report-info").remove();
 
-		var moduleData = [
+    $.each(reportInfo, function(index, currentQuestion) {
+        var questionReportObject = { optionsData : [], description : currentQuestion.description },
+            currentChartElement = questionChartElement.clone(true),
+            canvas = currentChartElement.find(".chart").get(0),
+            ctx = canvas.getContext("2d");
 
-			{
-				value: 7.57,
-				color: colours["Core"],
-				highlight: Colour(colours["Core"], 10),
-				label: "Core"
-			},
+        console.log("::canvas", canvas);
+        $.each(currentQuestion.options, function(index, currentOption) {
+            var optionReportObject = {},
+                colorObject = {};
 
-			{
-				value: 1.63,
-				color: colours["Bar"],
-				highlight: Colour(colours["Bar"], 10),
-				label: "Bar"
-			},
+            optionReportObject.value = currentOption.answersCount;
+            optionReportObject.label = currentOption.description;
 
-			{
-				value: 1.09,
-				color: colours["Doughnut"],
-				highlight: Colour(colours["Doughnut"], 10),
-				label: "Doughnut"
-			},
+            if(optionReportObject.value >= 0) {
+                colorObject = colorHelper.getNextColor();
+            }
+            else {
+                colorObject = colorHelper.getEmptyColor();
+            }
 
-			{
-				value: 1.71,
-				color: colours["Radar"],
-				highlight: Colour(colours["Radar"], 10),
-				label: "Radar"
-			},
+            optionReportObject.color = colorObject.color;
+            optionReportObject.highlight = colorObject.highlight;
 
-			{
-				value: 1.64,
-				color: colours["Line"],
-				highlight: Colour(colours["Line"], 10),
-				label: "Line"
-			},
+            questionReportObject.optionsData.push(optionReportObject);
+        });
 
-			{
-				value: 1.37,
-				color: colours["Polar Area"],
-				highlight: Colour(colours["Polar Area"], 10),
-				label: "Polar Area"
-			}
+        // Sets the question title
+        currentChartElement.find(".title").html(questionReportObject.description);
 
-		];
-		//
-		var moduleDoughnut = new Chart(canvas.getContext('2d')).Doughnut(moduleData, { tooltipTemplate : "<%if (label){%><%=label%>: <%}%><%= value %>kb", animation: false });
-		//
-		var legendHolder = document.createElement('div');
-		legendHolder.innerHTML = moduleDoughnut.generateLegend();
-		// Include a html legend template after the module doughnut itself
-		helpers.each(legendHolder.firstChild.childNodes, function(legendNode, index){
-			helpers.addEvent(legendNode, 'mouseover', function(){
-				var activeSegment = moduleDoughnut.segments[index];
-				activeSegment.save();
-				activeSegment.fillColor = activeSegment.highlightColor;
-				moduleDoughnut.showTooltip([activeSegment]);
-				activeSegment.restore();
-			});
-		});
-		helpers.addEvent(legendHolder.firstChild, 'mouseout', function(){
-			moduleDoughnut.draw();
-		});
-		canvas.parentNode.parentNode.appendChild(legendHolder.firstChild);
+        // Builds the chart for the current question
+        var chart = new Chart(ctx).Doughnut(questionReportObject.optionsData, {
+            animateRotate: false,
+            tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= value %> respuestas",
+            animation: false
+        });
 
-	})();
-*/
+        // ----------- USER INTERACTION
+
+        /* Legend hover highlight
+        // Tira algunas magias locas de Chart... no discuto los resultados
+        // pero tampoco estoy muy seguro de todo lo que hace
+        var legendHolder = document.createElement("div");
+        var helpers = Chart.helpers;
+        legendHolder.innerHTML = chart.generateLegend();
+        // Include a html legend template after the module doughnut itself
+        helpers.each(legendHolder.firstChild.childNodes, function (legendNode, index) {
+            helpers.addEvent(legendNode, "mouseover", function () {
+                var activeSegment = chart.segments[index];
+                activeSegment.save();
+                activeSegment.fillColor = activeSegment.highlightColor;
+                chart.showTooltip([activeSegment]);
+                activeSegment.restore();
+            });
+        });
+        helpers.addEvent(legendHolder.firstChild, "mouseout", function () {
+            chart.draw();
+        });
+        canvas.parentNode.appendChild(legendHolder.firstChild);
+
+        // Finally appends the new chart to the DOM
+        $(".row").append(currentChartElement);
+    });*/
