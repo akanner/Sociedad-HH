@@ -64,5 +64,12 @@
 @endsection
 
 @section("scripts")
-    <script type="application/javascript" src="{{ elixir('js/questionnaires.js')}}"></script>
+    <script type="application/javascript" src="{{elixir('js/questionnaires.js')}}"></script>
+    <script type="text/javascript">
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $("input[name='_token']").val()
+        }
+    });
+    </script>
 @endsection

@@ -42,6 +42,17 @@ class Questionnaire extends Model
       {
         return $this->description;
       }
+
+      public function getAttachedFilePath()
+      {
+          return $this->attachedFile;
+      }
+
+      public function setAttachedFilePath($filePath)
+      {
+          $this->attachedFile = $filePath;
+      }
+      
       public function setActiveFrom($activeFrom)
       {
         $this->activeFrom = $activeFrom;

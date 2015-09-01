@@ -122,71 +122,59 @@ $(function () {
     });
 
 
-    // Variable to store the attached file
-    /*var attachedFile = {};
+    function getFormData() {
+        // Get the selected files from the input.
+        var fileObject = $("#file-tosend").get(0).files[0];
+        var questionnaire =JSON.stringify(questionnaireFormToJSON());
 
-    // Add events
-    $("#file-tosend").on("change", function (event) {
-        console.log("entro al change papa!!!");
-        attachedFile = event.target.files;
-        console.log(attachedFile);
-    });*/
-
-    function getAttachedFileFormData() {
-        var formData = new FormData(),
-            // Get the selected files from the input.
-            files = $("#file-tosend").get(0).files[0];
-
-        console.log(":: fileS ", files);
-
-//        // Loop through each of the selected files.
-//        for (var i = 0; i < files.length; i++) {
-//            var file = files[i];
-//            console.log(":: currentfile ", file);
-//            // Add the file to the request.
-//            formData.append("attachedFile", file, file.name);
-//        }
+        var formData = new FormData();
 
 
-        return files;
+        console.log(":: fileS ", fileObject);
+
+        formData.append('questionnaire',questionnaire);
+        formData.append('attachedFile',fileObject);
+        return formData;
     }
 
     /* Creates a JSON for submiting the form and posts it to the server */
     $("#add-questionnaire-form").submit(function (event) {
         event.preventDefault();
         var postUrl = $(this).attr("action"),
-            fileFormData = getAttachedFileFormData(),
+            fileFormData = getFormData(),
             sendButton = $("#send-new-questionnaire-button"),
             feedback = $(".submit-feedback");
 
-        console.log(":: FORM DATA: ", fileFormData);
+        console.log(":: FORM DATA:: ", fileFormData);
 
         // Some UI feedback
 
         sendButton.prop("disabled", true);
         feedback.show();
 
-        $.post(postUrl, {
-            "questionnaire": JSON.stringify(questionnaireFormToJSON()),
-            //adds csrf token to the request
-            "_token": $("input[name='_token']").val(),
-            "attachedFile": JSON.stringify(fileFormData)
-        }, function (result) {
-            console.log("::: POST RESULT => ", result);
-            result = JSON.parse(result);
-            if(result.statusOk) {
-                feedback.html("Listo! Cuestionario guardado");
-                window.setTimeout(function() {
-                    //window.location.replace("/adminhh/encuestas");
-                }, 3000);
-            }
-            else {
-                sendButton.prop("disabled", false);
-                feedback.html("Ocurrió un error, intentalo nuevamente");
+
+        jQuery.ajax({
+            url: postUrl,
+            data: fileFormData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            type: 'POST',
+            success: function(data){
+                //console.log("::: POST RESULT => ", result);
+                var result = JSON.parse(data);
+                if(result.statusOk) {
+                        feedback.html("Listo! Cuestionario guardado");
+                        window.setTimeout(function() {
+                        window.location.replace("/adminhh/encuestas");
+                        }, 3000);
+                }
+                else {
+                    sendButton.prop("disabled", false);
+                    feedback.html("Ocurrió un error, intentalo nuevamente");
+                }
             }
         });
-
-
         return false;
     });
 

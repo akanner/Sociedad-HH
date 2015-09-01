@@ -18,6 +18,7 @@ use Carbon\Carbon;
 
 class QuestionnaireBackendController extends Controller {
 
+    const UPLOADS_PATH = '../../public/uploaded/';
 
     public function add() {
         return view("backend.questionnaires.add");
@@ -41,8 +42,8 @@ class QuestionnaireBackendController extends Controller {
         return $question;
     }
 
-    private function hashedImageName($imageName) {
-        return md5(Carbon::now()->toDateTimeString().$imageName);
+    private function hashFileName($fileName) {
+        return md5(Carbon::now()->toDateTimeString().$fileName);
     }
 
     /**
@@ -52,8 +53,8 @@ class QuestionnaireBackendController extends Controller {
      * http://stackoverflow.com/questions/2704314/multiple-file-upload-in-php
      * http://www.w3bees.com/2013/02/multiple-file-upload-with-php.html
      */
-    private function moveFile($file, $destinationPath) {
-        $file->move($destinationPath, $this->hashImageName($file->getClientOriginalName()));
+    private function moveFile($file, $destinationPath,$newName) {
+        $file->move($destinationPath, $newName);
     }
 
     public function listAll() {
@@ -91,6 +92,15 @@ class QuestionnaireBackendController extends Controller {
             $questionnaire->setDescription($formQuestionnaire->description);
             $questionnaire->setActiveFrom(Carbon::now());
 
+
+            if($request->hasFile('attachedFile'))
+            {
+                $file = $request->file('attachedFile');
+                $hashedName = $this->hashFileName($file->getClientOriginalName());
+                $this->moveFile($file,self::UPLOADS_PATH,$hashedName);
+                $questionnaire->setAttachedFilePath($hashedName);
+            }
+
             $questionnaire->save();
 
             foreach ($formQuestionnaire->questions as $formQuestion) {
@@ -99,6 +109,8 @@ class QuestionnaireBackendController extends Controller {
 
         } catch(Exception $e) {
             $result->statusOk = false;
+            $result->message = $e->getMessage();
+            $result->questionnaire = $request->input("questionnaire");
         } finally {
             return json_encode($result);
         }
