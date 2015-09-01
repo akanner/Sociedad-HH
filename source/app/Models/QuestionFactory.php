@@ -22,7 +22,8 @@ class QuestionFactory {
 
     public function validQuestionClasses() {
         return [
-            "MultipleChoiceQuestionSingleOption"
+            "MultipleChoiceQuestionSingleOption",
+            "MultipleSelectionQuestion"
         ];
     }
 

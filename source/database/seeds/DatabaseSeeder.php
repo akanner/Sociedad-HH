@@ -2,11 +2,18 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+
 use App\Models\Questionnaire;
+
 use App\Models\Question;
 use App\Models\MultipleChoiceQuestionSingleOption;
 use App\Models\MultipleChoiceQuestionMultipleOptions;
+use App\Models\MultipleSelectionQuestion;
+use App\Models\MultipleSelectionSubquestion;
+
 use App\Models\MultipleChoiceOption;
+use App\Models\MultipleSelectionOption;
+
 use App\Models\Email;
 use App\Models\QuestionnaireRespondent;
 use App\Models\Picture;
@@ -24,6 +31,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call('QuestionnairesTableSeeder');
         $this->call('QuestionsTableSeeder');
+        $this->call('SubquestionsTableSeeder');
         $this->call('OptionsTableSeeder');
         $this->call('QuestionnaireRespondentsTableSeeder');
         $this->call('EmailsTableSeeder');
@@ -39,20 +47,6 @@ class QuestionnairesTableSeeder extends Seeder
     public function run()
     {
         DB::table('questionnaires')->delete();
-
-        Questionnaire::create(
-          array(
-            'title'=>'La mejor musica del mundo',
-            'description'=> 'Nuestros clientes utilizarán esta información para construir ilegalmente un robot que sera capaz de generar música secretamente para luego vender merchandising </br> Changos, no se por qué dije que era mi cliente </br> Changos, no se por qué dije que era ilegal.',
-            'activeFrom' => date("2015-06-30"),
-            'activeTo'=>null));
-
-        Questionnaire::create(
-        array(
-            'title' => 'Series de televisión',
-            'description' => 'las mejores series de televisión (entre los canales 60 al 70)',
-            'activeFrom' => date("2015-07-21"),
-            'activeTo'   => null));
 
         /* EL Cuestionario!!! */
         Questionnaire::create(
@@ -73,169 +67,122 @@ class QuestionsTableSeeder extends Seeder
     {
         DB::table('questions')->delete();
 
-        Question::create(
-        array(
-            'description'=>'Indique con sus palabras que le gusta de los cantantes de disney?',
-            'questionnaire_id' => 1
-        ));
-
-        MultipleChoiceQuestionMultipleOptions::create(
-        array(
-            'description'=>'para usted, el pop deberia tener más...."',
-            'questionnaire_id' => 1
-        ));
-
-        MultipleChoiceQuestionSingleOption::create(
-        array(
-            'description'=>'Indique la opción que usted asemeja más a la musica "dubstep"',
-            'questionnaire_id' => 1
-        ));
-
-        MultipleChoiceQuestionSingleOption::create(
-        array(
-            'description'=>'Cuál es el mejor programa de eliminación de tatuajes?',
-            'questionnaire_id' => 2
-        ));
-
-        MultipleChoiceQuestionSingleOption::create(
-        array(
-            'description'=>'Usted cree que Don cangrejo se va a afeitar?',
-            'questionnaire_id' => 2
-        ));
-
         /* EL Cuestionario!!! */
         MultipleChoiceQuestionSingleOption::create(
         array(
             'description'=>'Frente a un hombre de 42 años con Anemia leve, Trombocitopenia moderada, Hepatomegalia leve, Esplenomegalia grado 3 a 4, y dolor óseo crónico: ¿En cuál de los posibles diagnósticos pensaría para ese paciente?',
-            'questionnaire_id' => 3
+            'questionnaire_id' => 1
         ));
 
         MultipleChoiceQuestionSingleOption::create(
         array(
             'description'=>'Ante las siguientes imágenes de Resonancia  y Rx. de un paciente con historial de anemia y dolor óseo ¿qué diagnóstico considera correcto?',
-            'questionnaire_id' => 3
+            'questionnaire_id' => 1
+        ));
+
+        MultipleSelectionQuestion::create(
+        array(
+            'description'=>'Ante un paciente de 42 años de edad con presunto diagnóstico de Leucemia aguda, mieloma múltiple o enfermedad de Gaucher, asigne el grado de relevancia (muy relevante, relevante o poco relevante) de cada síntoma para cada una de las patologías mencionadas.',
+            'multiple_selection_answers' => "[
+                {'description' => 'Muy Relevante', 'acronym' => 'MR'},
+                {'description' => 'Relevante', 'acronym' => 'R'},
+                {'description' => 'Poco Relevante', 'acronym' => 'PR'}
+            ]",
+            'questionnaire_id' => 1
+        ));
+    }
+}
+
+class SubquestionsTableSeeder extends Seeder
+{
+    public function run()
+    {
+        DB::table('multiple_selection_subquestions')->delete();
+
+        /* EL Cuestionario!!! */
+
+        MultipleSelectionSubquestion::create(array(
+            'description' => 'Anemia, Trombocitopenia',
+            'question_id' => 3
         ));
     }
 }
 
 class OptionsTableSeeder extends Seeder
 {
-  public function run()
-  {
-    DB::table('multiple_choice_options')->delete();
-    MultipleChoiceOption::create(array(
-      'description'=>'Estrofas del estilo eeeh eh ehh',
-      'question_id'=>2
-    ));
-    MultipleChoiceOption::create(array(
-      'description'=>'Pitbull',
-      'correct_answer'=>TRUE,
-      'question_id'=>2
-    ));
-    MultipleChoiceOption::create(array(
-      'description' =>'Adolescentes rubias',
-      'question_id' =>2
-    ));
-    MultipleChoiceOption::create(array(
-      'description'   =>'Otros:',
-      'is_other_option' => TRUE,
-      'question_id'   => 2
-    ));
+    public function run()
+    {
+        DB::table('multiple_choice_options')->delete();
+        DB::table('multiple_selection_options')->delete();
 
-    MultipleChoiceOption::create(array(
-      'description'=>'Llaves en una licuadora',
-      'question_id'=>3
-    ));
-    MultipleChoiceOption::create (array(
-      'description'=>'Modem de 56k conectándose a internet',
-      'question_id'=>3
-    ));
-    MultipleChoiceOption::create(array(
-      'description'     =>'Otra:',
-      'is_other_option' =>TRUE,
-      'question_id'     =>3
-    ));
-    MultipleChoiceOption::create(array(
-        'description'=>'El que los removedores parecen judios-amish',
-        'question_id'=>4
-    ));
-    MultipleChoiceOption::create(array(
-        'description'=>'El que te cuentan las historias de forma muy exagerada',
-        'correct_answer' => TRUE,
-        'question_id'=>4
-    ));
-    MultipleChoiceOption::create(array(
-        'description'=>'Yo diría que si',
-        'question_id'=>5
-    ));
-    MultipleChoiceOption::create(array(
-        'description'=>'no veo por qué no',
-        'correct_answer' => TRUE,
-        'question_id'=>5
-    ));
-    MultipleChoiceOption::create(array(
-        'description'=>'Déjame llamar a mi amigo que es experto en hombres que están apunto de afeitarse',
-        'question_id'=> 5
-    ));
-    MultipleChoiceOption::create(array(
-        'description'=>'Otra',
-        'is_other_option'=>TRUE,
-        'question_id'=>5
-    ));
+        /* EL Cuestionario!!! */
 
-    /* EL Cuestionario!!! */
+        MultipleChoiceOption::create(array(
+            'description'=>'Leucemia',
+            'question_id'=>1
+        ));
 
-    MultipleChoiceOption::create(array(
-        'description'=>'Leucemia',
-        'question_id'=>6
-    ));
+        MultipleChoiceOption::create(array(
+            'description'=>'Linfoma',
+            'question_id'=>1
+        ));
 
-    MultipleChoiceOption::create(array(
-        'description'=>'Linfoma',
-        'question_id'=>6
-    ));
+        MultipleChoiceOption::create(array(
+            'description'=>'Mieloma Múltiple',
+            'question_id'=>1
+        ));
 
-    MultipleChoiceOption::create(array(
-        'description'=>'Mieloma Múltiple',
-        'question_id'=>6
-    ));
+        MultipleChoiceOption::create(array(
+            'description'=>'Enfermedad de Gaucher',
+            'question_id'=>1
+        ));
 
-    MultipleChoiceOption::create(array(
-        'description'=>'Enfermedad de Gaucher',
-        'question_id'=>6
-    ));
+        MultipleChoiceOption::create(array(
+            'description'=>'Leucemia Granulocítica Crónica',
+            'question_id'=>1
+        ));
 
-    MultipleChoiceOption::create(array(
-        'description'=>'Leucemia Granulocítica Crónica',
-        'question_id'=>6
-    ));
+        MultipleChoiceOption::create(array(
+            'description'=>'Desórdenes de Sangrado',
+            'question_id'=>1
+        ));
 
-    MultipleChoiceOption::create(array(
-        'description'=>'Desórdenes de Sangrado',
-        'question_id'=>6
-    ));
+        MultipleChoiceOption::create(array(
+            'description'=>'Otra',
+            'is_other_option'=>TRUE,
+            'question_id'=>1
+        ));
 
-    MultipleChoiceOption::create(array(
-        'description'=>'Otra',
-        'is_other_option'=>TRUE,
-        'question_id'=>6
-    ));
+        MultipleChoiceOption::create(array(
+            'description'=>'Mieloma Múltiple',
+            'question_id'=>2
+        ));
 
-    MultipleChoiceOption::create(array(
-        'description'=>'Mieloma Múltiple',
-        'question_id'=>7
-    ));
+        MultipleChoiceOption::create(array(
+            'description'=>'Enfermedad de Gaucher',
+            'question_id'=>2
+        ));
 
-    MultipleChoiceOption::create(array(
-        'description'=>'Enfermedad de Gaucher',
-        'question_id'=>7
-    ));
+        MultipleChoiceOption::create(array(
+            'description'=>'Leucemia Granulocítica Crónica',
+            'question_id'=>2
+        ));
 
-    MultipleChoiceOption::create(array(
-        'description'=>'Leucemia Granulocítica Crónica',
-        'question_id'=>7
-    ));
-  }
+        MultipleSelectionOption::create(array(
+            'description'=>'Leucemia aguda',
+            'subquestion_id'=>1
+        ));
+
+        MultipleSelectionOption::create(array(
+            'description'=>'Mieloma múltiple',
+            'subquestion_id'=>1
+        ));
+
+        MultipleSelectionOption::create(array(
+            'description'=>'Enfermedad de Gaucher',
+            'subquestion_id'=>1
+        ));
+    }
 }
 
 class QuestionnaireRespondentsTableSeeder extends Seeder
@@ -332,21 +279,21 @@ class PictureTableSeeder extends Seeder
         Picture::create(
             array(
                 'path'=>'jazz_bass-wallpaper-1600x900.jpg',
-                'question_id'=>2
+                'question_id'=>1
             )
         );
 
         Picture::create(
             array(
                 'path'=>'cuestionario1.png',
-                'question_id'=>7
+                'question_id'=>2
             )
         );
 
         Picture::create(
             array(
                 'path'=>'cuestionario2.png',
-                'question_id'=>7
+                'question_id'=>2
             )
         );
     }

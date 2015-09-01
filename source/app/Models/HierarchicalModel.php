@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Models;
-use Illuminate\Database\Eloquent\Model;
 
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Overrides methods to make queries in a table with "Single Table" Inheritance strategy

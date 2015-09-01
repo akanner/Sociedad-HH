@@ -26,16 +26,6 @@ abstract class MultipleChoiceQuestion extends Question
     $this->options()->save($option);
   }
 
-  public function getDescription()
-  {
-    return $this->description;
-  }
-
-  public function setDescription($description)
-  {
-    $this->description = $description;
-  }
-
   public function getOptions()
   {
     return $this->options()->get();

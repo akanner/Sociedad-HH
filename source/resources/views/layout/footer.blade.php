@@ -8,7 +8,7 @@
             </li>
             <li class="icon-text">
                 <img src="{{asset('img/footer/icon-email.png')}}" alt="Email de contacto">
-                <span>sociedadhh@hh.com.ar</span>
+                <span>splatensehh@gmail.com</span>
             </li>
             <li class="icon-text">
                 <img src="{{asset('img/footer/icon-location.png')}}" alt="Direcci&oacute; de contacto">

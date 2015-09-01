@@ -66,10 +66,6 @@ class UserAnswer extends HierarchicalModel
     return $this->question()->first();
   }
 
-
-
-
-
   public function respondent()
   {
     return $this->belongsTo('App\Models\QuestionnaireRespondent',"questionnaire_respondent_id");
