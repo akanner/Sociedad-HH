@@ -102,7 +102,7 @@ class Questionnaire extends Model
 
   public function getReportFor($questions)
   {
-      $stadistics = array();
+      $stadistics = [];
       foreach ($questions as $key => $question)
       {
           $questionId = $question->id;
