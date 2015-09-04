@@ -1,4 +1,4 @@
-input[type="submit"], button[type="submit"] {
+.default-button {
     border-radius: 0;
     padding: 10px 45px 10px 45px;
     background-color: @main-red;
@@ -9,6 +9,10 @@ input[type="submit"], button[type="submit"] {
         background-color: #B3272C;
         color: white;
     }
+}
+
+input[type="submit"], button[type="submit"] {
+    .default-button;
 }
 
 .black-border-shadow {

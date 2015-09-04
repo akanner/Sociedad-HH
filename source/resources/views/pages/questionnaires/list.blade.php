@@ -1,13 +1,16 @@
 @extends('layout.main')
+
 @section('title') Encuestas :: @parent @endsection
 
 @section('content')
-  <div>
+<div>
     @foreach ($questionnaires as $questionnaire)
-      <h3><a href="/encuestas/{{$questionnaire->id}}">{{ $questionnaire->getTitle() }}</a></h3>
-      <p>
-        {{$questionnaire->getDescription()}}
-      </p>
+        <div class="page-intro-wrapper">
+            <h4>{{ $questionnaire->getHeading() }}</h4>
+            <h3>{{ $questionnaire->getTitle() }}</h3>
+            <p>{{$questionnaire->getDescription()}}</p>
+        </div>
+        <a href="/encuestas/{{$questionnaire->id}}" class="btn default-button">CONTESTAR</a>
     @endforeach
-  </div>
+</div>
 @endsection
