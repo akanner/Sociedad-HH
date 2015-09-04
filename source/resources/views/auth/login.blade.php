@@ -1,21 +1,22 @@
-<form method="POST" action="/auth/login">
-    {!! csrf_field() !!}
+@extends('layout.main')
+@section('title') Login :: @parent @endsection
 
-    <div>
-        Email
-        <input type="email" name="email" value="{{ old('email') }}">
-    </div>
+@section('content')
 
-    <div>
-        Password
-        <input type="password" name="password" id="password">
-    </div>
+    @include('errors.messageBagErrors')
 
-    <div>
-        <input type="checkbox" name="remember"> Remember Me
-    </div>
+    <form method="POST" action="/auth/login">
+        {!! csrf_field() !!}
 
-    <div>
-        <button type="submit">Login</button>
-    </div>
-</form>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Email</label>
+            <input type="email" name="email" class="form-control" id="exampleInputEmail1" placeholder="Email" value="{{ old('email') }}" required>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Contrase&ntilde;a</label>
+            <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required>
+        </div>
+        <button type="submit" class="btn">Entrar</button>
+    </form>
+
+@endsection

@@ -7,7 +7,7 @@
         @include('errors.messageBagErrors')
 
         <div class="page-intro-wrapper">
-            <h4>CONSTRUYAMOS NUESTRO CONOCIMIENTO</h4>
+            <h4>{{ $questionnaire->getHeading() }}</h4>
             <h3>{{$questionnaire->getTitle()}}</h3>
             <p>{{$questionnaire->getDescription()}}</p>
         </div>

@@ -57,8 +57,12 @@ class QuestionnairesTableSeeder extends Seeder
             'description'=> 'El laboratorio Genzyme junto con la Sociedad de Hematología y Hemoterapia de La Plata han desarrollado esta encuesta pensada
 para colaborar en la elaboración de contenidos que enriquezcan la formación profesional de la sociedad.
 Todos los hematólogos que contesten esta encuesta recibirán en respuesta una clase virtual sobre el tema abordado.',
+            'heading' => "LABORATORIO GENZYME - CONSTRUYAMOS NUESTRO CONOCIMIENTO",
             'activeFrom' => date("2015-07-31"),
-            'activeTo'=>null));
+            'activeTo'=>null,
+            'active' => TRUE,
+            'locked' => TRUE
+          ));
     }
 
 }

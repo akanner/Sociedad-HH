@@ -28,7 +28,7 @@ class QuestionnaireController extends Controller
 
     public function listAll()
     {
-        $questionnaires = Questionnaire::all();
+        $questionnaires = Questionnaire::allActive();
         return view('pages.questionnaires.list',['questionnaires' => $questionnaires]);
     }
 
