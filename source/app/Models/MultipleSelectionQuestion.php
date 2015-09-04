@@ -4,12 +4,6 @@ namespace App\Models;
 
 use App\Models\Question;
 
-/**
- * Represents a multiple selection question, with several questions inside
- * Properties:
- *  description ::string                        contains the question itself as a text
- *  options     ::array[MultipleChoiceOption]   Array with the multiple options defined for this question
- */
 class MultipleSelectionQuestion extends Question {
 
     public $with = "subquestions";
@@ -19,11 +13,24 @@ class MultipleSelectionQuestion extends Question {
     }
 
     public function getSubquestions() {
-        return $this->options()->get();
+        return $this->subquestions()->get();
     }
 
-    public function addSubquestion($option) {
-        $this->options()->save($option);
+    public function addSubquestion($subquestion) {
+        $this->subquestions()->save($subquestion);
+    }
+
+    public function getPossibleAnswers() {
+        return $this->multiple_selection_answers;
+    }
+
+    public function getDecodedPossibleAnswers() {
+        echo $this->getPossibleAnswers()."<br>";
+        die(var_dump(json_decode($this->getPossibleAnswers(), true)));
+    }
+
+    public function getTemplateName() {
+        return 'pages.questionnaires.templates.multipleSelectionQuestion';
     }
 
 }

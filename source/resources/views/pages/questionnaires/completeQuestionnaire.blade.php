@@ -25,13 +25,11 @@
                     {!! Form::email('email_address', null, ["class" => "form-control", "required"]) !!}
                 </div>
             </div>
-            <div>
-                @for ($i = 0; $i < $questionnaire->getQuestions()->count(); $i++)
-                    <div class="questionnaire-question">
-                        @include('pages.questionnaires.templates.question',['question'=>$questionnaire->getQuestions()->get($i),'questionNumber'=>$i+1])
-                    </div>
-                @endfor
+            @for ($i = 0; $i < $questionnaire->getQuestions()->count(); $i++)
+            <div class="questionnaire-question">
+                @include('pages.questionnaires.templates.question',['question'=>$questionnaire->getQuestions()->get($i),'questionNumber'=>$i+1])
             </div>
+            @endfor
             <button id="sendQuestionnaireButton" type="submit" class="btn btn-error">Enviar</button>
         {!! Form::close() !!}
     </div>

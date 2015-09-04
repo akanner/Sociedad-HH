@@ -1,7 +1,6 @@
 .question-img{
     width: 220px;
     height: 220px;
-    background-color: red;
     float: left;
     margin-right: 25px;
 
@@ -24,5 +23,46 @@
 
     .form-group:last-child {
         margin-bottom: 0;
+    }
+}
+
+#sendQuestionnaireButton {
+    margin-top: 25px;
+}
+
+.questionnaire-question {
+    border-bottom: 1px solid black;
+    margin-top: 25px;
+    padding-bottom: 25px;
+
+    .multiple-choice-question-wrapper {
+        margin-top: 25px;
+
+        .multiple-question-option-wrapper {
+            margin-top: 10px;
+            margin-bottom: 10px;
+
+            .radio {
+                margin-top: 0px;
+                margin-bottom: 0px;
+            }
+
+            label {
+                font-size: 12px;
+                .font-helvetica;
+
+                input[type="radio"] {
+                    bottom: 6px;
+                }
+            }
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    .multiple-selection-question-wrapper {
+
     }
 }

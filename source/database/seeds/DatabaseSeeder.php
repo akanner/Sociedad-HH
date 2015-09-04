@@ -87,11 +87,7 @@ class QuestionsTableSeeder extends Seeder
         MultipleSelectionQuestion::create(
         array(
             'description'=>'Ante un paciente de 42 años de edad con presunto diagnóstico de Leucemia aguda, mieloma múltiple o enfermedad de Gaucher, asigne el grado de relevancia (muy relevante, relevante o poco relevante) de cada síntoma para cada una de las patologías mencionadas.',
-            'multiple_selection_answers' => "[
-                {'description' => 'Muy Relevante', 'acronym' => 'MR'},
-                {'description' => 'Relevante', 'acronym' => 'R'},
-                {'description' => 'Poco Relevante', 'acronym' => 'PR'}
-            ]",
+            'multiple_selection_answers' => '[{"description":"Muy Relevante","acronym":"MR"},{"description":"Relevante","acronym":"R"},{"description":"Poco Relevante","acronym":"PR"}]',
             'questionnaire_id' => 1
         ));
     }
