@@ -21,8 +21,7 @@ use stdClass;
 class Questionnaire extends Model
 {
 
-    public $fillable = array('title','description','activeFrom','activeTo');
-
+    public $fillable = array('title','description','heading','activeFrom','activeTo','active','locked');
       public function setTitle($title)
       {
         $this->title = $title;
@@ -31,6 +30,16 @@ class Questionnaire extends Model
       public function getTitle()
       {
         return $this->title;
+      }
+
+      public function setHeading($heading)
+      {
+        $this->heading = $heading;
+      }
+
+      public function getHeading()
+      {
+        return $this->heading;
       }
 
       public function setDescription($description)
@@ -73,6 +82,26 @@ class Questionnaire extends Model
         return $this->activeTo;
       }
 
+      public function setActive($active)
+      {
+        $this->active = $active;
+      }
+
+      public function isActive()
+      {
+        return $this->active;
+      }
+
+      public function setLocked($locked)
+      {
+        $this->locked = $locked;
+      }
+
+      public function isLocked()
+      {
+        return $this->locked;
+      }
+
       public function getQuestions()
       {
         return $this->questions()->get();
@@ -87,21 +116,22 @@ class Questionnaire extends Model
       {
         return $this->hasMany("App\Models\Question");
       }
-  /**
-   * Generates the stadistics of the questionnaire
-   */
-  public function getReport()
-  {
+
+    /**
+    * Generates the stadistics of the questionnaire
+    */
+    public function getReport()
+    {
       //gets the questions of the questionnaire
       $questions = Question::where("questionnaire_id","=",$this->id)->get();
 
       $stadistics = $this->getReportFor($questions);
 
       return json_encode($stadistics);
-  }
+    }
 
-  public function getReportFor($questions)
-  {
+    public function getReportFor($questions)
+    {
       $stadistics = [];
       foreach ($questions as $key => $question)
       {
@@ -112,10 +142,10 @@ class Questionnaire extends Model
       }
 
       return $stadistics;
-  }
+    }
 
-  public function getReportForQuestion($question)
-  {
+    public function getReportForQuestion($question)
+    {
       $questionInformation = new stdClass();
       //--------------------------------------
       $questionInformation->description = $question->getDescription();
@@ -140,7 +170,10 @@ class Questionnaire extends Model
       }
 
       return $questionInformation;
-  }
+    }
 
+    public static function allActive() {
+        return Questionnaire::where("active","=",true)->get();
+    }
 
 }

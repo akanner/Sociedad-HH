@@ -14,11 +14,19 @@ class CreateQuestionnairesTable extends Migration
     {
         Schema::create('questionnaires', function (Blueprint $table) {
             $table->increments('id');
+
             $table->string('title');
             $table->text('description');
+            $table->text('heading');
+
             $table->date('activeFrom');
             $table->date('activeTo')->nullable();
+
             $table->text('attachedFile')->nullable();
+
+            $table->boolean('active')->default(FALSE);
+            $table->boolean('locked')->default(FALSE);
+
             $table->timestamps();
         });
     }
