@@ -17,6 +17,7 @@ use App\Models\MultipleSelectionOption;
 use App\Models\Email;
 use App\Models\QuestionnaireRespondent;
 use App\Models\Picture;
+use App\User;
 
 class DatabaseSeeder extends Seeder
 {
@@ -36,6 +37,7 @@ class DatabaseSeeder extends Seeder
         $this->call('QuestionnaireRespondentsTableSeeder');
         $this->call('EmailsTableSeeder');
         $this->call('PictureTableSeeder');
+        $this->call('UserTableSeeder');
 
         Model::reguard();
     }
@@ -296,5 +298,29 @@ class PictureTableSeeder extends Seeder
                 'question_id'=>2
             )
         );
+    }
+}
+
+class UserTableSeeder
+{
+    public function run()
+    {
+        DB::table('user')->delete();
+
+        User::create(
+        array(
+            'name'=>'elagu',
+            'email'=>'agustin@s.com',
+            'password' => "$2y$10$0ls1E1SgQy22z8Qb8hMnOODAEwLAx1kaHUEe42kssAR.nGSawMuaS"
+        )
+    );
+        User::create(
+        array(
+            'name'=>'leito',
+            'email'=>'leito@s.com',
+            'password' => "$2y$10$0ls1E1SgQy22z8Qb8hMnOODAEwLAx1kaHUEe42kssAR.nGSawMuaS"
+        )
+    );
+
     }
 }
