@@ -305,24 +305,24 @@ class PictureTableSeeder extends Seeder
     }
 }
 
-class UserTableSeeder
+class UserTableSeeder extends Seeder
 {
     public function run()
     {
-        DB::table('user')->delete();
+        DB::table('users')->delete();
 
         User::create(
         array(
             'name'=>'elagu',
             'email'=>'agustin@s.com',
-            'password' => "$2y$10$0ls1E1SgQy22z8Qb8hMnOODAEwLAx1kaHUEe42kssAR.nGSawMuaS"
+            'password' => bcrypt("123456")
         )
     );
         User::create(
         array(
             'name'=>'leito',
             'email'=>'leito@s.com',
-            'password' => "$2y$10$0ls1E1SgQy22z8Qb8hMnOODAEwLAx1kaHUEe42kssAR.nGSawMuaS"
+            'password' => bcrypt("123456")
         )
     );
 
