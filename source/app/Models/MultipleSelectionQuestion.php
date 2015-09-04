@@ -26,4 +26,9 @@ class MultipleSelectionQuestion extends Question {
         $this->options()->save($option);
     }
 
+    public function createNewAnswerForMyself($respondent,$answerData)
+    {
+        //do nothing
+    }
+
 }

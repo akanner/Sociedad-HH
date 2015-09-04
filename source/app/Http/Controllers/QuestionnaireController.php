@@ -6,6 +6,7 @@ use App\Models\Question;
 use App\Models\QuestionnaireRespondent;
 use App\Models\MultipleChoiceOption;
 use App\Models\AnsweredWithOption;
+use App\Models\QuestionnaireResponseDeserializer;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use \StdClass as StdClass;
@@ -51,7 +52,7 @@ class QuestionnaireController extends Controller
         $parametersOfTheQuestions = $this->filterQuestionParameters($request->all());
         $email = $request->input(self::REQUEST_PARAM_EMAIL);
         $userName = $request->input(self::REQUEST_PARAM_NAME);
-        $questionnaireId = $request->input(self::REQUEST_PARAM_QUESTIONNAIRE_ID);
+        //$questionnaireId = $request->input(self::REQUEST_PARAM_QUESTIONNAIRE_ID);
         //build an object with all the parameters
         $questionnaireInfo = $this->buildQuestionnaireInfo($email,$userName,$questionnaireId,$parametersOfTheQuestions);
 
@@ -68,12 +69,7 @@ class QuestionnaireController extends Controller
 
     private function buildQuestionnaireInfo($email,$userName,$questionnaireId,$parametersOfTheQuestions)
     {
-        $questionnaireInfo=new StdClass();
-        $questionnaireInfo->email = $email;
-        $questionnaireInfo->userName = $userName;
-        $questionnaireInfo->questionnaireId = $questionnaireId;
-        $questionnaireInfo->questions = $this->processQuestionParameters($parametersOfTheQuestions);
-        return $questionnaireInfo;
+        return QuestionnaireResponseDeserializer::getInstance()->buildQuestionnaireInfo($email,$userName,$questionnaireId,$parametersOfTheQuestions);
     }
     /**
      * persists a questionnaire completed by the user
@@ -88,26 +84,23 @@ class QuestionnaireController extends Controller
         //gets the respondent
         $respondent = QuestionnaireRespondent::findFirstWithEmailOrNew($email);
         //-----------------------------------------------------------------------
-        // if the user didn't have a name, sets it with the request's, even if it's blank (no need for validation)
+        // if the user didn't have a name, sets it with the request's parameter, even if it's blank (no need for validation)
         if($respondent->getName() == "" || $respondent->getName() == null) {
             $respondent->setName($questionnaireInfo->userName);
             $respondent->save();
         }
         //-----------------------------------------------------------------------
-        //gets the questionnaire
-        $questionnaireKey   =  self::REQUEST_PARAM_QUESTIONNAIRE_ID;
-        $questionnaireId    = $questionnaireInfo->$questionnaireKey;
-        $questionnaire      = Questionnaire::find($questionnaireId);
+        // //gets the questionnaire
+        // $questionnaireKey   =  self::REQUEST_PARAM_QUESTIONNAIRE_ID;
+        // $questionnaireId    = $questionnaireInfo->$questionnaireKey;
+        // $questionnaire      = Questionnaire::find($questionnaireId);
         //-----------------------------------------------------------------------
 
-        foreach ($questionnaireInfo->questions as $idQuestion => $answer)
+        foreach ($questionnaireInfo->questions as $idQuestion => $answerData)
         {   //gets the question
             $question = Question::find($idQuestion);
-            //gets the selected option
-            $optionSelected =MultipleChoiceOption::find($answer->option);
             //saves the answer
-            $textOtherOption = isset($answer->text) ? $answer->text : NULL;//probably null, i dont care
-            $answer = AnsweredWithOption::createNewAnswerFor($respondent,$questionnaire,$question,$optionSelected,$textOtherOption);
+            $question->createNewAnswerForMyself($respondent,$answerData);
         }
     }
     /**
@@ -133,44 +126,5 @@ class QuestionnaireController extends Controller
         }
         return $filteredParameters;
     }
-    /**
-     * builds an array of objects with the information of the questions
-     *
-     * @param array http params of the questionnaire´s questions
-     *
-     * @return [StdClass] structure with the information of the questions
-     */
-    public function processQuestionParameters($parametersOfTheQuestions)
-    {
-        $questions = array();
-        //process the http parameters
-        foreach ($parametersOfTheQuestions as $key => $value) {
-            $questionExplote = explode("_",$key);
-            /*
-             * $questionExplote[0] => "QUESTION"
-             * $questionExplote[1] => id of the question, we will use it as key on $questions
-             * $questionExplote[2] => "option" or "text" identifies the value of this parameter
-             *
-             * we will use "option" to identify an id of an option and "text" to identify text inputted by the user.
-             */
-            $key = $questionExplote[1];
-            $subindex = $questionExplote[2];
-            if(array_key_exists($key,$questions))
-            {
-                $answer = $questions[$key];
-                $answer->$subindex = $value;
 
-            }
-            else
-            {
-                //if the position $key of the array is null then we create a new object
-                $answer = new StdClass();
-                $answer->idQuesion = $key;
-                $answer->$subindex = $value;
-                $questions[$key] = $answer;
-            }
-
-        }
-        return $questions;
-    }
 }

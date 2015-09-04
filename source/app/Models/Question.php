@@ -39,7 +39,7 @@ class Question extends HierarchicalModel
 
     public function getQuestionnaire()
     {
-        return $this->questionnaire()->get();
+        return $this->questionnaire()->first();
     }
 
     public function setQuestionnaire(Questionnaire $questionnaire)
@@ -75,6 +75,12 @@ class Question extends HierarchicalModel
     public function answers()
     {
         return $this->hasMany("App\Models\UserAnswer","question_id");
+    }
+
+    public function createNewAnswerForMyself($respondent,$answerData)
+    {
+        throw new Exception("Subclass Responsibility", 1);
+
     }
 
 }

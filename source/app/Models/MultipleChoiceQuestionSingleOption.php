@@ -15,4 +15,13 @@ class MultipleChoiceQuestionSingleOption extends MultipleChoiceQuestion
   {
     return 'pages.questionnaires.templates.multipleChoiceQuestionSingleOption';
   }
+
+  public function createNewAnswerForMyself($respondent,$answerData)
+  {
+      //gets the selected option
+      $optionSelected =MultipleChoiceOption::find($answerData['option']);
+      //saves the answer
+      $textOtherOption = isset($answerData['text']) ? $answerData['text'] : NULL;//probably null, i dont care
+      $answer = AnsweredWithOption::createNewAnswerFor($respondent,$this->getQuestionnaire(),$this,$optionSelected,$textOtherOption);
+  }
 }

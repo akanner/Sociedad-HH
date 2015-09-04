@@ -7,6 +7,8 @@ use App\Exceptions\NotValidQuestionClassException;
 class QuestionFactory {
 
     const QUESTIONS_NAMESPACE = "App\Models\\";
+    const MULTIPLE_CHOICE_QUESTION_SINGLE_OPTION = "MultipleChoiceQuestionSingleOption";
+    const MULTIPLE_SELECTION_QUESTION = "MultipleSelectionQuestion";
 
     private static $instance;
 
@@ -22,8 +24,8 @@ class QuestionFactory {
 
     public function validQuestionClasses() {
         return [
-            "MultipleChoiceQuestionSingleOption",
-            "MultipleSelectionQuestion"
+            static::MULTIPLE_CHOICE_QUESTION_SINGLE_OPTION,
+            static::MULTIPLE_SELECTION_QUESTION
         ];
     }
 
