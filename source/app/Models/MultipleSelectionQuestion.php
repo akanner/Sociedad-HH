@@ -25,8 +25,7 @@ class MultipleSelectionQuestion extends Question {
     }
 
     public function getDecodedPossibleAnswers() {
-        echo $this->getPossibleAnswers()."<br>";
-        die(var_dump(json_decode($this->getPossibleAnswers(), true)));
+        return json_decode($this->getPossibleAnswers(), true);
     }
 
     public function getTemplateName() {
