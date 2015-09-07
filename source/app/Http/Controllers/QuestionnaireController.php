@@ -25,6 +25,8 @@ class QuestionnaireController extends Controller
     const REQUEST_PARAM_NAME            = "userName";
     /* ----------------------------------------------------- */
     const EMAIL_KEY                     = "email";
+    /* ----------------------------------------------------- */
+
 
 
     public function listAll()
@@ -52,13 +54,18 @@ class QuestionnaireController extends Controller
         $parametersOfTheQuestions = $this->filterQuestionParameters($request->all());
         $email = $request->input(self::REQUEST_PARAM_EMAIL);
         $userName = $request->input(self::REQUEST_PARAM_NAME);
-        //$questionnaireId = $request->input(self::REQUEST_PARAM_QUESTIONNAIRE_ID);
+        $questionnaireId = $request->input(self::REQUEST_PARAM_QUESTIONNAIRE_ID);
         //build an object with all the parameters
         $questionnaireInfo = $this->buildQuestionnaireInfo($email,$userName,$questionnaireId,$parametersOfTheQuestions);
 
         $this->persistCompletedQuestionnaire($questionnaireInfo);
 
-        MailHelper::getInstance()->sendMail('agustinkanner@gmail.com','leito.vm3@hotmail.com','Leandro "el duro" Vilas','Testing',"emails.prueba", ["userMessage" => 'quiero almendrado']);
+
+        $questionnaire = Questionnaire::find($questionnaireId);
+        $rootPath                    = dirname (dirname (dirname (dirname(__DIR__))));
+        $uploadedFilesPath           = $rootPath . "/public/uploaded";
+        $attachedFilePath = $uploadedFilesPath . "/" . $questionnaire->getAttachedFilePath();
+        MailHelper::getInstance()->sendMail('agustinkanner@gmail.com','leito.vm3@hotmail.com','Leandro "el duro" Vilas','Testing',"emails.prueba", ["userMessage" => 'quiero almendrado'],$attachedFilePath);
 
         return view("confirmations.confirmationMessage", [
             "message" => "¡Gracias por completar la encuesta, un mail le llegara pronto!",
