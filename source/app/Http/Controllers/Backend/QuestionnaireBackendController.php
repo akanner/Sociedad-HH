@@ -102,6 +102,7 @@ class QuestionnaireBackendController extends Controller {
                 $hashedName = $this->hashFileName($file->getClientOriginalName());
                 $this->moveFile($file,self::UPLOADS_PATH,$hashedName);
                 $questionnaire->setAttachedFilePath($hashedName);
+                $questionnaire->setAttachedFileLogicalName($file->getClientOriginalName());
             }
 
             $questionnaire->save();

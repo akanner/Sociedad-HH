@@ -35,13 +35,17 @@ class MailHelper
         //TODO
     }
 
-    public function sendMail($from,$to,$senderName,$subject,$mailTemplate,$templateVariablesArray,$attachedFile)
+    public function sendMail($from,$to,$senderName,$subject,$mailTemplate,$templateVariablesArray,$attachedFile,$logicalName)
     {
-        Mail::send($mailTemplate,$templateVariablesArray, function ($mail) use ($to,$from, $senderName, $subject,$attachedFile) {
+        Mail::send($mailTemplate,$templateVariablesArray, function ($mail) use ($to,$from, $senderName, $subject,$attachedFile,$logicalName) {
             $mail->from($from, $senderName)
                     ->to($to)
-                    ->subject($subject)
-                    ->attach($attachedFile);
+                    ->subject($subject);
+            if($attachedFile != null && $logicalName != null)
+            {
+                $mail->attach($attachedFile,['as'=>$logicalName]);
+            }
+
         });
     }
 }

@@ -54,14 +54,24 @@ class Questionnaire extends Model
 
       public function getAttachedFilePath()
       {
-          return $this->attachedFile;
+          return $this->attachedFilePhysicalName;
       }
 
       public function setAttachedFilePath($filePath)
       {
-          $this->attachedFile = $filePath;
+          $this->attachedFilePhysicalName = $filePath;
       }
-      
+
+      public function getAttachedFileLogicalName()
+      {
+          return $this->attachedFileLogicalName;
+      }
+
+      public function setAttachedFileLogicalName($logicalName)
+      {
+          $this->attachedFileLogicalName = $logicalName;
+      }
+
       public function setActiveFrom($activeFrom)
       {
         $this->activeFrom = $activeFrom;
