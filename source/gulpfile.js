@@ -23,12 +23,14 @@ elixir(function (mix) {
        .scripts(["jquery-2.1.4.min.js", "bootstrap.min.js", "Chart.min.js"], "public/js/libraries.js")
        .scripts(["questionnaires/formQuestionnaire.js"], "public/js/questionnaires.js")
        .scripts(["questionnaires/questionnaireReport.js"], "public/js/reps.js")
+       .scripts(["questionnaires/questionnaireListActions.js"],"public/js/listActions.js")
        .styles(["bootstrap.min.css"], "public/css/libraries.css")
        .version([
             "public/css/main.css",
             "public/css/libraries.css",
             "public/js/libraries.js",
             "public/js/questionnaires.js",
-            "public/js/reps.js"
+            "public/js/reps.js",
+            "public/js/listActions.js"
         ]);
 });

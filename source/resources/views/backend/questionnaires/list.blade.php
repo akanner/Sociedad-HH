@@ -28,7 +28,12 @@
                         <td>{{$questionnaire->activeTo}}</td>
                         <td>
                             <a class="btn btn-success btn-xs" href="/adminhh/encuestas/reporte/{{$questionnaire->id}}">Reporte</a>
-                            <button class="btn btn-danger btn-xs"type="button" name="delete-questionnaire">Finalizar</button>
+                            @if($questionnaire->isActive())
+                                <button data-id="{{$questionnaire->id}}" class="btn btn-danger btn-xs delete-questionnaire"type="button" name="delete-questionnaire">Finalizar</button>
+                            @else
+                                <button data-id="{{$questionnaire->id}}"class="btn btn-primary btn-xs delete-questionnaire"type="button">Activar</button>
+                            @endif
+
                         </td>
                     </tr>
                 @endforeach
@@ -38,4 +43,7 @@
 </div>
 
 
+@endsection
+@section("scripts")
+    <script type="application/javascript" src="{{elixir('js/listActions.js')}}"></script>
 @endsection
