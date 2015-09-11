@@ -50,16 +50,15 @@ class QuestionnaireController extends Controller
 
     public function completeQuestionnaire(Request $request)
     {
-        //gets the parameters of the questions
+        // Gets the parameters of the questions
         $parametersOfTheQuestions = $this->filterQuestionParameters($request->all());
         $email = $request->input(self::REQUEST_PARAM_EMAIL);
         $userName = $request->input(self::REQUEST_PARAM_NAME);
         $questionnaireId = $request->input(self::REQUEST_PARAM_QUESTIONNAIRE_ID);
-        //build an object with all the parameters
+        // Build an object with all the parameters
         $questionnaireInfo = $this->buildQuestionnaireInfo($email,$userName,$questionnaireId,$parametersOfTheQuestions);
 
         $this->persistCompletedQuestionnaire($questionnaireInfo);
-
 
         $questionnaire = Questionnaire::find($questionnaireId);
         $rootPath                    = dirname (dirname (dirname (dirname(__DIR__))));
@@ -97,7 +96,7 @@ class QuestionnaireController extends Controller
             $respondent->save();
         }
         //-----------------------------------------------------------------------
-        // //gets the questionnaire
+        // // Gets the questionnaire
         // $questionnaireKey   =  self::REQUEST_PARAM_QUESTIONNAIRE_ID;
         // $questionnaireId    = $questionnaireInfo->$questionnaireKey;
         // $questionnaire      = Questionnaire::find($questionnaireId);
@@ -115,12 +114,6 @@ class QuestionnaireController extends Controller
      */
     public function filterQuestionParameters($requestParameters)
     {
-        // return array_filter($requestParameters,
-        // function($value, $key)
-        // {
-        //     return strpos($key,self::REQUEST_PARAM_QUESTION) !== false;
-        // },
-        // ARRAY_FILTER_USE_BOTH);
         $filteredParameters = array();
         foreach ($requestParameters as $key => $value)
         {
