@@ -153,7 +153,7 @@ $(function () {
         feedback.show();
 
 
-        jQuery.ajax({
+        $.ajax({
             url: postUrl,
             data: fileFormData,
             cache: false,

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\MultipleChoiceQuestion;
+
 /**
  * Represents a question with only one posible answer.
  */
@@ -18,10 +19,12 @@ class MultipleChoiceQuestionSingleOption extends MultipleChoiceQuestion
 
   public function createNewAnswerForMyself($respondent,$answerData)
   {
-      //gets the selected option
-      $optionSelected =MultipleChoiceOption::find($answerData['option']);
-      //saves the answer
-      $textOtherOption = isset($answerData['text']) ? $answerData['text'] : NULL;//probably null, i dont care
+      // Gets the selected option
+      $optionSelected = MultipleChoiceOption::find($answerData['option']);
+      // Saves the answer
+      $textOtherOption = isset($answerData['text']) ? $answerData['text'] : NULL; // Probably null, i dont care
       $answer = AnsweredWithOption::createNewAnswerFor($respondent,$this->getQuestionnaire(),$this,$optionSelected,$textOtherOption);
+
+      return $answer;
   }
 }

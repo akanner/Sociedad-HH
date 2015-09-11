@@ -3,13 +3,13 @@
 namespace App\Models;
 
 /**
- * Represents an answer of a multiplechoiceQuestion
+ * Represents an answer of a MultipleSelectionQuestion
  */
-class AnsweredWithOption extends UserAnswer
+class AnsweredWithSelectionOption extends UserAnswer
 {
   public function option()
   {
-    return $this->belongsTo("App\Models\MultipleChoiceOption",'multiple_choice_option_id');
+    return $this->belongsTo("App\Models\MultipleSelectionOption",'multiple_selection_option_id');
   }
 
   public function getOption()
@@ -17,7 +17,7 @@ class AnsweredWithOption extends UserAnswer
       return $this->option()->first();
   }
 
-  public function setOption(MultipleChoiceOption $option)
+  public function setOption(MultipleSelectionOption $option)
   {
       $this->option()->associate($option);
   }
@@ -40,12 +40,12 @@ class AnsweredWithOption extends UserAnswer
    * @param MultipleChoiceOption    the option selected by the user
    * @param string||null            if the option is flagged as "otherOption" this is the value of that answer
    *
-   * @return AnsweredWithOption
+   * @return AnsweredWithSelectionOption
    */
-  public static function createNewAnswerFor(QuestionnaireRespondent $respondent, Questionnaire $questionnaire, Question $question, MultipleChoiceOption $optionSelected, $textOtherOption=NULL)
+  public static function createNewAnswerFor(QuestionnaireRespondent $respondent, Questionnaire $questionnaire, Question $question, MultipleSelectionOption $optionSelected, $answerValue)
   {
-      $newAnswer = new AnsweredWithOption();
-      $newAnswer->setAnswer($textOtherOption);
+      $newAnswer = new AnsweredWithSelectionOption();
+      $newAnswer->setAnswer($answerValue);
       $newAnswer->setOption($optionSelected);
       $newAnswer->setRespondent($respondent);
       $newAnswer->setQuestion($question);

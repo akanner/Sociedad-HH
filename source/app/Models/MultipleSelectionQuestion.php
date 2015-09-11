@@ -4,6 +4,9 @@ namespace App\Models;
 
 use App\Models\Question;
 
+/**
+ * Represents a question with subquestions with only one answer each.
+ */
 class MultipleSelectionQuestion extends Question {
 
     public $with = "subquestions";
@@ -25,16 +28,23 @@ class MultipleSelectionQuestion extends Question {
     }
 
     public function getDecodedPossibleAnswers() {
-        return json_decode($this->getPossibleAnswers(), true);
+        return json_decode($this->getPossibleAnswers());
     }
 
     public function getTemplateName() {
         return 'pages.questionnaires.templates.multipleSelectionQuestion';
     }
 
-    public function createNewAnswerForMyself($respondent,$answerData)
-    {
-        //do nothing
+    public function createNewAnswerForMyself($respondent,$answerData) {
+        $answers = [];
+        foreach ($answerData as $optionId => $answerValue) {
+            // Gets the selected option
+            $optionSelected = MultipleSelectionOption::find($optionId);
+            // Saves the answer
+            $answers[] = AnsweredWithSelectionOption::createNewAnswerFor($respondent,$this->getQuestionnaire(),$this,$optionSelected, $answerValue["option"]);
+        }
+
+        return $answers;
     }
 
 }

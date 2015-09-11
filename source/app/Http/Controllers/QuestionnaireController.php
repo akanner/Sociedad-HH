@@ -56,6 +56,7 @@ class QuestionnaireController extends Controller
         $email = $request->input(self::REQUEST_PARAM_EMAIL);
         $userName = $request->input(self::REQUEST_PARAM_NAME);
         $questionnaireId = $request->input(self::REQUEST_PARAM_QUESTIONNAIRE_ID);
+
         // Build an object with all the parameters
         $questionnaireInfo = $this->buildQuestionnaireInfo($email,$userName,$questionnaireId,$parametersOfTheQuestions);
 
@@ -72,7 +73,7 @@ class QuestionnaireController extends Controller
             , ["userMessage" => 'mira como esta esa milanga papaaaa'],
             $attachedFilePath,
             $questionnaire->getAttachedFileLogicalName()
-            );
+        );
 
         return view("confirmations.confirmationMessage", [
             "message" => "¡Gracias por completar la encuesta, un mail le llegara pronto!",
@@ -92,10 +93,11 @@ class QuestionnaireController extends Controller
      */
     public function persistCompletedQuestionnaire($questionnaireInfo)
     {
-        //finds the user who has completed the questionnaire or creates a new one
+        // Finds the user who has completed the questionnaire or creates a new one
         $emailKey = self::EMAIL_KEY;
         $email = $questionnaireInfo->$emailKey;
-        //gets the respondent
+
+        // Gets the respondent
         $respondent = QuestionnaireRespondent::findFirstWithEmailOrNew($email);
         //-----------------------------------------------------------------------
         // if the user didn't have a name, sets it with the request's parameter, even if it's blank (no need for validation)
@@ -103,6 +105,7 @@ class QuestionnaireController extends Controller
             $respondent->setName($questionnaireInfo->userName);
             $respondent->save();
         }
+
         //-----------------------------------------------------------------------
         // // Gets the questionnaire
         // $questionnaireKey   =  self::REQUEST_PARAM_QUESTIONNAIRE_ID;

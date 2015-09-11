@@ -1,4 +1,4 @@
-<p>{{$questionNumber}}.{{$question->getDescription()}}</p>
+<p>{{$questionNumber}}. {{$question->getDescription()}}</p>
 <div class="question-images-wrapper clearfix">
     @foreach ($question->getPictures() as $picture)
     <div class="question-img">

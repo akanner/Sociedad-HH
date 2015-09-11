@@ -280,13 +280,6 @@ class PictureTableSeeder extends Seeder
 
         Picture::create(
             array(
-                'path'=>'jazz_bass-wallpaper-1600x900.jpg',
-                'question_id'=>1
-            )
-        );
-
-        Picture::create(
-            array(
                 'path'=>'cuestionario1.png',
                 'question_id'=>2
             )

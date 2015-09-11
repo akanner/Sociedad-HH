@@ -24,6 +24,7 @@ class QuestionnaireResponseDeserializer
         $questionnaireInfo->userName = $userName;
         $questionnaireInfo->questionnaireId = $questionnaireId;
         $questionnaireInfo->questions = $this->processQuestionParameters($parametersOfTheQuestions);
+
         return $questionnaireInfo;
     }
 
