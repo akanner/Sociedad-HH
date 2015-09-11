@@ -22,7 +22,8 @@ class CreateQuestionnairesTable extends Migration
             $table->date('activeFrom');
             $table->date('activeTo')->nullable();
 
-            $table->text('attachedFile')->nullable();
+            $table->text('attachedFilePhysicalName')->nullable();
+            $table->text('attachedFileLogicalName')->nullable();
 
             $table->boolean('active')->default(FALSE);
             $table->boolean('locked')->default(FALSE);

@@ -7,6 +7,7 @@ use App\Models\QuestionnaireRespondent;
 use App\Models\MultipleChoiceOption;
 use App\Models\AnsweredWithOption;
 use App\Models\QuestionnaireResponseDeserializer;
+use App\Utils\PathHelper;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use \StdClass as StdClass;
@@ -62,10 +63,17 @@ class QuestionnaireController extends Controller
 
 
         $questionnaire = Questionnaire::find($questionnaireId);
-        $rootPath                    = dirname (dirname (dirname (dirname(__DIR__))));
-        $uploadedFilesPath           = $rootPath . "/public/uploaded";
-        $attachedFilePath = $uploadedFilesPath . "/" . $questionnaire->getAttachedFilePath();
-        MailHelper::getInstance()->sendMail('agustinkanner@gmail.com','leito.vm3@hotmail.com','Leandro "el duro" Vilas','Testing',"emails.prueba", ["userMessage" => 'quiero almendrado'],$attachedFilePath);
+        $attachedFilePath = PathHelper::getPathToUploaded() . "/" . $questionnaire->getAttachedFilePath();
+        MailHelper::getInstance()->sendMail(
+            'agustinkanner@gmail.com',
+            'leito.vm3@hotmail.com',
+            'Leandro "el duro" Vilas'
+            ,'Testing'
+            ,"emails.prueba"
+            , ["userMessage" => 'mira como esta esa milanga papaaaa'],
+            $attachedFilePath,
+            $questionnaire->getAttachedFileLogicalName()
+            );
 
         return view("confirmations.confirmationMessage", [
             "message" => "¡Gracias por completar la encuesta, un mail le llegara pronto!",
