@@ -39,13 +39,11 @@
 
 <body>
 
-    <div class="container">
-        <!-- Set default header if not overriden -->
-        @yield('header', View::make('layout.header'))
-        @include('layout.nav')
-        @include('layout.bodycontent')
-        @include('layout.footer')
-    </div>
+    <!-- Set default header if not overriden -->
+    @yield('header', View::make('layout.header'))
+    @include('layout.nav')
+    @include('layout.bodycontent')
+    @include('layout.footer')
 
     <script type="application/javascript" src="{{ elixir('js/libraries.js')}}"></script>
     @yield('scripts')
