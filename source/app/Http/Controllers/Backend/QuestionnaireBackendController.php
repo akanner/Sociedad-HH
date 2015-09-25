@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use Exception;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SaveQuestionnaireRequest;
+use App\Http\Requests\ChangeStatusQuestionnaireRequest;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -135,4 +136,15 @@ class QuestionnaireBackendController extends Controller {
     {
     }
     */
+
+    public function flagQuestionnaireAs(ChangeStatusQuestionnaireRequest $request)
+    {
+        $idQuestionnaire =      $request->input("questionnaireId");
+        $questionnaireStatus =  $request->input("status");
+        $questionnaire = Questionnaire::findOrFail($idQuestionnaire);
+        $questionnaire->setActive($questionnaireStatus);
+        $questionnaire->save();
+        return 'true';
+    }
+
 }

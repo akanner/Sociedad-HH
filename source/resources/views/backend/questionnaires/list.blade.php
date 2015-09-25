@@ -21,19 +21,15 @@
             </thead>
             <tbody>
                 @foreach($questionnaires as $key => $questionnaire)
-                    <tr>
+                    <tr data-status='{{$questionnaire->isActive()}}'>
                         <td>{{$questionnaire->id}}</td>
                         <td><a href="/encuestas/{{$questionnaire->id}}">{{$questionnaire->title}}</a></td>
                         <td>{{$questionnaire->activeFrom}}</td>
                         <td>{{$questionnaire->activeTo}}</td>
                         <td>
                             <a class="btn btn-success btn-xs" href="/adminhh/encuestas/reporte/{{$questionnaire->id}}">Reporte</a>
-                            @if($questionnaire->isActive())
-                                <button data-id="{{$questionnaire->id}}" class="btn btn-danger btn-xs delete-questionnaire"type="button" name="delete-questionnaire">Finalizar</button>
-                            @else
-                                <button data-id="{{$questionnaire->id}}"class="btn btn-primary btn-xs delete-questionnaire"type="button">Activar</button>
-                            @endif
-
+                            <button data-url="/adminhh/encuestas/flagQuestionnaireAs" data-id="{{$questionnaire->id}}" class="btn btn-danger btn-xs delete-questionnaire hidden"type="button">Finalizar</button>
+                            <button data-url="/adminhh/encuestas/flagQuestionnaireAs" data-id="{{$questionnaire->id}}" class="btn btn-primary btn-xs activate-questionnaire hidden" type="button" >Activar</button>
                         </td>
                     </tr>
                 @endforeach
@@ -46,4 +42,11 @@
 @endsection
 @section("scripts")
     <script type="application/javascript" src="{{elixir('js/listActions.js')}}"></script>
+    <script type="text/javascript">
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': "{{csrf_token()}}"
+        }
+    });
+    </script>
 @endsection
