@@ -1,57 +1,45 @@
+/* jshint bitwise: false, camelcase: true, curly: true, eqeqeq: true, globals: false, freeze: true, immed: true, nocomma: true, newcap: true, noempty: true, nonbsp: true, nonew: true, quotmark: double, undef: true, unused: true, strict: true, latedef: true */
+
+/* globals $, console */
+
 $(function() {
+    "use strict";
 
+    // Show the finish or activate button for each questionnaire
+    $.each($("tr.questionnaire-row"), function() {
+        var isActive = $(this).data("status"),
+            elementToShow = isActive ? $(this).find(".delete-questionnaire") : $(this).find(".activate-questionnaire");
 
-    //TODO agregar una calse al tr y preguntar en un each si esta activo o no
-    function deleteQuestionnaire(id,url)
-    {
-        return $.post( url, { 'questionnaireId': id, 'status': 0 } );
+        elementToShow.show();
+    });
+
+    function flagQuestionnaireAs(domElement, status) {
+        var url = domElement.data("url"),
+            id = domElement.siblings("a").data("id");
+
+        return $.post( url, { "questionnaireId": id, "status": status } );
     }
-
-    function activateQuestionnaire(id,url)
-    {
-        return $.post( url, { 'questionnaireId': id, 'status': 1 } );
-    }
-
-    function showButtonForActivation(htmlElement)
-    {
-        $(htmlElement).find(".activate-questionnaire").show();
-        $(htmlElement).find(".delete-questionnaire").hide();
-    }
-
-    function showButtonForDeletion(htmlElement)
-    {
-        $(htmlElement).find(".activate-questionnaire").hide();
-        $(htmlElement).find(".delete-questionnaire").show();
-    }
-
 
     $(".delete-questionnaire").click(function()
     {
-        var url = $(this).data("url");
-        var questionnaireId = $(this).data("id");
-        var myParent =$(this).parent();
-        deleteQuestionnaire(questionnaireId,url).done(
-            function(response)
-            {
-                showButtonForActivation(myParent);
+        var myParent = $(this).parent();
+        flagQuestionnaireAs($(this), 0).done(
+            function() {
+                myParent.find(".activate-questionnaire").show();
+                myParent.find(".delete-questionnaire").hide();
             }
         );
     });
 
     $(".activate-questionnaire").click(function()
     {
-        var url = $(this).data("url");
-        var questionnaireId = $(this).data("id");
-        var myParent =$(this).parent();
-        activateQuestionnaire(questionnaireId,url).done(
-            function(response)
-            {
-                console.log(myParent);
-                showButtonForDeletion(myParent);
+        var myParent = $(this).parent();
+        flagQuestionnaireAs($(this), 1).done(
+            function() {
+                myParent.find(".activate-questionnaire").hide();
+                myParent.find(".delete-questionnaire").show();
             }
         );
     });
-
-
 
 });

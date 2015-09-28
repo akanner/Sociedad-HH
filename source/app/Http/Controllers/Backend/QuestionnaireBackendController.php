@@ -63,8 +63,10 @@ class QuestionnaireBackendController extends Controller {
 
     public function listAll() {
         $questionnaires = Questionnaire::all();
-        return view("backend.questionnaires.list",
-        ['questionnaires' => $questionnaires]);
+
+        return view("backend.questionnaires.list", [
+            'questionnaires' => $questionnaires
+        ]);
     }
 
     public function report($id)
@@ -122,19 +124,19 @@ class QuestionnaireBackendController extends Controller {
     }
 
     /*
-    Verifying File Presence
+        Verifying File Presence
 
-    You may also determine if a file is present on the request using the hasFile method:
+        You may also determine if a file is present on the request using the hasFile method:
 
-    if ($request->hasFile('photo')) {
-    }
-    Validating Successful Uploads
+        if ($request->hasFile('photo')) {
+        }
+        Validating Successful Uploads
 
-    In addition to checking if the file is present, you may verify that there were no problems uploading the file via the isValid method:
+        In addition to checking if the file is present, you may verify that there were no problems uploading the file via the isValid method:
 
-    if ($request->file('photo')->isValid())
-    {
-    }
+        if ($request->file('photo')->isValid())
+        {
+        }
     */
 
     public function flagQuestionnaireAs(ChangeStatusQuestionnaireRequest $request)
@@ -144,6 +146,7 @@ class QuestionnaireBackendController extends Controller {
         $questionnaire = Questionnaire::findOrFail($idQuestionnaire);
         $questionnaire->setActive($questionnaireStatus);
         $questionnaire->save();
+
         return 'true';
     }
 

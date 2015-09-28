@@ -1,5 +1,5 @@
 @extends('layout.main')
-@section('title') Completar Encuesta :: @parent @stop
+@section('title') Completar Cuestionario :: @parent @stop
 
 @section('content')
 
@@ -8,8 +8,8 @@
 
         <div class="page-intro-wrapper">
             <h4>{{ $questionnaire->getHeading() }}</h4>
-            <h3>{{$questionnaire->getTitle()}}</h3>
-            <p>{{$questionnaire->getDescription()}}</p>
+            <h3>{{ $questionnaire->getTitle() }}</h3>
+            <p>{{ $questionnaire->getDescription() }}</p>
         </div>
 
         {!! Form::open(array('action' => 'QuestionnaireController@completeQuestionnaire', 'class' => 'stylish-form')) !!}
