@@ -15,21 +15,19 @@
                     <th>#</th>
                     <th>Nombre</th>
                     <th>Activa Desde</th>
-                    <th>Finalizada el</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($questionnaires as $key => $questionnaire)
-                    <tr data-status='{{$questionnaire->isActive()}}'>
+                    <tr class="questionnaire-row" data-status='{{$questionnaire->isActive()}}'>
                         <td>{{$questionnaire->id}}</td>
                         <td><a href="/encuestas/{{$questionnaire->id}}">{{$questionnaire->title}}</a></td>
                         <td>{{$questionnaire->activeFrom}}</td>
-                        <td>{{$questionnaire->activeTo}}</td>
                         <td>
-                            <a class="btn btn-success btn-xs" href="/adminhh/encuestas/reporte/{{$questionnaire->id}}">Reporte</a>
-                            <button data-url="/adminhh/encuestas/flagQuestionnaireAs" data-id="{{$questionnaire->id}}" class="btn btn-danger btn-xs delete-questionnaire hidden"type="button">Finalizar</button>
-                            <button data-url="/adminhh/encuestas/flagQuestionnaireAs" data-id="{{$questionnaire->id}}" class="btn btn-primary btn-xs activate-questionnaire hidden" type="button" >Activar</button>
+                            <a class="btn btn-success btn-xs" data-id="{{$questionnaire->id}} href="/adminhh/encuestas/reporte/{{$questionnaire->id}}">Reporte</a>
+                            <button data-url="/adminhh/encuestas/flagQuestionnaireAs" class="btn btn-danger btn-xs delete-questionnaire" type="button">Finalizar</button>
+                            <button data-url="/adminhh/encuestas/flagQuestionnaireAs" class="btn btn-primary btn-xs activate-questionnaire" type="button" >Activar</button>
                         </td>
                     </tr>
                 @endforeach
