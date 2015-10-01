@@ -48,4 +48,18 @@ class MailHelper
 
         });
     }
+
+    public function queueMail($from,$to,$senderName,$subject,$mailTemplate,$templateVariablesArray,$attachedFile,$logicalName)
+    {
+        Mail::queue($mailTemplate,$templateVariablesArray, function ($mail) use ($to,$from, $senderName, $subject,$attachedFile,$logicalName) {
+            $mail->from($from, $senderName)
+                    ->to($to)
+                    ->subject($subject);
+            if($attachedFile != null && $logicalName != null)
+            {
+                $mail->attach($attachedFile,['as'=>$logicalName]);
+            }
+
+        },"mails");
+    }
 }
