@@ -9,7 +9,11 @@
         <div class="page-intro-wrapper">
             <h4>CUENTEN CON NOSOTROS</h4>
             <h3>CONTACTO</h3>
-            <p>Explicacion breve: Jwqvfliywesafcvsavx ch ujasx yeqaisfc saxzvieasd cxuvascixuz ujasjxz ceiqwfsc uevwdc x veidas xzj idavsx ievsciv dsuxvic uevsiced xjevc vdc eidsafobqes ageifas c dosvqke ivoiwevdsxjqwisocvjhw edj. Mbfiew iebf egd gi as iuwisac isuadvc usaic uvsdiuv udi buds bwisdbv sdgj irfdgibs.</p>
+            <p>
+                A través de esta sección la Sociedad de Hematología y Hemoterapia de La Plata lo
+                invita a dejar sus comentarios, dudas y/o consultas que tenga. A la brevedad recibirá una
+                respuesta.
+            </p>
         </div>
 
         {!! Form::open(array('action' => 'ContactController@sendEmail', 'class' => 'stylish-form')) !!}

@@ -4,7 +4,7 @@
         <ul>
             <li class="icon-text">
                 <img src="{{asset('img/footer/icon-phone.png')}}" alt="Tel&eacute;fono de contacto">
-                <span>221 4226588</span>
+                <span>0221-4225111</span>
             </li>
             <li class="icon-text">
                 <img src="{{asset('img/footer/icon-email.png')}}" alt="Email de contacto">
@@ -12,7 +12,7 @@
             </li>
             <li class="icon-text">
                 <img src="{{asset('img/footer/icon-location.png')}}" alt="Direcci&oacute; de contacto">
-                <span>Calle falsa N123</span>
+                <span>50 n° 374 e/ 2 y 3</span>
             </li>
         </ul>
     </div>
