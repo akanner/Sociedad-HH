@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Models\Question;
 
+use stdClass;
+
 /**
  * Represents a question with subquestions with only one answer each.
  */
@@ -45,6 +47,10 @@ class MultipleSelectionQuestion extends Question {
         }
 
         return $answers;
+    }
+
+    public function getReportInformation() {
+        return new stdClass();
     }
 
 }

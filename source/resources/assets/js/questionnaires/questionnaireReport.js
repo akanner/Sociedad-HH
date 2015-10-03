@@ -38,6 +38,8 @@ $(function () {
     var questionChartElement = $(".question-chart"),
         reportInfo = JSON.parse($("#report-info").val().trim());
 
+    console.log(reportInfo);
+
     // Removes the info input from the DOM
     $("#report-info").remove();
 
