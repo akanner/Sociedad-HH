@@ -1,33 +1,37 @@
 @import "questionnaires.less";
 @import "reports.less";
 
-#page-wrapper {
-    padding-bottom: 30px;
-}
+.backend-container {
 
-.navbar-right {
-    li.dropdown {
-        a {
-            color: #eee;
-            &:hover {
-                background-color: @main-red;
+    #page-wrapper {
+        padding-bottom: 30px;
+    }
+
+    .navbar-right {
+        li {
+            a {
+                color: #eee;
+                &:hover,
+                &:active,
+                &:focus {
+                    background-color: @main-red;
+                }
             }
         }
     }
-}
 
-.sidebar {
-    a {
-        color: @main-black;
-        font-size: 13px;
-
-        i.fa {
-            color: @main-red;
+    .sidebar {
+        a {
+            color: @main-black;
+            font-size: 13px;
+            i.fa {
+                color: @main-red;
+            }
         }
     }
-}
 
-a.navbar-brand img {
-    position: relative;
-    bottom: 8px;
+    a.navbar-brand img {
+        position: relative;
+        bottom: 8px;
+    }
 }
