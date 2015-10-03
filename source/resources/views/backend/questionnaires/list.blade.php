@@ -6,6 +6,7 @@
 @endsection
 
 @section("content")
+
     <div class="questionnaires-table">
         <table class="table-striped table">
             <thead>
@@ -33,8 +34,6 @@
             </tbody>
         </table>
     </div>
-</div>
-
 
 @endsection
 
