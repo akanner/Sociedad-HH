@@ -5,7 +5,7 @@
     <div class="row">
 
         <div class="page-intro-wrapper">
-            <h4>AUTORIDADES</h4>
+            <h4>AUTORIDADES 2015</h4>
             <h3>TRABAJO EN EQUIPO</h3>
             <p>La Sociedad de Hematología y Hemoterapia de La Plata es una asociación sin fines de lucro que reúne de forma voluntaria a profesionales de la hematología y hemoterapia de la localidad platense y sus alrededores.</p>
         </div>

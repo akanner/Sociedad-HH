@@ -54,8 +54,12 @@ class QuestionnairesTableSeeder extends Seeder
         Questionnaire::create(
           array(
             'title'=>'ENCUESTA A LA SOCIEDAD DE HEMATOLOGOS',
-            'description'=> 'La Sociedad de Hematología y Hemoterapia de La Plata ha desarrollado la siguiente encuesta que tiene como objetivo conocer el razonamiento médico del especialista ante ciertas patologías.
-Les pedimos que se tomen únicamente cinco minutos para contestarla, ya que su respuesta colaborará con la elaboración de contenidos que enriquezcan la formación profesional.',
+            'description'=> 'La Sociedad de Hematología y Hemoterapia de La Plata ha desarrollado la siguiente
+            encuesta que tiene como objetivo conocer el razonamiento médico del especialista ante
+            ciertas patologías. </br>
+            Les pedimos que se tomen únicamente cinco minutos para contestarla, ya que su
+            respuesta colaborará con la elaboración de contenidos que enriquezcan la formación
+            profesional.',
             'heading' => "CONSTRUYAMOS NUESTRO CONOCIMIENTO",
             'activeFrom' => date("2015-07-31"),
             'activeTo'=>null,
@@ -663,7 +667,7 @@ class EmailsTableSeeder extends Seeder
             'address'=>'leito.vm3@hotmail.com',
             'questionnaire_respondent_id' => 1
         ));
-        
+
         Email::create(array( 'address'=>'kleingra@speedy.com.ar' ));
         Email::create(array( 'address'=>'britinez@yahoo.com.ar' ));
         Email::create(array( 'address'=>'sandraargello@hotmail.com' ));
