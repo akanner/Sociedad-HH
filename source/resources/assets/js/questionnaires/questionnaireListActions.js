@@ -42,4 +42,17 @@ $(function() {
         );
     });
 
+    $(".invite-user").click(function()
+    {
+        inviteUser($(this));
+
+    });
+
+    function inviteUser(domElement)
+    {
+        var url =domElement.data("url");
+        console.log(url);
+        return $.get(url);
+    }
+
 });

@@ -24,9 +24,9 @@
                     <td>{{$questionnaire->activeFrom}}</td>
                     <td>
                         <a class="btn btn-success btn-xs" data-id="{{$questionnaire->id}}" href="/adminhh/encuestas/reporte/{{$questionnaire->id}}">Reporte</a>
-                        <button data-url="/adminhh/encuestas/sendInvitations/{{$questionnaire->id}}" class="btn btn-default btn-xs" data-id="{{$questionnaire->id}}">Invitar</button>
                         <button data-url="/adminhh/encuestas/flagQuestionnaireAs" class="btn btn-danger btn-xs delete-questionnaire" type="button">Finalizar</button>
                         <button data-url="/adminhh/encuestas/flagQuestionnaireAs" class="btn btn-primary btn-xs activate-questionnaire" type="button" >Activar</button>
+                        <button class="btn btn-default invite-user btn-xs" data-url="/adminhh/encuestas/invitar/{{$questionnaire->id}}" type="button">Invitar</button>
                     </td>
                 </tr>
                 @endforeach

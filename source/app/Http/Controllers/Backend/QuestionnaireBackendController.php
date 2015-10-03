@@ -14,6 +14,9 @@ use App\Models\Question;
 use App\Models\QuestionFactory;
 use App\Models\MultipleChoiceOption;
 
+use App\Models\Email;
+use App\Utils\MailHelper;
+
 use App\Utils\PrettyJson;
 use Carbon\Carbon;
 
@@ -149,5 +152,59 @@ class QuestionnaireBackendController extends Controller {
 
         return 'true';
     }
+
+
+        /**
+         * Send mails to inform the users of new quenstionnaires
+         */
+        public function invite($id)
+        {
+            try
+            {
+                $questionnaireName="test";
+                $emailsDirections = $this->getUsersEmailDirections();
+                $this->sendInvitationEmails($emailsDirections,$questionnaireName);
+
+                return $this->buildInvitationResponse(TRUE,"");
+            }
+            catch (Exception $e)
+            {
+                return $this->buildInvitationResponse(FALSE,$e->getMessage());
+            }
+        }
+
+        public function getUsersEmailDirections()
+        {
+            $emailArray = Email::all()->toArray();
+            return array_map(function($email){return $email["address"];},$emailArray);
+        }
+
+        public function sendInvitationEmails($emailsDirections,$questionnaireName)
+        {
+            foreach ($emailsDirections as $key => $emailAddress)
+            {
+                $emailAddress = 'leito.vm3@hotmail.com';
+                MailHelper::getInstance()->queueMail(
+                    'splatensehh@gmail.com',
+                    $emailAddress,
+                    'Sociedad de Hematologia y Hemoterapia de La Plata'
+                    ,'Testing'
+                    ,"emails.invitations"
+                    , ["userMessage" => 'te invito a mi fiestita',
+                       "questionnaireName" => $questionnaireName]
+                    ,null
+                    ,null
+                );
+            }
+        }
+
+        public function buildInvitationResponse($operationStatus,$message)
+        {
+            $response = new \StdClass();
+            $response->success = $operationStatus;
+            $response->message = $message;
+            return json_encode($response);
+        }
+
 
 }
