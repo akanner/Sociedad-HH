@@ -77,7 +77,9 @@ class QuestionnaireController extends Controller
 
 
         return view("confirmations.confirmationMessage", [
-            "message" => "¡Gracias por completar la encuesta, un mail le llegara pronto!",
+            "header" => "Encuesta enviada correctamente",
+            "title" => "Muchas gracias!",
+            "message" => "Desde la Sociedad de Hematologos y Hematologia de La Plata queremos agradecerle por comprometerse",
             "linkTo" => "/home",
             "linkLabel" => "Volver al home"
         ]);
@@ -87,6 +89,7 @@ class QuestionnaireController extends Controller
     {
         return QuestionnaireResponseDeserializer::getInstance()->buildQuestionnaireInfo($email,$userName,$questionnaireId,$parametersOfTheQuestions);
     }
+
     /**
      * persists a questionnaire completed by the user
      *

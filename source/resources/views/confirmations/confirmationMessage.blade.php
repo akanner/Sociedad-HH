@@ -1,9 +1,11 @@
 @extends('layout.main')
-@section('title') Contacto :: @parent @endsection
+@section('title') Confirmaci&oacute;n :: @parent @endsection
 
 @section('content')
-    <div class="simple-confirmation-wrapper">
-        <h1>{{ $message }}</h1>
-        <a href="{{ $linkTo }}" class="btn btn-danger">{{ $linkLabel }}</a>
+    <div class="page-intro-wrapper">
+        <h4>{{ $header }}</h4>
+        <h3>{{ $title }}</h3>
+        <p>{{ $message }}</p>
     </div>
+    <a href="{{ $linkTo }}" class="btn default-button">{{ $linkLabel }}</a>
 @endsection
