@@ -44,7 +44,13 @@ $(function() {
 
     $(".invite-user").click(function()
     {
-        inviteUser($(this));
+        inviteUser($(this)).
+        done(
+            function()
+            {
+                alert("Invitaciones enviadas");
+            }
+        );
 
     });
 
