@@ -663,7 +663,7 @@ class EmailsTableSeeder extends Seeder
             'address'=>'leito.vm3@hotmail.com',
             'questionnaire_respondent_id' => 1
         ));
-        /*
+        
         Email::create(array( 'address'=>'kleingra@speedy.com.ar' ));
         Email::create(array( 'address'=>'britinez@yahoo.com.ar' ));
         Email::create(array( 'address'=>'sandraargello@hotmail.com' ));
@@ -724,7 +724,7 @@ class EmailsTableSeeder extends Seeder
         Email::create(array( 'address'=>'biolmol_ludovica@hotmail.com' ));
         Email::create(array( 'address'=>'sebastianisnardi@hotmail.com' ));
         Email::create(array( 'address'=>'spplatensehh@gmail.com' ));
-        */
+
     }
 }
 

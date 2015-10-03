@@ -183,7 +183,6 @@ class QuestionnaireBackendController extends Controller {
         {
             foreach ($emailsDirections as $key => $emailAddress)
             {
-                $emailAddress = 'leito.vm3@hotmail.com';
                 MailHelper::getInstance()->queueMail(
                     'splatensehh@gmail.com',
                     $emailAddress,
