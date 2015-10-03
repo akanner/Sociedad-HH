@@ -61,13 +61,13 @@ class QuestionnaireController extends Controller
         $questionnaireInfo = $this->buildQuestionnaireInfo($email,$userName,$questionnaireId,$parametersOfTheQuestions);
 
         $this->persistCompletedQuestionnaire($questionnaireInfo);
-
+        //$email = MailHelper::getInstance()->getEmailAddressAccordingToEnviroment($email);
         $questionnaire = Questionnaire::find($questionnaireId);
         $attachedFilePath = PathHelper::getPathToUploaded() . "/" . $questionnaire->getAttachedFilePath();
             MailHelper::getInstance()->queueMail(
-                'agustinkanner@gmail.com',
-                'leito.vm3@hotmail.com',
-                'Leandro "el duro" Vilas'
+                'splatensehh@gmail.com',
+                $email,
+                'Sociedad de Hematologia y Hemoterapia de La Plata'
                 ,'Testing'
                 ,"emails.prueba"
                 , ["userMessage" => 'aguante la queue'],
