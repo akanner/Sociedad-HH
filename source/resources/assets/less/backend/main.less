@@ -1,10 +1,33 @@
 @import "questionnaires.less";
 @import "reports.less";
 
-nav.backend-nav {
-    margin-bottom: 30px;
+#page-wrapper {
+    padding-bottom: 30px;
+}
 
-    .container {
-        padding-left: 25px;
+.navbar-right {
+    li.dropdown {
+        a {
+            color: #eee;
+            &:hover {
+                background-color: @main-red;
+            }
+        }
     }
+}
+
+.sidebar {
+    a {
+        color: @main-black;
+        font-size: 13px;
+
+        i.fa {
+            color: @main-red;
+        }
+    }
+}
+
+a.navbar-brand img {
+    position: relative;
+    bottom: 8px;
 }

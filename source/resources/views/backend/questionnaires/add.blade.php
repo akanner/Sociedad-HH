@@ -1,12 +1,11 @@
 @extends("backend.layout.main")
 @section("title") Administraci&oacute;n :: @parent @endsection
 
-@section("content")
+@section("page-header")
+    Nuevo cuestionario
+@endsection
 
-<div class="row">
-    <div class="header-and-paragraph">
-        <h3>Nuevo cuestionario</h3>
-    </div>
+@section("content")
 
     {!! Form::open(["action" => "Backend\QuestionnaireBackendController@save", "id" => "add-questionnaire-form" ,"class" => "questionnaire-form","enctype" =>"multipart/form-data"]) !!}
 
@@ -59,7 +58,6 @@
         <span class="submit-feedback">Guardando cuestionario...</span>
 
     {!! Form::close() !!}
-</div>
 
 @endsection
 

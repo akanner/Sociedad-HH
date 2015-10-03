@@ -25,8 +25,11 @@
 
 <body>
 
-    @include('backend.layout.nav')
-    @include('backend.layout.bodycontent')
+    <div id="wrapper">
+        @include('backend.layout.nav')
+        @include('backend.layout.bodycontent')
+    </div>
+    <!-- /#wrapper -->
 
     <script type="application/javascript" src="{{ elixir('js/libraries.js')}}"></script>
     @yield('scripts')

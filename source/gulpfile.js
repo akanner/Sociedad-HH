@@ -20,11 +20,11 @@ var elixir = require("laravel-elixir");
 
 elixir(function (mix) {
     mix.less("main.less", "public/css/main.css")
-       .scripts(["jquery-2.1.4.min.js", "bootstrap.min.js", "Chart.min.js"], "public/js/libraries.js")
+       .scripts(["jquery-2.1.4.min.js", "bootstrap.min.js", "Chart.min.js", "metisMenu.min.js", "sb-admin-2.js"], "public/js/libraries.js")
        .scripts(["questionnaires/formQuestionnaire.js"], "public/js/questionnaires.js")
        .scripts(["questionnaires/questionnaireReport.js"], "public/js/reps.js")
        .scripts(["questionnaires/questionnaireListActions.js"],"public/js/listActions.js")
-       .styles(["bootstrap.min.css"], "public/css/libraries.css")
+       .styles(["bootstrap.min.css", "font-awesome.min.css", "metisMenu.min.css", "sb-admin-2.css"], "public/css/libraries.css")
        .version([
             "public/css/main.css",
             "public/css/libraries.css",
