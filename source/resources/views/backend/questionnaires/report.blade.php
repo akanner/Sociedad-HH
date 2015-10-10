@@ -10,7 +10,9 @@
     <input type="hidden" id="report-info" value="{{ $questionnaireReport }}" />
     <div class="question-chart">
         <h5 class="title"></h5>
-        <canvas class="chart" width="400" height="250"></canvas>
+        <div class="chart-wrapper">
+            <canvas class="chart" width="400" height="250"></canvas>
+        </div>
     </div>
 
 @endsection
