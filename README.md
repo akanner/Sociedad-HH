@@ -88,3 +88,7 @@ Desde consola, en el root del proyecto, tirar:
 composer dumpautoload
 gulp
 php artisan migrate:refresh --seed
+
+### Correr las colas
+
+php artisan queue:listen --queue=emails
