@@ -2,6 +2,26 @@
 
 /* globals $, console */
 
+function inviteUser(domElement)
+{
+    swal({
+        title: "¿Enviar Mails?",
+        text: "Está a punto de enviar un mail a todos los contactos registados, está seguro?",
+        type: "info",
+        showCancelButton: true,
+        closeOnConfirm: false,
+        showLoaderOnConfirm: true},
+        function(){
+            var url =domElement.data("url");
+            console.log(url);
+            return $.get(url).done(function()
+            {
+                swal("Listo!", "Los emails han sido enviados.", "success");
+            });
+        }
+    );
+}
+
 $(function() {
     "use strict";
 
@@ -44,21 +64,6 @@ $(function() {
 
     $(".invite-user").click(function()
     {
-        inviteUser($(this)).
-        done(
-            function()
-            {
-                alert("Invitaciones enviadas");
-            }
-        );
-
+        inviteUser($(this));
     });
-
-    function inviteUser(domElement)
-    {
-        var url =domElement.data("url");
-        console.log(url);
-        return $.get(url);
-    }
-
-});
+})
