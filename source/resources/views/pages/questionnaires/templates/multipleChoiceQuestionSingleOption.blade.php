@@ -3,7 +3,8 @@
     <div class="multiple-question-option-wrapper">
         <div class="radio">
             <label>
-                {!! Form::radio("question_" . $question->id . "[option]", $option->id, FALSE, ["required"]); !!} {{$option->getDescription()}}
+                {!! Form::radio("question_" . $question->id . "[option]", $option->id, FALSE, ["required"]); !!}
+                {{$option->getDescription()}}
                 @include("pages.questionnaires.templates.otherOption",["option" => $option,"question" => $question])
             </label>
         </div>

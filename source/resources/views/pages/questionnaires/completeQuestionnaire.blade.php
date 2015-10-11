@@ -9,7 +9,7 @@
         <div class="page-intro-wrapper">
             <h4>{{ $questionnaire->getHeading() }}</h4>
             <h3>{{ $questionnaire->getTitle() }}</h3>
-            <p>{{ $questionnaire->getDescription() }}</p>
+            <p>{!! $questionnaire->getDescription() !!}</p>
         </div>
 
         {!! Form::open(array('action' => 'QuestionnaireController@completeQuestionnaire', 'class' => 'stylish-form')) !!}

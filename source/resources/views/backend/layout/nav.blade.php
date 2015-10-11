@@ -16,7 +16,7 @@
     <ul class="nav navbar-top-links navbar-right">
         <li>
             <a href="/auth/logout">
-                <i class="fa fa-sign-out fa-fw"></i> Logout
+                <i class="fa fa-sign-out fa-fw"></i> Salir
             </a>
         </li>
         <!-- /.dropdown -->
