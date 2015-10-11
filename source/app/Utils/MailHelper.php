@@ -6,6 +6,7 @@ use Mail;
  */
 class MailHelper
 {
+
   /**
    * Call this method to get singleton
    *
@@ -17,6 +18,7 @@ class MailHelper
       if ($inst === null) {
           $inst = new MailHelper();
       }
+
       return $inst;
   }
 
@@ -24,11 +26,11 @@ class MailHelper
      * Private ctor so nobody else can instance it
      *
      */
-    private function __construct()
-    {
+    private function __construct() {}
 
+    public function getMyEmailAddress() {
+        return "splatensehh@gmail.com";
     }
-
 
     public function sendMailAsync()
     {
