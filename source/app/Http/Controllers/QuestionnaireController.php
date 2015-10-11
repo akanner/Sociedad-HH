@@ -64,17 +64,18 @@ class QuestionnaireController extends Controller
         //$email = MailHelper::getInstance()->getEmailAddressAccordingToEnviroment($email);
         $questionnaire = Questionnaire::find($questionnaireId);
         $attachedFilePath = PathHelper::getPathToUploaded() . "/" . $questionnaire->getAttachedFilePath();
-            MailHelper::getInstance()->queueMail(
-                'splatensehh@gmail.com',
-                $email,
-                'Sociedad de Hematologia y Hemoterapia de La Plata'
-                ,'Testing'
-                ,"emails.prueba"
-                , ["userMessage" => 'aguante la queue'],
-                $attachedFilePath,
-                $questionnaire->getAttachedFileLogicalName()
-            );
 
+        $mailHelper = MailHelper::getInstance();
+        $mailHelper->queueMail(
+            $mailHelper->getMyEmailAddress(),
+            $email,
+            'Sociedad de Hematologia y Hemoterapia de La Plata'
+            ,'Testing'
+            ,"emails.prueba"
+            , ["userMessage" => 'aguante la queue'],
+            $attachedFilePath,
+            $questionnaire->getAttachedFileLogicalName()
+        );
 
         return view("confirmations.confirmationMessage", [
             "header" => "Encuesta enviada correctamente",

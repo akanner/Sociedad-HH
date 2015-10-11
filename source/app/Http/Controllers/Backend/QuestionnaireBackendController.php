@@ -154,56 +154,58 @@ class QuestionnaireBackendController extends Controller {
     }
 
 
-        /**
-         * Send mails to inform the users of new quenstionnaires
-         */
-        public function invite($id)
+    /**
+     * Send mails to inform the users of new quenstionnaires
+     */
+    public function invite($id)
+    {
+        try
         {
-            try
-            {
-                $questionnaireName="test";
-                $emailsDirections = $this->getUsersEmailDirections();
-                $this->sendInvitationEmails($emailsDirections,$questionnaireName);
+            $questionnaireName="test";
+            $emailsDirections = $this->getUsersEmailDirections();
+            $this->sendInvitationEmails($emailsDirections,$questionnaireName);
 
-                return $this->buildInvitationResponse(TRUE,"");
-            }
-            catch (Exception $e)
-            {
-                return $this->buildInvitationResponse(FALSE,$e->getMessage());
-            }
+            return $this->buildInvitationResponse(TRUE,"");
         }
-
-        public function getUsersEmailDirections()
+        catch (Exception $e)
         {
-            $emailArray = Email::all()->toArray();
-            return array_map(function($email){return $email["address"];},$emailArray);
+            return $this->buildInvitationResponse(FALSE,$e->getMessage());
         }
+    }
 
-        public function sendInvitationEmails($emailsDirections,$questionnaireName)
-        {
-            foreach ($emailsDirections as $key => $emailAddress)
-            {
-                MailHelper::getInstance()->queueMail(
-                    'splatensehh@gmail.com',
-                    $emailAddress,
-                    'Sociedad de Hematologia y Hemoterapia de La Plata'
-                    ,'Testing'
-                    ,"emails.invitations"
-                    , ["userMessage" => 'te invito a mi fiestita',
-                       "questionnaireName" => $questionnaireName]
-                    ,null
-                    ,null
-                );
-            }
-        }
+    public function getUsersEmailDirections()
+    {
+        $emailArray = Email::all()->toArray();
+        return array_map(function($email){return $email["address"];},$emailArray);
+    }
 
-        public function buildInvitationResponse($operationStatus,$message)
+    public function sendInvitationEmails($emailsDirections,$questionnaireName)
+    {
+        foreach ($emailsDirections as $key => $emailAddress)
         {
-            $response = new \StdClass();
-            $response->success = $operationStatus;
-            $response->message = $message;
-            return json_encode($response);
+
+            $mailHelper = MailHelper::getInstance();
+            $mailHelper->queueMail(
+                $mailHelper->getMyEmailAddress(),
+                $emailAddress,
+                'Sociedad de Hematologia y Hemoterapia de La Plata'
+                ,'Testing'
+                ,"emails.invitations"
+                , ["userMessage" => 'te invito a mi fiestita',
+                   "questionnaireName" => $questionnaireName]
+                ,null
+                ,null
+            );
         }
+    }
+
+    public function buildInvitationResponse($operationStatus,$message)
+    {
+        $response = new \StdClass();
+        $response->success = $operationStatus;
+        $response->message = $message;
+        return json_encode($response);
+    }
 
 
 }
