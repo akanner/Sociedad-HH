@@ -28,6 +28,8 @@ class CreateQuestionnairesTable extends Migration
             $table->boolean('active')->default(FALSE);
             $table->boolean('locked')->default(FALSE);
 
+            $table->integer('answersCount')->default(0);
+
             $table->timestamps();
         });
     }

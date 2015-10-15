@@ -125,6 +125,16 @@ class Questionnaire extends Model
         $this->questions()->save($question);
       }
 
+      public function incrementAnswersCount()
+      {
+        $this->answersCount+=1;
+      }
+
+      public function getAnswersCount()
+      {
+        return $this->answersCount;
+      }
+
       public function questions()
       {
         return $this->hasMany("App\Models\Question");
