@@ -37,6 +37,11 @@ class MultipleSelectionQuestion extends Question {
         return 'pages.questionnaires.templates.multipleSelectionQuestion';
     }
 
+    public function getReportTemplateName()
+    {
+        return 'pages.questionnaires.templates.multipleSelectionQuestionTextReport';
+    }
+
     public function createNewAnswerForMyself($respondent,$answerData) {
         $answers = [];
         foreach ($answerData as $optionId => $answerValue) {
@@ -50,7 +55,57 @@ class MultipleSelectionQuestion extends Question {
     }
 
     public function getReportInformation() {
-        return new stdClass();
+        $questionInformation = new stdClass();
+        $questionInformation->description = $this->getDescription();
+        $questionInformation->subquestions = array();
+        foreach ($this->getSubquestions() as $key => $subquestion)
+        {
+            $answersMatrix = $this->getAnswersMatrix();
+            $subquestionJson = new stdClass();
+            $subquestionJson->description = $subquestion->getDescription();
+            $subquestionJson->options = array();
+            foreach ($subquestion->getOptions() as $key => $option) {
+                $optionJson = new StdClass();
+                $optionJson->description=$option->getDescription();
+                $optionJson->answersCount = $answersMatrix[$option->id];
+                $subquestionJson->options[] = $optionJson;
+            }
+            $questionInformation->subquestions[] = $subquestionJson;
+            $questionInformation->reportTemplate = $this->getReportTemplateName();
+            $questionInformation->possibleAnswers = $this->getDecodedPossibleAnswers();
+
+        } ;
+        return $questionInformation;
+
+    }
+    /**
+     * Gets all the answers for this question
+     */
+    private function getAnswersMatrix()
+    {
+        $answers = $this->getAnswers();
+        $answersMatrix = [];
+        foreach ($answers as $key => $answer)
+        {
+            if(!isset($answersMatrix[$answer->multiple_selection_option_id]))
+            {
+                $answersMatrix[$answer->multiple_selection_option_id] = $this->getPossibleAnswersCounters();
+            }
+            $answersMatrix[$answer->multiple_selection_option_id][$answer->answer] +=1;
+        }
+        return $answersMatrix;
+    }
+
+    private function getPossibleAnswersCounters()
+    {
+        $possibleAnswers = json_decode($this->getPossibleAnswers());
+        return  array_reduce($possibleAnswers,
+                function($possibleAnswersArray,$nextPossibleAnswer)
+                {
+                    $possibleAnswersArray[$nextPossibleAnswer->acronym] = 0;
+                    return $possibleAnswersArray;
+                },[]);
+
     }
 
 }

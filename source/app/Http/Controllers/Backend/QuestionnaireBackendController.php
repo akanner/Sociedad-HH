@@ -80,6 +80,23 @@ class QuestionnaireBackendController extends Controller {
         }
     }
 
+
+    public function basicReport($id)
+    {
+        try
+        {
+            $questionnaire = Questionnaire::findOrFail($id);
+
+            return view("backend.questionnaires.basicReport", [
+                'questionnaireReport' => $questionnaire->getReport()
+            ]);
+        }
+        catch (ModelNotFoundException $e)
+        {
+            abort(404);
+        }
+    }
+
     public function save(SaveQuestionnaireRequest $request) {
 
         $result = new \stdClass();

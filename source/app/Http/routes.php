@@ -37,5 +37,6 @@ Route::get('adminhh/encuestas', ['middleware' => 'auth', 'uses'=>'Backend\Questi
 Route::get('adminhh/encuestas/nueva', ['middleware' => 'auth', 'uses'=>'Backend\QuestionnaireBackendController@add']);
 Route::get('adminhh/encuestas/invitar/{id}',['niddkeware' => 'auth','uses' => 'Backend\QuestionnaireBackendController@invite']);
 Route::post('adminhh/encuestas/nueva/guardar', ['middleware' => 'auth', 'uses'=> 'Backend\QuestionnaireBackendController@save']);
-Route::get('adminhh/encuestas/reporte/{id}', ['middleware' => 'auth', 'uses'=>'Backend\QuestionnaireBackendController@report']);
+//Route::get('adminhh/encuestas/reporte/{id}', ['middleware' => 'auth', 'uses'=>'Backend\QuestionnaireBackendController@report']);
+Route::get('adminhh/encuestas/reporte/{id}', ['middleware' => 'auth', 'uses'=>'Backend\QuestionnaireBackendController@basicReport']);
 Route::post('adminhh/encuestas/flagQuestionnaireAs',['middleware' => 'auth', 'uses'=>'Backend\QuestionnaireBackendController@flagQuestionnaireAs']);

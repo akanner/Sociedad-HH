@@ -18,6 +18,11 @@ class MultipleChoiceQuestionSingleOption extends MultipleChoiceQuestion
         return 'pages.questionnaires.templates.multipleChoiceQuestionSingleOption';
     }
 
+    public function getReportTemplateName()
+    {
+        return 'pages.questionnaires.templates.multipleChoiceQuestionSingleOptionTextReport';
+    }
+
     public function createNewAnswerForMyself($respondent,$answerData) {
         // Gets the selected option
         $optionSelected = MultipleChoiceOption::find($answerData['option']);
@@ -50,6 +55,7 @@ class MultipleChoiceQuestionSingleOption extends MultipleChoiceQuestion
             //--------------------------------------------------------------------
 
             $questionInformation->options[$optionId] = $optionInformation;
+            $questionInformation->reportTemplate = $this->getReportTemplateName();
         }
 
         return $questionInformation;

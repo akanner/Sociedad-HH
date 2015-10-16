@@ -63,6 +63,10 @@ class QuestionnaireController extends Controller
         $this->persistCompletedQuestionnaire($questionnaireInfo);
         //$email = MailHelper::getInstance()->getEmailAddressAccordingToEnviroment($email);
         $questionnaire = Questionnaire::find($questionnaireId);
+        //adds 1 to the answers count
+        $questionnaire->incrementAnswersCount();
+        $questionnaire->save();
+        //--------------------------------------------
         $attachedFilePath = PathHelper::getPathToUploaded() . "/" . $questionnaire->getAttachedFilePath();
 
         $mailHelper = MailHelper::getInstance();
