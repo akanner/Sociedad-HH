@@ -42,6 +42,8 @@ Ejecutar la migracion de la base de datos
 
 ####Configuracion Apache####
 
+    win: C:\xampp\apache\conf\extra\httpd-vhosts.conf
+    
 #####Copiar el archivo por defecto de apache (Puede variar el nombre)#####
 
     cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/sociedadhh.conf
