@@ -148,9 +148,11 @@ class Questionnaire extends Model
       //gets the questions of the questionnaire
       $questions = Question::where("questionnaire_id","=",$this->id)->get();
 
-      $stadistics = $this->getReportFor($questions);
-
-      return json_encode($stadistics);
+      $stadistics = [];
+      $stadistics['questions'] = $this->getReportFor($questions);
+      $stadistics['questionnaire_answersCount'] = $this->getAnswersCount();
+      $stadistics['questionnaire_name'] = $this->getTitle();
+      return $stadistics;
     }
 
     public function getReportFor($questions)
