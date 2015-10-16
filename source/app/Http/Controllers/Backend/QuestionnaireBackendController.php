@@ -16,13 +16,12 @@ use App\Models\MultipleChoiceOption;
 
 use App\Models\Email;
 use App\Utils\MailHelper;
+use App\Utils\PathHelper;
 
 use App\Utils\PrettyJson;
 use Carbon\Carbon;
 
 class QuestionnaireBackendController extends Controller {
-
-    const UPLOADS_PATH = '../../public/uploaded/';
 
     public function add() {
         return view("backend.questionnaires.add");
@@ -53,13 +52,6 @@ class QuestionnaireBackendController extends Controller {
         return "$hashedName.$ext";
     }
 
-    /**
-     * Symfony\Component\HttpFoundation\File\UploadedFile $file
-     * $request->file('photo')
-     * http://laravel.com/docs/5.1/requests
-     * http://stackoverflow.com/questions/2704314/multiple-file-upload-in-php
-     * http://www.w3bees.com/2013/02/multiple-file-upload-with-php.html
-     */
     private function moveFile($file, $destinationPath,$newName) {
         $file->move($destinationPath, $newName);
     }
@@ -106,7 +98,7 @@ class QuestionnaireBackendController extends Controller {
             {
                 $file = $request->file('attachedFile');
                 $hashedName = $this->hashFileName($file->getClientOriginalName());
-                $this->moveFile($file,self::UPLOADS_PATH,$hashedName);
+                $this->moveFile($file, PathHelper::getPathToUploaded(), $hashedName);
                 $questionnaire->setAttachedFilePath($hashedName);
                 $questionnaire->setAttachedFileLogicalName($file->getClientOriginalName());
             }
