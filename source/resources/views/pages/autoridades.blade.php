@@ -31,7 +31,7 @@
                 </div>
                 <div class="contact">
                     <div class="contact-image">
-                        <img src="{{asset('img/autoridades/gustavomarin.jpg')}}" alt="mari" class="img-rounded">
+                        <img src="{{asset('img/autoridades/gustavomarin.jpg')}}" alt="Gustavo Marin" class="img-rounded">
                     </div>
                     <div class="contact-description header-double-dash-and-paragraph">
                         <h3>Dr. Gustavo Marín. <span>Secretario Científico</span></h3>
@@ -47,7 +47,7 @@
                 </div>
                 <div class="contact">
                     <div class="contact-image">
-                        <img src="{{asset('img/autoridades/mari.png')}}" alt="mari" class="img-rounded">
+                        <img src="{{asset('img/autoridades/julietadalmaroni.jpg')}}" alt="Julieta Dalmaroni" class="img-rounded">
                     </div>
                     <div class="contact-description header-double-dash-and-paragraph">
                         <h3>Dra. Julieta Dalmaroni. <span>Vocal</span></h3>
@@ -63,7 +63,7 @@
                 </div>
                 <div class="contact">
                     <div class="contact-image">
-                        <img src="{{asset('img/autoridades/mari.png')}}" alt="mari" class="img-rounded">
+                        <img src="{{asset('img/autoridades/susanabunzel.jpg')}}" alt="Susana Bunzel" class="img-rounded">
                     </div>
                     <div class="contact-description header-double-dash-and-paragraph">
                         <h3>Dra. Susana Bunzel. <span>Representante para
@@ -115,15 +115,15 @@ la evaluación de las Recertificaciones</span></h3>
                 </div>
                 <div class="contact">
                     <div class="contact-image">
-                        <img src="{{asset('img/autoridades/mari.png')}}" alt="mari" class="img-rounded">
+                        <img src="{{asset('img/autoridades/gabrielabalaguer.jpg')}}" alt="Gabriela Balaguer" class="img-rounded">
                     </div>
                     <div class="contact-description header-double-dash-and-paragraph">
-                        <h3>Dra. Griselda Barrientos. <span>Vocal</span></h3>
+                        <h3>Dra. Gabriela Balaguer. <span>Vocal</span></h3>
                     </div>
                 </div>
                 <div class="contact">
                     <div class="contact-image">
-                        <img src="{{asset('img/autoridades/mari.png')}}" alt="mari" class="img-rounded">
+                        <img src="{{asset('img/autoridades/martagelemur.jpg')}}" alt="Marta Gelemur" class="img-rounded">
                     </div>
                     <div class="contact-description header-double-dash-and-paragraph">
                         <h3>Dra. Marta Gelemur. <span>Representante para
