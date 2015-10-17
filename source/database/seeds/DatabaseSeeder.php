@@ -662,11 +662,11 @@ class EmailsTableSeeder extends Seeder
     public function run()
     {
         DB::table('emails')->delete();
-        Email::create(
+/*        Email::create(
         array(
             'address'=>'leito.vm3@hotmail.com',
             'questionnaire_respondent_id' => 1
-        ));
+        ));*/
 
         Email::create(array( 'address'=>'kleingra@speedy.com.ar' ));
         Email::create(array( 'address'=>'britinez@yahoo.com.ar' ));
@@ -783,16 +783,16 @@ class UserTableSeeder extends Seeder
 
         User::create(
         array(
-            'name'=>'elagu',
-            'email'=>'agustin@s.com',
-            'password' => bcrypt("123456")
+            'name'=>'Graciela Klein',
+            'email'=>'kleingra@speedy.com.ar',
+            'password' => bcrypt("entradaalasociedad")
         )
     );
         User::create(
         array(
-            'name'=>'leito',
-            'email'=>'leito@s.com',
-            'password' => bcrypt("123456")
+            'name'=>'Super Admin',
+            'email'=>'superadminsociedad@admin.com',
+            'password' => bcrypt("entradaalasociedad")
         )
     );
 

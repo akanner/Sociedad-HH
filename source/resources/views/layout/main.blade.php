@@ -7,18 +7,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-    <meta name="description" content="">
-    <meta name="keywords" content="">
-    <meta name="author" content="">
+    <meta name="description" content="La Sociedad de Hematología y Hemoterapia de La Plata es una asociación sin fines de lucro que reúne de forma voluntaria a profesionales de la hematología y hemoterapia de la localidad platense y sus alrededores.">
+    <meta name="keywords" content="sociedad,hematologia,hemoterapia,hematologos,hemoterapeutas,la,plata,ciudad,local,asociacion,profesional,voluntaria,platense">
+    <meta name="author" content="Sociedad de Hematología y Hemoterapia de La Plata">
 
     <!-- Open Graph data -->
     @section('og-data')
-    <meta property="og:title" content="" />
-    <meta property="og:type" content="product" />
-    <meta property="og:url" content="" />
-    <meta property="og:image" content="" />
-    <meta property="og:description" content="" />
-    <meta property="og:site_name" content="" />
+    <meta property="og:title" content="Sociedad de Hematología y Hemoterapia de La Plata" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://www.sociedadhh.com.ar/" />
+    <meta property="og:image" content="http://www.sociedadhh.com.ar/img/logo/logo-simplificado.png" />
+    <meta property="og:description" content="La Sociedad de Hematología y Hemoterapia de La Plata es una asociación sin fines de lucro que reúne de forma voluntaria a profesionales de la hematología y hemoterapia de la localidad platense y sus alrededores." />
+    <meta property="og:site_name" content="Sociedad de Hematología y Hemoterapia de La Plata" />
     @show
 
     <title>@section('title') Sociedad de Hemat&oacute;logos y Hemoterapeutas de La Plata @show</title>
