@@ -24,6 +24,6 @@ class PathHelper
 
     public static function getPathToUploaded()
     {
-        return static::getPublicResourcesPath . "/uploaded";
+        return static::getPublicResourcesPath() . "/uploaded";
     }
 }
