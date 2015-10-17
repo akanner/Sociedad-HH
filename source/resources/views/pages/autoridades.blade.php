@@ -63,11 +63,10 @@
                 </div>
                 <div class="contact">
                     <div class="contact-image">
-                        <img src="{{asset('img/autoridades/susanabunzel.jpg')}}" alt="Susana Bunzel" class="img-rounded">
+                        <img src="{{asset('img/autoridades/ceciliadacunto.jpg')}}" alt="María Cecilia Dacunto" class="img-rounded">
                     </div>
                     <div class="contact-description header-double-dash-and-paragraph">
-                        <h3>Dra. Susana Bunzel. <span>Representante para
-la evaluación de las Recertificaciones</span></h3>
+                        <h3>Dra. María Cecilia Dacunto.  <span>Vocal</span></h3>
                     </div>
                 </div>
             </div>
