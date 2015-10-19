@@ -37,7 +37,6 @@
                     <p>Por tal motivo, la entidad trabaja desde la actividad científica, al fomentar la investigación sobre temas inherentes a las dos especialidades. Mediante la participación y comunicación entre sus miembros, pretende conseguir un progreso en la etiopatogenia, prevención, diagnóstico y tratamiento de las Enfermedades Hemáticas; incentivando además, la formación académica, y la práctica médica.</p>
                     <p>Asimismo, apunta a lo comunitario, propiciando respuestas y calidad en la atención para el bienestar de la población.</p>
                     <p>Y finalmente, promueve la lucha gremial por la mejora de las condiciones laborales y los honorarios de los hematólogos platenses.</p>
-        </p>
                 </div>
             </div>
         </div>
@@ -60,6 +59,9 @@
                    </div>
                 </div>
             </div>
+
+            <div class="clearfix visible-xs-block visible-sm-block mobile-home-margin"></div>
+
             <div class="col-md-6">
                 <div class="icon-title-text">
                     <div class="icon-wrapper">
@@ -83,9 +85,12 @@
                     <div class="text-wrapper">
                         <h5>INTEGRACI&Oacute;N</h5>
                         <p>Procuramos la unión con cada uno de los miembros profesionales y con la comunidad entera.</p>
-                   </div>
+                    </div>
                 </div>
             </div>
+
+            <div class="clearfix visible-xs-block visible-sm-block mobile-home-margin"></div>
+
             <div class="col-md-6">
                 <div class="icon-title-text">
                     <div class="icon-wrapper">
@@ -111,6 +116,9 @@
                    </div>
                 </div>
             </div>
+
+            <div class="clearfix visible-xs-block visible-sm-block mobile-home-margin"></div>
+
             <div class="col-md-6">
                 <div class="icon-title-text">
                     <div class="icon-wrapper">
