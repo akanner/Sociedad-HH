@@ -3,7 +3,7 @@
 @foreach($questionInfo->subquestions  as $key => $subquestionInfo)
     <h5>{{$subquestionInfo->description}}</h5>
 
-    <table class="table table-condensed">
+    <table class="table">
         <thead>
             <tr>
                 <th>{{$questionInfo->description}}</th>

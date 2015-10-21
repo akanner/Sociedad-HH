@@ -2,18 +2,21 @@
 @section("title") Administraci&oacute;n :: Reporte cuestionario @parent @endsection
 
 @section("page-header")
-    Reporte de cuestionario
+    <div class="report-header">
+        <h4>Reporte de cuestionario</h4>
+        <h3>{{ $questionnaireReport['questionnaire_name'] }}</h3>
+        <p>{{ $questionnaireReport['questionnaire_answersCount'] }} respuestas</p>
+    </div>
 @endsection
 
 @section("content")
 
-    <h2>{{$questionnaireReport['questionnaire_name']}} - {{$questionnaireReport['questionnaire_answersCount']}} respuestas</h2>
-
-    @foreach($questionnaireReport['questions'] as $idQuestion => $questionInfo)
-        <div class="questionnaire-question">
-
-            @include($questionInfo->reportTemplate,['questionInfo'=>$questionInfo])
-        </div>
-    @endforeach
+    <div class="report-wrapper">
+        @foreach($questionnaireReport['questions'] as $idQuestion => $questionInfo)
+            <div class="questionnaire-question">
+                @include($questionInfo->reportTemplate,['questionInfo'=>$questionInfo])
+            </div>
+        @endforeach
+    </div>
 
 @endsection
