@@ -135,22 +135,6 @@ class QuestionnaireBackendController extends Controller {
         }
     }
 
-    /*
-        Verifying File Presence
-
-        You may also determine if a file is present on the request using the hasFile method:
-
-        if ($request->hasFile('photo')) {
-        }
-        Validating Successful Uploads
-
-        In addition to checking if the file is present, you may verify that there were no problems uploading the file via the isValid method:
-
-        if ($request->file('photo')->isValid())
-        {
-        }
-    */
-
     public function flagQuestionnaireAs(ChangeStatusQuestionnaireRequest $request)
     {
         $idQuestionnaire =      $request->input("questionnaireId");
@@ -170,9 +154,8 @@ class QuestionnaireBackendController extends Controller {
     {
         try
         {
-            $questionnaireName="test";
             $emailsDirections = $this->getUsersEmailDirections();
-            $this->sendInvitationEmails($emailsDirections,$questionnaireName);
+            $this->sendInvitationEmails($emailsDirections, $id);
 
             return $this->buildInvitationResponse(TRUE,"");
         }
@@ -188,7 +171,7 @@ class QuestionnaireBackendController extends Controller {
         return array_map(function($email){return $email["address"];},$emailArray);
     }
 
-    public function sendInvitationEmails($emailsDirections,$questionnaireName)
+    public function sendInvitationEmails($emailsDirections, $questionnaireId)
     {
         foreach ($emailsDirections as $key => $emailAddress)
         {
@@ -198,10 +181,9 @@ class QuestionnaireBackendController extends Controller {
                 $mailHelper->getMyEmailAddress(),
                 $emailAddress,
                 'Sociedad de Hematologia y Hemoterapia de La Plata'
-                ,'Testing'
+                ,'Te invitamos a participar!'
                 ,"emails.invitations"
-                , ["userMessage" => 'te invito a mi fiestita',
-                   "questionnaireName" => $questionnaireName]
+                , ["questionnaireId" => $questionnaireId]
                 ,null
                 ,null
             );
