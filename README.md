@@ -93,4 +93,4 @@ php artisan migrate:refresh --seed
 
 ### Correr las colas
 
-php artisan queue:listen --queue=emails
+php artisan queue:listen --queue=mails
