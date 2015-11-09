@@ -662,80 +662,346 @@ class EmailsTableSeeder extends Seeder
     public function run()
     {
         DB::table('emails')->delete();
-/*        Email::create(
+        Email::create(
         array(
             'address'=>'leito.vm3@hotmail.com',
             'questionnaire_respondent_id' => 1
-        ));*/
+        ));
 
-        Email::create(array( 'address'=>'sandraformisano@yahoo.com.ar' ));
-        Email::create(array( 'address'=>'solecrucet@hotmail.com' ));
-        Email::create(array( 'address'=>'sabasilvia@hotmail.com' ));
-        Email::create(array( 'address'=>'gabriela.balager@hotmail.com' ));
-        Email::create(array( 'address'=>'mariaelisariva@gmail.com' ));
-        Email::create(array( 'address'=>'mariamercedesbol@gmail.com' ));
-        Email::create(array( 'address'=>'martagelemur@hotmail.com' ));
-        Email::create(array( 'address'=>'milonejh@netverk.com.ar' ));
-        Email::create(array( 'address'=>'patriciagfazio@yahoo.com' ));
-        Email::create(array( 'address'=>'orlandosm527@gmail.com' ));
-        Email::create(array( 'address'=>'balladaresgraciela@hotmail.com' ));
-        Email::create(array( 'address'=>'celinavila@yahoo.com.ar' ));
-        Email::create(array( 'address'=>'hemato_sm@yahoo.com.ar' ));
-        Email::create(array( 'address'=>'luxzop@yahoo.com.ar' ));
-        Email::create(array( 'address'=>'lauvives@hotmail.com' ));
-        Email::create(array( 'address'=>'aznaraquino@hotmail.com' ));
-        Email::create(array( 'address'=>'jbordone@netverk.com.ar' ));
-        Email::create(array( 'address'=>'florenciafreixa@hotmail.com' ));
-        Email::create(array( 'address'=>'reynosojorgedaniel@yahoo.com' ));
-        Email::create(array( 'address'=>'lerefiad@hotmail.com' ));
-        Email::create(array( 'address'=>'lucisoleil@hotmail.com' ));
-        Email::create(array( 'address'=>'dav_almada@hotmail.com' ));
-        Email::create(array( 'address'=>'colombifacundo@gmail.com' ));
-        Email::create(array( 'address'=>'reynosojorgedaniel@hotmail.com' ));
-        Email::create(array( 'address'=>'diegoece@hotmail.com' ));
-        Email::create(array( 'address'=>'sandraargello@hotmail.com' ));
-        Email::create(array( 'address'=>'celinavila@yahoo.com.ar' ));
-        Email::create(array( 'address'=>'aznaraquino@hotmail.com' ));
-        Email::create(array( 'address'=>'mercedesbol@hotmail.com' ));
-        Email::create(array( 'address'=>'bunzelsu@hotmail.com' ));
-        Email::create(array( 'address'=>'amcatt@intramed.net' ));
-        Email::create(array( 'address'=>'martin_ciappa@yahoo.com.ar' )); 
-        Email::create(array( 'address'=>'alcosmil@hotmail.com' ));
-        Email::create(array( 'address'=>'fladamiani@hotmail.com' )); 
-        Email::create(array( 'address'=>'dsandro@speedy.com.ar' ));
-        Email::create(array( 'address'=>'enrico@netverk.com.ar' ));
-        Email::create(array( 'address'=>'patriciagfazio@yahoo.com.ar' ));
-        Email::create(array( 'address'=>'sandraformisano@yahoo.com.ar' )); 
-        Email::create(array( 'address'=>'bramirezborga@yahoo.com.ar' ));  
-        Email::create(array( 'address'=>'farinaoh@netverk.com.ar' ));
-        Email::create(array( 'address'=>'giljuliet@gmail.com' ));
-        Email::create(array( 'address'=>'sebastianisnardi@yahoo.com.ar' )); 
-        Email::create(array( 'address'=>'ojakus@ciudad.com.ar' ));
-        Email::create(array( 'address'=>'rcjau@hotmail.com' ));
-        Email::create(array( 'address'=>'kleingra@speedy.com.ar' ));
-        Email::create(array( 'address'=>'gmarin2009@gmail.com' ));
-        Email::create(array( 'address'=>'msmatano@yahoo.com.ar' )); 
-        Email::create(array( 'address'=>'milonejh@netverk.com.ar' ));
-        Email::create(array( 'address'=>'elsabpalomino@yahoo.com.ar' ));
-        Email::create(array( 'address'=>'claudiaparodi05@hotmail.com' )); 
-        Email::create(array( 'address'=>'marielana@ciudad.com.ar' )); 
-        Email::create(array( 'address'=>'mvprates@hotmail.com' )); 
-        Email::create(array( 'address'=>'oaromano57@gmail.com' ));
-        Email::create(array( 'address'=>'dianascebba@hotmail.com' )); 
-        Email::create(array( 'address'=>'sandrar_hemato@hotmail.com' )); 
-        Email::create(array( 'address'=>'mfschifini@yahoo.com.ar' ));
-        Email::create(array( 'address'=>'schutten@netverk.com.ar' ));
-        Email::create(array( 'address'=>'gladystebaldi@yahoo.com.ar' ));
-        Email::create(array( 'address'=>'marcelatittarelli@yahoo.com.ar' )); 
-        Email::create(array( 'address'=>'vidaosca@ciudad.com.ar' ));
-        Email::create(array( 'address'=>'sebastianyantorno@gmail.com' ));
-        Email::create(array( 'address'=>'julietadalmaroni@hotmail.com' ));
-        Email::create(array( 'address'=>'mariacecidacun@hotmail.com' ));
-        Email::create(array( 'address'=>'citometriacucaiba@gmail.com' ));
-        Email::create(array( 'address'=>'drabunzel@yahoo.com' ));
-        Email::create(array( 'address'=>'biolmol_ludovica@hotmail.com' )); 
-        Email::create(array( 'address'=>'sebastianisnardi@hotmail.com' ));
+        Email::create(
+        array(
+            'address'=>'alcosmil@hotmail.com'
+        ));
 
+        Email::create(
+        array(
+            'address'=>'fladamiani@hotmail.com'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'dsandro@speedy.com.ar'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'enrico@netverk.com.ar'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'patriciagfazio@yahoo.com.ar'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'sandraformisano@yahoo.com.ar'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'bramirezborga@yahoo.com.ar'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'farinaoh@netverk.com.ar'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'giljuliet@gmail.com'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'sebastianisnardi@yahoo.com.ar'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'ojakus@ciudad.com.ar'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'rcjau@hotmail.com'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'gmarin2009@gmail.com'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'kleingra@speedy.com.ar'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'msmatano@yahoo.com.ar'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'milonejh@netverk.com.ar'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'elsabpalomino@yahoo.com.ar'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'claudiaparodi05@hotmail.com'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'marielana@ciudad.com.ar'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'mvprates@hotmail.com'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'oaromano57@gmail.com'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'dianascebba@hotmail.com'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'sandrar_hemato@hotmail.com'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'mfschifini@yahoo.com.ar'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'schutten@netverk.com.ar'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'gladystebaldi@yahoo.com.ar'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'marcelatittarelli@yahoo.com.ar'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'vidaosca@ciudad.com.ar'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'sebastianyantorno@gmail.com'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'julietadalmaroni@hotmail.com'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'mariacecidacun@hotmail.com'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'citometriacucaiba@gmail.com'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'drabunzel@yahoo.com'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'biolmol_ludovica@hotmail.com'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'sebastianisnardi@hotmail.com'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'sandraformisano@yahoo.com.ar'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'solecrucet@hotmail.com'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'sabasilvia@hotmail.com'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'gabriela.balager@hotmail.com'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'mariaelisariva@gmail.com'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'mariamercedesbol@gmail.com'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'martagelemur@hotmail.com'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'milonejh@netverk.com.ar'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'patriciagfazio@yahoo.com'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'orlandosm527@gmail.com'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'balladaresgraciela@hotmail.com'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'celinavila@yahoo.com.ar'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'hemato_sm@yahoo.com.ar'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'luxzop@yahoo.com.ar'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'lauvives@hotmail.com'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'aznaraquino@hotmail.com'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'jbordone@netverk.com.ar'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'florenciafreixa@hotmail.com'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'reynosojorgedaniel@yahoo.com'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'lerefiad@hotmail.com'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'lucisoleil@hotmail.com'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'dav_almada@hotmail.com'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'colombifacundo@gmail.com'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'reynosojorgedaniel@hotmail.com'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'diegoece@hotmail.com'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'sandraargello@hotmail.com'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'celinavila@yahoo.com.ar'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'aznaraquino@hotmail.com'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'mercedesbol@hotmail.com'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'bunzelsu@hotmail.com'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'amcatt@intramed.net'
+        ));
+
+        Email::create(
+        array(
+            'address'=>'martin_ciappa@yahoo.com.ar'
+        ));
     }
 }
 
