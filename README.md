@@ -94,3 +94,4 @@ php artisan migrate:refresh --seed
 ### Correr las colas
 
 php artisan queue:listen --queue=mails
+nohup php artisan queue:listen --queue=mails & //para el servidor
