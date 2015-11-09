@@ -27,7 +27,7 @@ class ContactController extends Controller {
             $mailHelper->getMyEmailAddress(),
             $fullName,
             $subject,
-            "emails.prueba",
+            "emails",
             ["userMessage" => $userMessage],
             null,
             null

@@ -6,6 +6,7 @@
     npm
     nodejs-legacy
     gulp ( sudo npm install -g gulp)
+    Apache Module mod_rewrite 
 ##### para testear
     phpunit (sudo apt-get install phpunit)
     sqlite (sudo apt-get install sqlite php5-sqlite)
@@ -24,9 +25,11 @@
 ####Base de Datos####
 
 Instalar MySql PDO
+
     sudo apr-get install php5-mysql
     
 Crear una base de datos llamada db_sociedadhh
+
     CREATE DATABASE db_sociedadhh;
 
 Configurar base de datos en la aplicacion
@@ -87,10 +90,11 @@ Desde consola, en el root del proyecto, tirar:
 
 ### Comandos básicos para configurar y correr todo el stack ###
 
-composer dumpautoload
-gulp
-php artisan migrate:refresh --seed
+    composer dumpautoload
+    gulp
+    php artisan migrate:refresh --seed
 
 ### Correr las colas
 
-php artisan queue:listen --queue=mails
+    php artisan queue:listen --queue=mails
+    nohup php artisan queue:listen --queue=mails & //para el servidor
