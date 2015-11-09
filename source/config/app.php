@@ -36,7 +36,7 @@ return [
     |
     */
 
-    'url' => 'http://localhost',
+    'url' => env('APP_URL', "http://www.sociedadhh.com.ar"),
 
     /*
     |--------------------------------------------------------------------------
