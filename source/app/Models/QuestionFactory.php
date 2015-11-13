@@ -43,4 +43,10 @@ class QuestionFactory {
         throw new NotValidQuestionClassException($questionClassName." no es una clase valida");
     }
 
+    public function createQuestionFromFormQuestion($formQuestion,$questionnaire)
+    {
+      $question = $this->getQuestionByClassName($formQuestion->type);
+      $question->createQuestionFromFormQuestion($formQuestion, $questionnaire);
+    }
+
 }

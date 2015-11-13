@@ -30,4 +30,21 @@ abstract class MultipleChoiceQuestion extends Question
   {
     return $this->options()->get();
   }
+
+  public function createQuestionFromFormQuestion($formQuestion, $questionnaire)
+  {
+    $this->setDescription($formQuestion->title);
+    $this->setQuestionnaire($questionnaire);
+    $this->save();
+
+    foreach($formQuestion->options as $formOption) {
+        $option = new MultipleChoiceOption();
+        $option->setDescription($formOption->description);
+        $option->setIsCorrectAnswer($formOption->isCorrect);
+        $option->setIsOtherOption($formOption->isOtherOption);
+        $option->setQuestion($this);
+        $option->save();
+    }
+
+  }
 }
