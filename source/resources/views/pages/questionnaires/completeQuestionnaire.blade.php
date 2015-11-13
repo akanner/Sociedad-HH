@@ -1,5 +1,9 @@
 @extends('layout.main')
-@section('title') Completar Cuestionario :: @parent @stop
+@section('title') Completar Cuestionario :: @parent @endsection
+
+@section("styles")
+    <link rel="stylesheet" href="{{ asset('css/jquery.fancybox.css') }}" />
+@endsection
 
 @section('content')
 
@@ -34,4 +38,20 @@
         {!! Form::close() !!}
     </div>
 
+@endsection
+
+@section("scripts")
+    <script type="text/javascript">
+        $(function() {
+            $(".fancybox").fancybox({
+                helpers: {
+                    overlay: {
+                      locked: false
+                    }
+                },
+                openEffect	: 'none',
+                closeEffect	: 'none'
+            });
+        });
+    </script>
 @endsection
