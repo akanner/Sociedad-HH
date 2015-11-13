@@ -47,6 +47,7 @@ $(function () {
     /* Parses the questionnaire form and returns it as JSON */
     function questionnaireFormToJSON() {
         var questionnaire = {
+            heading: $("#heading-input").val(),
             title: $("#title-input").val(),
             description: $("#description-input").val(),
             questions: []

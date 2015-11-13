@@ -8,28 +8,26 @@
 @section("content")
 
     {!! Form::open(["action" => "Backend\QuestionnaireBackendController@save", "id" => "add-questionnaire-form" ,"class" => "questionnaire-form","enctype" =>"multipart/form-data"]) !!}
-
-        <div class="form-group">
-            {!! Form::label("title-input", "T&iacute;tulo", ["class" => "sr-only"]) !!}
-            {!! Form::text("title", null, ["id" => "title-input", "class" => "form-control title", "placeholder" => "T&iacute;tulo del cuestionario", "required"]) !!}
+        <div class="questionnaire-general-info">
+            <div class="form-group">
+                {!! Form::label("heading-input", "Encabezado", ["class" => "sr-only"]) !!}
+                {!! Form::text("heading", null, ["id" => "heading-input", "class" => "form-control heading", "placeholder" => "Encabezado", "required"]) !!}
+            </div>
+            <div class="form-group">
+                {!! Form::label("title-input", "T&iacute;tulo", ["class" => "sr-only"]) !!}
+                {!! Form::text("title", null, ["id" => "title-input", "class" => "form-control title", "placeholder" => "T&iacute;tulo", "required"]) !!}
+            </div>
+            <div class="form-group">
+                {!! Form::label("description-input", "Descripci&oacute;n", ["class" => "sr-only"]) !!}
+                {!! Form::text("description", null, ["id" => "description-input", "class" => "form-control description", "placeholder" => "Descripci&oacute;n", "required"]) !!}
+            </div>
         </div>
-        <div class="form-group">
-            {!! Form::label("description-input", "Descripci&oacute;n", ["class" => "sr-only"]) !!}
-            {!! Form::text("description", null, ["id" => "description-input", "class" => "form-control description", "placeholder" => "Descripci&oacute;n del cuestionario", "required"]) !!}
-        </div>
-        <div class="add-file-container form-group">
-            <!--<label for="file-tosend">Material devuelto</label>
-            <input type="file" id="file-tosend" name="fileReturned">-->
-            {!! Form::label("file-tosend", "Material devuelto") !!}
-            {!! Form::file("attachedFile", ["id" => "file-tosend","multiple"]) !!}
-            <p class="help-block">El archivo que se enviar&aacute; por mail luego de llenar el cuestionario</p>
-        </div>
+        <!--<hr>-->
 
-        <hr>
-
-        <button title="Agregar pregunta" id="add-question-button" type="button" class="btn btn-sm add-question">
+        <!--<button title="Agregar pregunta" id="add-question-button" type="button" class="btn btn-sm add-question">
             <img src="{{asset('img/questionnaire/plus.png')}}" alt="Agregar pregunta" class="img-rounded">
-        </button>
+        </button>-->
+
         <div class="question">
             <div class="form-group inline-content">
                 {!! Form::label("question-title-input", "T&iacute;tulo de la pregunta") !!}
@@ -52,9 +50,17 @@
             </div>
         </div>
 
-        <hr>
+        <div class="under-question-container">
+            <button id="add-question-button" type="button" class="btn btn-sm">Agregar pregunta</button>
+        </div>
 
-        <button id="send-new-questionnaire-button" type="submit" class="btn btn-success">Enviar</button>
+        <div class="add-file-container form-group">
+            {!! Form::label("file-tosend", "Material devuelto") !!}
+            {!! Form::file("attachedFile", ["id" => "file-tosend","multiple"]) !!}
+            <p class="help-block">El archivo que se enviar&aacute; por mail luego de llenar el cuestionario</p>
+        </div>
+
+        <button id="send-new-questionnaire-button" type="submit" class="btn btn-success">Guardar</button>
         <span class="submit-feedback">Guardando cuestionario...</span>
 
     {!! Form::close() !!}

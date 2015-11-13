@@ -5,12 +5,18 @@
         margin-top: 10px;
     }
 
-    .title {
-        font-size: 20px;
+    .questionnaire-general-info {
+        border-bottom: 1px solid #eee;
+        padding-bottom: 5px;
     }
 
-    .description {
-        font-size: 15px;
+    .title {
+        font-size: 16px;
+        margin-bottom: 0;
+    }
+
+    .description, .heading {
+        font-size: 14px;
     }
 
     .inline-content {
@@ -27,27 +33,22 @@
         }
     }
 
-    button.add-question {
-        margin-bottom: 20px;
-        border-radius: 60px;
-        position: fixed;
-        bottom: 0;
-        right: 0;
-        margin-right: 20px;
-        padding: 25px;
-        border: none;
-        background-color: @main-red;
+    #add-question-button {
+        border-radius: 0;
+        border: 1px solid rgba(0,0,0,0.1);
+        background-color: #f5f5f5;
+        font-size: 11px;
+        .font-helvetica-bold;
+    }
 
-        &:hover {
-            background-color: #BD4448;
-        }
-
-        img {
-            width: 18px;
-        }
+    .under-question-container {
+        margin-top: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #eee;
     }
 
     .add-file-container {
+        margin-top: 15px;
 
         label {
             font-size: 15px;
@@ -57,6 +58,10 @@
     .question {
         padding: 15px;
         border-bottom: 1px solid #eee;
+
+        &:first-of-type {
+            border-top: 1px solid #eee;
+        }
 
         &:last-of-type {
             border-bottom: 0;
