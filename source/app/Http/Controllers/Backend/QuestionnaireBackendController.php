@@ -28,20 +28,7 @@ class QuestionnaireBackendController extends Controller {
     }
 
     public function createQuestionByFormQuestion($formQuestion, $questionnaire) {
-        $question = QuestionFactory::getInstance()->getQuestionByClassName($formQuestion->type);
-        $question->setDescription($formQuestion->title);
-        $question->setQuestionnaire($questionnaire);
-        $question->save();
-
-        foreach($formQuestion->options as $formOption) {
-            $option = new MultipleChoiceOption();
-            $option->setDescription($formOption->description);
-            $option->setIsCorrectAnswer($formOption->isCorrect);
-            $option->setIsOtherOption($formOption->isOtherOption);
-            $option->setQuestion($question);
-            $option->save();
-        }
-
+        $question = QuestionFactory::getInstance()->createQuestionFromFormQuestion($formQuestion,$questionnaire);
         return $question;
     }
 
