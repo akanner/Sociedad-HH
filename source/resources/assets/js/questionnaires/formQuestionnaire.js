@@ -68,6 +68,7 @@ $(function () {
         questionNumber = 0;
 
     var modelOption = $(".question").find(".option-multiple-choice").first();
+    var lastOption = modelOption;
 
     /* Removes the border shadow from the focused question */
     $("body").click(function () {
@@ -98,7 +99,7 @@ $(function () {
 
     /* Deletes a multiple choice question option, if there is at least 1 option */
     $(".questionnaire-form").on("click", ".delete-option-button", function () {
-        var optionsCount = $(this).parents(".question-multiple-choice").find(".option-multiple-choice").size();
+        var optionsCount = $(this).parents(".question-multiple-choice").find(".normal-option").size();
 
         // If there is more than 1 option
         if (optionsCount > 1) {
@@ -116,30 +117,43 @@ $(function () {
         }
     });
 
-    /* Adds an option to a multiple choice question */
-    $(".questionnaire-form").on("click", ".add-option-button", function () {
-        cloneMultipleChoiceOption(this);
+    /* Deletes the "other" option of a multiple choice question */
+    $(".questionnaire-form").on("click", ".delete-option-button", function () {
+        var optionsCount = $(this).parents(".question-multiple-choice").find(".other-option-multiple-choice").size();
+
+        // If there is more than 1 option
+        if (optionsCount = 1) {
+            $(this).parent(".other-option-multiple-choice").remove();
+        }
     });
 
+    /* Adds an option to a multiple choice question */
+    $(".questionnaire-form").on("click", ".add-option-button", function () {
+        var clonedOption = cloneMultipleChoiceOption(this);
+        clonedOption.addClass("normal-option");
+    });
+
+    /* Adds the "other" option to a multiple choice question */
     $(".questionnaire-form").on("click", ".add-other-option-button", function () {
-        console.log("other option");
-        var newOption = cloneMultipleChoiceOption(this);
-        newOption.find("input[type='radio']").after("<label>Otra:</label>");
-        newOption.addClass("other-option-multiple-choice");
-        newOption.find("input[type='text']").attr("readonly", true);
-
-
+        var otherOptionIsActivated = $(this).parents(".question-multiple-choice").find(".other-option-multiple-choice").size();
+        if (!otherOptionIsActivated) {
+            var newOption = cloneMultipleChoiceOption(this);
+            newOption.find("input[type='radio']").after("<label>Otra:</label>");
+            newOption.addClass("other-option-multiple-choice");
+            newOption.removeClass("normal-option");
+            newOption.find("input[type='text']").attr("readonly", true);
+        }
     });
 
     function cloneMultipleChoiceOption(pressedButton) {
-        var lastOption = $(pressedButton).parents(".add-option-multiple-choice").siblings(".option-multiple-choice").last();
         var clonedOption = modelOption.clone(true);
 
         clonedOption.find("input[type='radio']").attr("checked", false);
         clonedOption.find("input[type='text']").val("");
+        var lastOption = $(pressedButton).parents(".question-multiple-choice").find(".normal-option").last()
         lastOption.after(clonedOption);
-        return clonedOption;
 
+        return clonedOption;
     }
 
     $(".option-multiple-choice").on("click", "input[type='radio']", function () {
