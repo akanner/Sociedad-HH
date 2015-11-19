@@ -30,22 +30,22 @@
             <p style="padding-top: 15px; font-weight: bold;">Sociedad de Hematología y Hermoterapia de La Plata</p>
         </div>
 
-        <!--<footer style="width: 800px; margin: 0 auto;">
+        <footer style="width: 800px; margin: 0 auto;">
             <ul style="list-style: none; padding-left: 0;">
                 <li>
-                    <img src="{{-- elixir('img/logo/email-phone.gif') --}}" alt="Tel&eacute;fono de contacto" style="width: 30px; position: relative; top: 10px;">
+                    <img src="{{asset('img/logo/email-phone.gif')}}" alt="Tel&eacute;fono de contacto" style="width: 30px; position: relative; top: 10px;">
                     <span>0221-4225111</span>
                 </li>
                 <li>
-                    <img src="{{-- elixir('img/logo/email-email.gif') --}}" alt="Email de contacto" style="width: 30px; position: relative; top: 10px;">
+                    <img src="{{asset('img/logo/email-email.gif')}}" alt="Email de contacto" style="width: 30px; position: relative; top: 10px;">
                     <span>splatensehh@gmail.com</span>
                 </li>
                 <li>
-                    <img src="{{-- elixir('img/logo/email-location.gif') --}}" alt="Direcci&oacute; de contacto" style="width: 30px; position: relative; top: 10px;">
+                    <img src="{{asset('img/logo/email-location.gif')}}" alt="Direcci&oacute; de contacto" style="width: 30px; position: relative; top: 10px;">
                     <span>50 n° 374 e/ 2 y 3</span>
                 </li>
             </ul>
-        </footer>-->
+        </footer>
     </div>
 
 </body>
