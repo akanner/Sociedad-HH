@@ -99,11 +99,21 @@ $(function () {
 
     /* Deletes a multiple choice question option, if there is at least 1 option */
     $(".questionnaire-form").on("click", ".question .question-multiple-choice .delete-option-button", function () {
-        var optionsCount = $(this).parents(".question-multiple-choice").find(".option-multiple-choice").size();
+        var optionsCount = $(this).parents(".question-multiple-choice").find(".normal-option").size();
 
         // If there is more than 1 option
         if (optionsCount > 1) {
             $(this).parent(".option-multiple-choice").remove();
+        }
+    });
+
+    /* Deletes the "other" option of a multiple choice question */
+    $(".questionnaire-form").on("click", ".delete-option-button", function () {
+        var optionsCount = $(this).parents(".question-multiple-choice").find(".other-option-multiple-choice").size();
+
+        // If there is more than 1 option
+        if (optionsCount = 1) {
+            $(this).parent(".other-option-multiple-choice").remove();
         }
     });
 
