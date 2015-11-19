@@ -97,7 +97,7 @@ $(function () {
     });
 
     /* Deletes a multiple choice question option, if there is at least 1 option */
-    $(".questionnaire-form").on("click", ".question .question-multiple-choice .delete-option-button", function () {
+    $(".questionnaire-form").on("click", ".delete-option-button", function () {
         var optionsCount = $(this).parents(".question-multiple-choice").find(".option-multiple-choice").size();
 
         // If there is more than 1 option
@@ -106,8 +106,18 @@ $(function () {
         }
     });
 
+    /* Deletes a question, if there is at least 1 question */
+    $(".questionnaire-form").on("click", ".delete-question", function () {
+        var questionsCount = $(this).parents(".questionnaire-form").find(".question").size();
+
+        // If there is more than 1 option
+        if (questionsCount > 1) {
+            $(this).parents(".question").remove();
+        }
+    });
+
     /* Adds an option to a multiple choice question */
-    $(".questionnaire-form").on("click", ".question .question-multiple-choice .add-option-button", function () {
+    $(".questionnaire-form").on("click", ".add-option-button", function () {
         cloneMultipleChoiceOption(this);
     });
 
@@ -116,19 +126,19 @@ $(function () {
         var newOption = cloneMultipleChoiceOption(this);
         newOption.find("input[type='radio']").after("<label>Otra:</label>");
         newOption.addClass("other-option-multiple-choice");
-        newOption.find("input[type='text']").attr("readonly",true);
+        newOption.find("input[type='text']").attr("readonly", true);
 
 
     });
-    function cloneMultipleChoiceOption(pressedButton)
-    {
-      var lastOption = $(pressedButton).parents(".add-option-multiple-choice").siblings(".option-multiple-choice").last();
-      var clonedOption = modelOption.clone(true);
 
-      clonedOption.find("input[type='radio']").attr("checked", false);
-      clonedOption.find("input[type='text']").val("");
-      lastOption.after(clonedOption);
-      return clonedOption;
+    function cloneMultipleChoiceOption(pressedButton) {
+        var lastOption = $(pressedButton).parents(".add-option-multiple-choice").siblings(".option-multiple-choice").last();
+        var clonedOption = modelOption.clone(true);
+
+        clonedOption.find("input[type='radio']").attr("checked", false);
+        clonedOption.find("input[type='text']").val("");
+        lastOption.after(clonedOption);
+        return clonedOption;
 
     }
 
@@ -143,15 +153,15 @@ $(function () {
     function getFormData() {
         // Get the selected files from the input.
         var fileObject = $("#file-tosend").get(0).files[0];
-        var questionnaire =JSON.stringify(questionnaireFormToJSON());
+        var questionnaire = JSON.stringify(questionnaireFormToJSON());
 
         var formData = new FormData();
 
 
         console.log(":: fileS ", fileObject);
 
-        formData.append('questionnaire',questionnaire);
-        formData.append('attachedFile',fileObject);
+        formData.append('questionnaire', questionnaire);
+        formData.append('attachedFile', fileObject);
         return formData;
     }
 
@@ -178,16 +188,15 @@ $(function () {
             contentType: false,
             processData: false,
             type: 'POST',
-            success: function(data){
+            success: function (data) {
                 //console.log("::: POST RESULT => ", result);
                 var result = JSON.parse(data);
-                if(result.statusOk) {
-                        feedback.html("Listo! Cuestionario guardado");
-                        window.setTimeout(function() {
+                if (result.statusOk) {
+                    feedback.html("Listo! Cuestionario guardado");
+                    window.setTimeout(function () {
                         window.location.replace("/adminhh/encuestas");
-                        }, 3000);
-                }
-                else {
+                    }, 3000);
+                } else {
                     sendButton.prop("disabled", false);
                     feedback.html("Ocurrió un error, intentalo nuevamente");
                 }
