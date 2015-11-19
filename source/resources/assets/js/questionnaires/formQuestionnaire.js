@@ -68,6 +68,7 @@ $(function () {
         questionNumber = 0;
 
     var modelOption = $(".question").find(".option-multiple-choice").first();
+    var lastOption = modelOption;
 
     /* Removes the border shadow from the focused question */
     $("body").click(function () {
@@ -108,26 +109,31 @@ $(function () {
 
     /* Adds an option to a multiple choice question */
     $(".questionnaire-form").on("click", ".question .question-multiple-choice .add-option-button", function () {
-        cloneMultipleChoiceOption(this);
+        var clonedOption = cloneMultipleChoiceOption(this);
+        lastOption = clonedOption;
     });
-
+    /* Adds the "other" option to a multiple choice question */
     $(".questionnaire-form").on("click", ".add-other-option-button", function () {
-        console.log("other option");
-        var newOption = cloneMultipleChoiceOption(this);
-        newOption.find("input[type='radio']").after("<label>Otra:</label>");
-        newOption.addClass("other-option-multiple-choice");
-        newOption.find("input[type='text']").attr("readonly",true);
+        var otherOptionIsActivated= $(this).parents(".question-multiple-choice").find(".other-option-multiple-choice").size();
+        console.log("other option: " + $(this).find(".other-option-multiple-choice"));
+        if(!otherOptionIsActivated){
+            console.log("other option");
+            var newOption = cloneMultipleChoiceOption(this);
+            newOption.find("input[type='radio']").after("<label>Otra:</label>");
+            newOption.addClass("other-option-multiple-choice");
+            newOption.find("input[type='text']").attr("readonly",true);
+        }
 
 
     });
     function cloneMultipleChoiceOption(pressedButton)
     {
-      var lastOption = $(pressedButton).parents(".add-option-multiple-choice").siblings(".option-multiple-choice").last();
       var clonedOption = modelOption.clone(true);
 
       clonedOption.find("input[type='radio']").attr("checked", false);
       clonedOption.find("input[type='text']").val("");
       lastOption.after(clonedOption);
+
       return clonedOption;
 
     }
