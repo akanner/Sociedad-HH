@@ -1,9 +1,13 @@
 /vendor
 /node_modules
 /public/build
-/public/css
+#/public/css
 /public/js
 .env
 */.tags
 */tags
 tags
+/public/css/main.css
+/public/css/libraries.css
+/public/css/main.css.map
+/public/css/libraries.css.map
