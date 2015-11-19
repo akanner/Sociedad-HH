@@ -3,12 +3,27 @@
 div.text-content {
     margin-top: 35px;
     margin-bottom: 35px;
+
     div.columns-wrapper {
+
         div.col-md-6:first-child {
             padding: 0;
             padding-right: @columns-separation;
+
+            // Tablet size
+            @media (max-width: @tablet) {
+                padding-right: 0px;
+            }
+
             div.header-and-paragraph:first-child {
                 margin-bottom: 50px;
+            }
+        }
+
+        div.col-md-6 {
+            // Tablet size
+            @media (max-width: @tablet) {
+                padding-right: 0px;
             }
         }
     }
@@ -19,6 +34,7 @@ div.icon-text-content {
     @icon-width: 81px;
 
     .icon-title-text {
+
         div.icon-wrapper {
             float: left;
             width: @icon-width;
@@ -34,6 +50,10 @@ div.icon-text-content {
                 margin-top: 0px;
                 .font-helvetica-bold;
             }
+
+            p {
+                word-break: break-all;
+            }
         }
     }
 
@@ -43,6 +63,18 @@ div.icon-text-content {
         div.col-md-6:first-child {
             padding: 0;
             padding-right: @columns-separation;
+
+            // Tablet size
+            @media (max-width: @tablet) {
+                padding-right: 0px;
+            }
+        }
+
+        div.col-md-6 {
+            // Tablet size
+            @media (max-width: @tablet) {
+                padding-right: 0px;
+            }
         }
     }
 }
