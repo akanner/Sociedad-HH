@@ -38,7 +38,7 @@
                 {!! Form::select("questionType", ["MultipleChoiceQuestionSingleOption" => "Multiple choice"], null, ["class" => "form-control question-type-input", "required"]) !!}
             </div>
             <div class="question-multiple-choice">
-                <div class="form-group option-multiple-choice">
+                <div class="form-group option-multiple-choice normal-option">
                     {!! Form::radio("questionValue", "1", false, ["required", "data-changeMyName" => true]) !!}
                     {!! Form::text("questionValueText", null, ["class" => "form-control", "placeholder" => "Opci&oacute;n", "required"]) !!}
                     <button title="Borrar respuesta" type="button" class="delete-option-button btn btn-xs btn-danger">Eliminar</button>

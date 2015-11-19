@@ -110,17 +110,16 @@ $(function () {
     /* Adds an option to a multiple choice question */
     $(".questionnaire-form").on("click", ".question .question-multiple-choice .add-option-button", function () {
         var clonedOption = cloneMultipleChoiceOption(this);
-        lastOption = clonedOption;
+        clonedOption.addClass("normal-option");
     });
     /* Adds the "other" option to a multiple choice question */
     $(".questionnaire-form").on("click", ".add-other-option-button", function () {
         var otherOptionIsActivated= $(this).parents(".question-multiple-choice").find(".other-option-multiple-choice").size();
-        console.log("other option: " + $(this).find(".other-option-multiple-choice"));
         if(!otherOptionIsActivated){
-            console.log("other option");
             var newOption = cloneMultipleChoiceOption(this);
             newOption.find("input[type='radio']").after("<label>Otra:</label>");
             newOption.addClass("other-option-multiple-choice");
+            newOption.removeClass("normal-option");
             newOption.find("input[type='text']").attr("readonly",true);
         }
 
@@ -132,6 +131,7 @@ $(function () {
 
       clonedOption.find("input[type='radio']").attr("checked", false);
       clonedOption.find("input[type='text']").val("");
+      var lastOption = $(pressedButton).parents(".question-multiple-choice").find(".normal-option").last()
       lastOption.after(clonedOption);
 
       return clonedOption;
