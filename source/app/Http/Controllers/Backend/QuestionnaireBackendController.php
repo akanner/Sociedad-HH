@@ -93,16 +93,17 @@ class QuestionnaireBackendController extends Controller {
             $formQuestionnaire = json_decode($request->input("questionnaire"));
             $questionnaire = new Questionnaire();
 
+            $questionnaire->setHeading($formQuestionnaire->heading);
             $questionnaire->setTitle($formQuestionnaire->title);
             $questionnaire->setDescription($formQuestionnaire->description);
             $questionnaire->setActiveFrom(Carbon::now());
 
-
             if($request->hasFile('attachedFile'))
             {
                 $file = $request->file('attachedFile');
+
                 $hashedName = $this->hashFileName($file->getClientOriginalName());
-                $this->moveFile($file, PathHelper::getPathToUploaded(), $hashedName);
+                $this->moveFile($file, PathHelper::getInstance()->getPathToUploaded(), $hashedName);
                 $questionnaire->setAttachedFilePath($hashedName);
                 $questionnaire->setAttachedFileLogicalName($file->getClientOriginalName());
             }

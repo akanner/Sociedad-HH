@@ -10,13 +10,12 @@ class JsonQuestionnaireValidator extends IlluminateValidator
 
     const NO_QUESTIONS_ERROR            = "Debe agregar al menos una pregunta";
     const INVALID_QUESTION              = "Todas las preguntas deben tener una descripción y un tipo";
-    const NO_TITLE_ERROR                = "El cuestionario debe tener un titulo y una descripción";
+    const NO_TITLE_ERROR                = "El cuestionario debe tener un encabezado, un título y una descripción";
     const ZERO_OPTIONS_ERROR            = "Cada respuesta debe tener al menos una opción";
     const OPTION_DESCRIPTION_ERROR      = "Cada opción debe tener una descripción";
     const MORE_THAN_ONE_CORRECT_ANSWER  = "Cada pregunta solo puede tener una opción correcta";
 
-    private $_custom_messages = array(
-        "questionnaire_json" => "");
+    private $_custom_messages = array("questionnaire_json" => "");
 
     /**
      * Adds an error to the stack
@@ -64,11 +63,15 @@ class JsonQuestionnaireValidator extends IlluminateValidator
 
     protected function validateTitleAndDescription($questionnaire)
     {
-        $isValid = $this->validateRequiredField($questionnaire,'title') && $this->validateRequiredField($questionnaire,'description');
+        $isValid =  $this->validateRequiredField($questionnaire,'title') &&
+                    $this->validateRequiredField($questionnaire,'description') &&
+                    $this->validateRequiredField($questionnaire,'heading');
+
         if(!$isValid)
         {
             $this->addErrorMessage(self::NO_TITLE_ERROR);
         }
+
         return $isValid;
     }
 
