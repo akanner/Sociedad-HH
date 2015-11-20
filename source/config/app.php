@@ -10,7 +10,7 @@ return [
     | this path is always inside /public
     */
 
-    'uploaded_images_folder' => env('APP_UPLOADED_IMAGES_FOLDER',"uploaded_images"),
+    'uploaded_images_folder' => env('APP_UPLOADED_IMAGES_FOLDER', "uploaded_images"),
 
     /*
     |--------------------------------------------------------------------------
