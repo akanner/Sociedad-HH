@@ -66,7 +66,7 @@
             <p class="help-block">El archivo que se enviar&aacute; por mail luego de llenar el cuestionario</p>
         </div>
 
-        <button id="send-new-questionnaire-button" type="submit" class="btn btn-success">Guardar</button>
+        <button id="send-new-questionnaire-button" type="submit" class="btn btn-success">Publicar</button>
         <span class="submit-feedback">Guardando cuestionario...</span>
 
     {!! Form::close() !!}
