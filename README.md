@@ -98,3 +98,6 @@ Desde consola, en el root del proyecto, tirar:
 
     php artisan queue:listen --queue=mails
     nohup php artisan queue:listen --queue=mails & //para el servidor
+
+### Asi quedo el cron para mandar mails (cada 1 min)
+    php -d register_argc_argv=On /home/tangqqpi/artisan queue:work --queue=mails >> /home/tangqqpi/cronwork.log
