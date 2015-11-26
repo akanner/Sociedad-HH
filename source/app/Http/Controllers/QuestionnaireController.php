@@ -67,16 +67,16 @@ class QuestionnaireController extends Controller
         $questionnaire->incrementAnswersCount();
         $questionnaire->save();
         //--------------------------------------------
-        $attachedFilePath = PathHelper::getPathToUploaded() . "/" . $questionnaire->getAttachedFilePath();
+        $attachedFilePath = PathHelper::getInstance()->getPathToUploaded() . "/" . $questionnaire->getAttachedFilePath();
 
         $mailHelper = MailHelper::getInstance();
         $mailHelper->queueMail(
             $mailHelper->getMyEmailAddress(),
             $email,
             'Sociedad de Hematologia y Hemoterapia de La Plata'
-            ,'Testing'
-            ,"emails.prueba"
-            , ["userMessage" => 'aguante la queue'],
+            ,'Gracias por participar!'
+            ,"emails.response"
+            , [],
             $attachedFilePath,
             $questionnaire->getAttachedFileLogicalName()
         );
