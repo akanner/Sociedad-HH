@@ -5,7 +5,7 @@
 @section('content')
 <div>
     @forelse ($questionnaires as $questionnaire)
-        <div class="page-intro-wrapper">
+        <div class="page-intro-wrapper questionnaire-list-item">
             <h4>{{ $questionnaire->getHeading() }}</h4>
             <h3>{{ $questionnaire->getTitle() }}</h3>
             <p>{!! $questionnaire->getDescription() !!}</p>
