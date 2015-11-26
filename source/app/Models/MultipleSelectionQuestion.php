@@ -55,26 +55,32 @@ class MultipleSelectionQuestion extends Question {
     }
 
     public function getReportInformation() {
+        /*needs refactoring */
         $questionInformation = new stdClass();
         $questionInformation->description = $this->getDescription();
         $questionInformation->subquestions = array();
+        $answersMatrix = $this->getAnswersMatrix();
         foreach ($this->getSubquestions() as $key => $subquestion)
         {
-            $answersMatrix = $this->getAnswersMatrix();
+
             $subquestionJson = new stdClass();
             $subquestionJson->description = $subquestion->getDescription();
             $subquestionJson->options = array();
             foreach ($subquestion->getOptions() as $key => $option) {
                 $optionJson = new StdClass();
                 $optionJson->description=$option->getDescription();
-                $optionJson->answersCount = $answersMatrix[$option->id];
+                $optionJson->answersCount = $this->getPossibleAnswersCounters();
+                if(isset($answersMatrix[$option->id]))
+                {
+                    $optionJson->answersCount = $answersMatrix[$option->id];
+                }
                 $subquestionJson->options[] = $optionJson;
             }
             $questionInformation->subquestions[] = $subquestionJson;
             $questionInformation->reportTemplate = $this->getReportTemplateName();
             $questionInformation->possibleAnswers = $this->getDecodedPossibleAnswers();
 
-        } ;
+        }
         return $questionInformation;
 
     }
