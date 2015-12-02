@@ -44,6 +44,9 @@
                         <button type="button" class="add-other-option-button">Agregar "Otra"</button>
                     </div>
                 </div>
+                <div class="images-upload">
+                    <button id="add-question-button" type="button" class="btn btn-sm">Agregar imagen</button>
+                </div>
             </div>
 
             <div class="col-sm-1 question-actions">
