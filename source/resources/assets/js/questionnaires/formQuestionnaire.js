@@ -23,11 +23,12 @@ $(function () {
         };
 
         questionElement.find(".option-multiple-choice").each(function () {
+
             var selfOption = $(this);
             var option = {
                 description: selfOption.find("input[type='text']").val(),
                 isCorrect: selfOption.find("input[type='radio']").prop("checked"),
-                isOtherOption: false
+                isOtherOption: selfOption.data("is-other-option")
             };
 
             question.options.push(option);
@@ -138,10 +139,12 @@ $(function () {
         var otherOptionIsActivated = $(this).parents(".question-multiple-choice").find(".other-option-multiple-choice").size();
         if (!otherOptionIsActivated) {
             var newOption = cloneMultipleChoiceOption(this);
-            newOption.find("input[type='radio']").after("<label>Otra:</label>");
+            newOption.find("input[type='radio']");
             newOption.addClass("other-option-multiple-choice");
             newOption.removeClass("normal-option");
             newOption.find("input[type='text']").attr("readonly", true);
+            newOption.find("input[type='text']").val("Otra");
+            newOption.data("is-other-option","true");
         }
     });
 
