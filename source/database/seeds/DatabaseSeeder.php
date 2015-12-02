@@ -53,6 +53,7 @@ class QuestionnairesTableSeeder extends Seeder
         /* EL Cuestionario!!! */
         Questionnaire::create(
           array(
+            'heading' => "CONSTRUYAMOS NUESTRO CONOCIMIENTO",
             'title'=>'ENCUESTA A LA SOCIEDAD DE HEMATOLOGOS',
             'description'=> 'La Sociedad de Hematología y Hemoterapia de La Plata ha desarrollado la siguiente
             encuesta que tiene como objetivo conocer el razonamiento médico del especialista ante
@@ -60,7 +61,8 @@ class QuestionnairesTableSeeder extends Seeder
             Les pedimos que se tomen únicamente cinco minutos para contestarla, ya que su
             respuesta colaborará con la elaboración de contenidos que enriquezcan la formación
             profesional.',
-            'heading' => "CONSTRUYAMOS NUESTRO CONOCIMIENTO",
+            'attachedFilePhysicalName' => '5220c6837259782e37996e46ef08f6dd.pdf',
+            'attachedFileLogicalName' => 'ppt-mails.pdf',
             'activeFrom' => date("2015-07-31"),
             'activeTo'=>null,
             'active' => TRUE,
@@ -652,8 +654,6 @@ class QuestionnaireRespondentsTableSeeder extends Seeder
     public function run()
     {
         DB::table('questionnaire_respondents')->delete();
-        QuestionnaireRespondent::create(
-        array());
     }
 }
 
@@ -662,11 +662,6 @@ class EmailsTableSeeder extends Seeder
     public function run()
     {
         DB::table('emails')->delete();
-        Email::create(
-        array(
-            'address'=>'leito.vm3@hotmail.com',
-            'questionnaire_respondent_id' => 1
-        ));
 
         Email::create(
         array(
