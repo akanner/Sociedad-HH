@@ -33,9 +33,9 @@ class QuestionnaireBackendController extends Controller {
     }
 
     private function hashFileName($fileName) {
-
         $ext = pathinfo($fileName, PATHINFO_EXTENSION);
         $hashedName = md5(Carbon::now()->toDateTimeString().$fileName);
+
         return "$hashedName.$ext";
     }
 
