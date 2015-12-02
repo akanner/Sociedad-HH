@@ -68,8 +68,6 @@ $(function () {
     var modelQuestion = $(".question").clone(),
         questionNumber = 0;
 
-    var modelOption = $(".question").find(".option-multiple-choice").first();
-    var lastOption = modelOption;
 
     /* Removes the border shadow from the focused question */
     $("body").click(function () {
@@ -149,7 +147,8 @@ $(function () {
     });
 
     function cloneMultipleChoiceOption(pressedButton) {
-        var clonedOption = modelOption.clone(true);
+        var firstOption = $(pressedButton).parents(".question-multiple-choice").find(".normal-option").first()
+        var clonedOption = firstOption.clone(true);
 
         clonedOption.find("input[type='radio']").attr("checked", false);
         clonedOption.find("input[type='text']").val("");
