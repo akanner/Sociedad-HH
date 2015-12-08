@@ -33,20 +33,15 @@
                     {!! Form::label("question-type-input", "Tipo de pregunta") !!}
                     {!! Form::select("questionType", ["MultipleChoiceQuestionSingleOption" => "Multiple choice"], null, ["class" => "form-control question-type-input", "required"]) !!}
                 </div>
-                <div class="question-multiple-choice">
-                    <div class="form-group option-multiple-choice normal-option">
-                        {!! Form::radio("questionValue", "1", false, ["required", "data-changeMyName" => true]) !!}
-                        {!! Form::text("questionValueText", null, ["class" => "form-control", "placeholder" => "Opci&oacute;n", "required"]) !!}
-                        <button title="Borrar respuesta" type="button" class="delete-option-button btn btn-xs btn-danger">Eliminar</button>
-                    </div>
-                    <div class="add-option-multiple-choice">
-                        <button type="button" class="add-option-button btn btn-xs btn-primary">Agregar opci&oacute;n</button> o
-                        <button type="button" class="add-other-option-button">Agregar "Otra"</button>
-                    </div>
-                </div>
+                <!-- TODO hacer un template para cada tipo de pregunta, enchufarlo ni bien levanta
+                la vista en un input hidden. Recuperamos los valores desde el js y ya tenemos una
+                pregunta "modelo" de cada tipo, despues clonamos y manipulamos esa papa.
+                 -->
+                @include("backend.questionnaires.templates.multipleChoiceQuestionSingleOption")
             </div>
 
             <div class="col-sm-1 question-actions">
+                <!-- TODO pasar esto a una clase, es re cabezon asi-->
                 <button title="Borrar pregunta" type="button" class="btn delete-question" style="font-size: 25px;
     color: #585858;
     padding: 0px;
