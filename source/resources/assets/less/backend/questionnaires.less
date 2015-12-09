@@ -1,3 +1,17 @@
+@base-padding-left: 125px;
+
+.grey-button {
+    color: black;
+    background-color: #ECF0F1;
+    border-color: #95a5a6;
+
+    &:hover {
+        color: #fff;
+        background-color: #bdc3c7;
+        border-color: #7f8c8d;
+    }
+}
+
 .questionnaire-form {
 
     hr {
@@ -57,15 +71,22 @@
 
     .question {
         padding: 15px;
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid @main-red;
 
         &:first-of-type {
             border-top: 1px solid #eee;
         }
 
         &:last-of-type {
-            border-bottom: 0;
+            border-bottom: 1px solid #eee;
         }
+    }
+
+    .delete-question {
+        font-size: 25px;
+        color: #585858;
+        padding: 0px;
+        background-color: transparent;
     }
 
     .question-data-wrapper {
@@ -79,8 +100,6 @@
     }
 
     .question-value {
-        @base-padding-left: 125px;
-
         padding-left: @base-padding-left;
         width: 100%;
     }
@@ -116,23 +135,14 @@
             font-size: 14px;
             line-height: 1.42857143;
             margin-left: 5px;
-            // margin-top: -4px;
-            color: black;
-            background-color: #ECF0F1;
-            border-color: #95a5a6;
-
-            &:hover {
-                color: #fff;
-                background-color: #bdc3c7;
-                border-color: #7f8c8d;
-            }
+            .grey-button;
         }
     }
 
     .add-option-multiple-choice {
         .question-value;
 
-        padding-left: @base-padding-left + 28;
+        padding-left: @base-padding-left + 38;
 
         .add-other-option-button {
             border: none;
@@ -155,6 +165,52 @@
         display: none;
         font-size: 15px;
         margin-left: 20px;
+    }
+
+    .question-multiple-selection {
+
+        .question-possible-values-wrapper {
+
+            display: table;
+            width: 100%;
+
+            .question-possible-value {
+                display: table-cell;
+                margin-right: 5px;
+
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+        }
+
+        .subquestion-title-wrapper {
+            padding: 15px 0;
+            margin: 15px 0;
+            border-bottom: 1px solid #eee;
+            border-top: 1px solid #eee;
+        }
+
+        .option-multiple-selection-subquestion {
+            padding-left: 50px;
+        }
+
+        .option-multiple-selection-content {
+            width: 55%;
+            display: inline-block;
+        }
+
+        .delete-option-multiple-selection-button {
+            .grey-button;
+        }
+
+        .add-option-multiple-selection {
+            padding-left: 50px;
+        }
+
+        .add-option-multiple-selection-button {
+
+        }
     }
 }
 

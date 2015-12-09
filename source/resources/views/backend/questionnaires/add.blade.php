@@ -7,6 +7,16 @@
 
 @section("content")
 
+    <!-- Recuperamos los templates de cada tipo de pregunta para guardarlo en el javascript
+    y despues poder clonar las preguntas desde un "modelo" -->
+
+    <div id="multipleChoiceQuestionSingleOptionTemplate" class="hidden">
+        @include("backend.questionnaires.templates.multipleChoiceQuestionSingleOption")
+    </div>
+    <div id="multipleSelectionQuestionTemplate" class="hidden">
+        @include("backend.questionnaires.templates.multipleSelectionQuestion")
+    </div>
+
     {!! Form::open(["action" => "Backend\QuestionnaireBackendController@save", "id" => "add-questionnaire-form" ,"class" => "questionnaire-form","enctype" =>"multipart/form-data"]) !!}
         <div class="questionnaire-general-info">
             <div class="form-group">
@@ -24,31 +34,34 @@
         </div>
 
         <div class="row question">
+
             <div class="col-sm-11 question-data-wrapper">
+
                 <div class="form-group inline-content">
                     {!! Form::label("question-title-input", "T&iacute;tulo de la pregunta") !!}
                     {!! Form::text("questionTitle", null, ["class" => "form-control question-title-input", "placeholder" => "T&iacute;tulo de ejemplo", "required"]) !!}
                 </div>
+
                 <div class="form-group inline-content">
                     {!! Form::label("question-type-input", "Tipo de pregunta") !!}
-                    {!! Form::select("questionType", ["MultipleChoiceQuestionSingleOption" => "Multiple choice"], null, ["class" => "form-control question-type-input", "required"]) !!}
+                    {!! Form::select("questionType", [
+                        "MultipleChoiceQuestionSingleOption" => "Multiple choice",
+                        "MultipleSelectionQuestion" => "Tipo tabla"
+                    ], null, ["class" => "form-control question-type-input", "required"]) !!}
                 </div>
-                <!-- TODO hacer un template para cada tipo de pregunta, enchufarlo ni bien levanta
-                la vista en un input hidden. Recuperamos los valores desde el js y ya tenemos una
-                pregunta "modelo" de cada tipo, despues clonamos y manipulamos esa papa.
-                 -->
-                @include("backend.questionnaires.templates.multipleChoiceQuestionSingleOption")
+
+                <div class="question-loader">
+                    @include("backend.questionnaires.templates.multipleChoiceQuestionSingleOption")
+                </div>
+
             </div>
 
             <div class="col-sm-1 question-actions">
-                <!-- TODO pasar esto a una clase, es re cabezon asi-->
-                <button title="Borrar pregunta" type="button" class="btn delete-question" style="font-size: 25px;
-    color: #585858;
-    padding: 0px;
-    background-color: transparent;">
+                <button title="Borrar pregunta" type="button" class="btn delete-question">
                     <i class="fa fa-trash-o"></i>
                 </button>
             </div>
+
         </div>
 
         <div class="under-question-container">
