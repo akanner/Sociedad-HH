@@ -59,7 +59,7 @@ class Question extends HierarchicalModel
 
     public function addPicture(Picture $picture)
     {
-        return $this->pictures()->save($pictures);
+        return $this->pictures()->save($picture);
     }
 
     public function questionnaire()

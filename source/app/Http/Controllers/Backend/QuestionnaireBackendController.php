@@ -26,7 +26,9 @@ class QuestionnaireBackendController extends Controller {
     public function add() {
         return view("backend.questionnaires.add");
     }
-
+    /**
+     * creates a question using the form data
+     */
     public function createQuestionByFormQuestion($formQuestion, $questionnaire) {
         $question = QuestionFactory::getInstance()->createQuestionFromFormQuestion($formQuestion,$questionnaire);
         return $question;
@@ -97,7 +99,6 @@ class QuestionnaireBackendController extends Controller {
             $questionnaire->setTitle($formQuestionnaire->title);
             $questionnaire->setDescription($formQuestionnaire->description);
             $questionnaire->setActiveFrom(Carbon::now());
-
             if($request->hasFile('attachedFile'))
             {
                 $file = $request->file('attachedFile');
@@ -107,14 +108,23 @@ class QuestionnaireBackendController extends Controller {
                 $questionnaire->setAttachedFilePath($hashedName);
                 $questionnaire->setAttachedFileLogicalName($file->getClientOriginalName());
             }
-
             $questionnaire->save();
-
+            //process the questions
+            //process the images for one question
             foreach ($formQuestionnaire->questions as $formQuestion) {
+                $hashedImagesNames = [];
+                foreach ($formQuestion->images as $key => $imageName) {
+                    $image = $request->file($imageName);
+                    $hashedName = $this->hashFileName($image->getClientOriginalName());
+                    $this->moveFile($image, PathHelper::getInstance()->getPathToUploadedImages(), $hashedName);
+                    $hashedImagesNames[] = $hashedName;
+                }
+                $formQuestion->images = $hashedImagesNames;
                 $this->createQuestionByFormQuestion($formQuestion, $questionnaire);
             }
 
         } catch(Exception $e) {
+            die(var_dump($e->getMessage()));
             $result->statusOk = false;
             $result->message = $e->getMessage();
             $result->questionnaire = $request->input("questionnaire");

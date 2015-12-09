@@ -16,4 +16,10 @@ class Picture extends Model
         //gets the variable called 'uploaded_images_folder' from the app.php file
         return config('app.uploaded_images_folder') ."/". $this->path;
     }
+
+
+    public function setName($name)
+    {
+            $this->path = $name;
+    }
 }

@@ -38,15 +38,33 @@ $(function () {
     }
 
     /* Makes a JSON from a question */
-    function getJsonForQuestion(questionElement) {
+    function getJsonForQuestion(questionElement,formData) {
         var questionType = questionElement.find(".question-type-input").val(),
             jsonHandler = questionHandlerForType()[questionType];
+        var  question = jsonHandler(questionElement);
+        //files processing
+        question.images = [];
+        var images = questionElement.find("input[type='file']");
+        //attaches all questionnaire's images
+        images.each(function(index,element){
+            //gets the name of the input
+            var name = element.name;
+            //attaches every image per question
+            for (var i = 0; i < element.files.length; i++) {
 
-        return jsonHandler(questionElement);
+                // get item
+                var image = element.files.item(i);
+                var newName =name + "#" + i;
+                formData.append(newName, image);
+                question.images.push(newName);
+            }
+
+        })
+        return question;
     }
 
     /* Parses the questionnaire form and returns it as JSON */
-    function questionnaireFormToJSON() {
+    function questionnaireFormToJSON(formData) {
         var questionnaire = {
             heading: $("#heading-input").val(),
             title: $("#title-input").val(),
@@ -56,7 +74,7 @@ $(function () {
 
         // Any number of questions
         $(".question").each(function () {
-            questionnaire.questions.push(getJsonForQuestion($(this)));
+            questionnaire.questions.push(getJsonForQuestion($(this),formData));
         });
 
         console.log(":: QUESTIONNAIRE: ", questionnaire);
@@ -77,11 +95,13 @@ $(function () {
     /* Duplicates a model multiple choice question and attachs it to the end of the questionnaire */
     $("#add-question-button").click(function () {
         var newQuestion = modelQuestion.clone(true),
-            mustChangeOption = newQuestion.find("[data-changeMyName]"),
-            currentName = mustChangeOption.prop("name");
+            mustChangeOption = newQuestion.find("[data-changeMyName]");
 
         // console.log("::: FIRST NAME ", currentName);
-        mustChangeOption.prop("name", currentName + questionNumber.toString());
+        mustChangeOption.each(function(index,element){
+            var currentName = $(element).prop("name");
+            $(element).prop("name", currentName + questionNumber.toString());
+        });
         // console.log("::: AFTER NAME ", mustChangeOption.prop("name"));
         questionNumber++;
 
@@ -169,15 +189,16 @@ $(function () {
     function getFormData() {
         // Get the selected files from the input.
         var fileObject = $("#file-tosend").get(0).files[0];
-        var questionnaire = JSON.stringify(questionnaireFormToJSON());
-
+        var images = $("input[name='attachedImage']");
+        console.log(images);
         var formData = new FormData();
+        var questionnaire = JSON.stringify(questionnaireFormToJSON(formData));
 
 
-        console.log(":: fileS ", fileObject);
 
         formData.append('questionnaire', questionnaire);
         formData.append('attachedFile', fileObject);
+
         return formData;
     }
 

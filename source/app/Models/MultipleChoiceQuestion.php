@@ -35,7 +35,13 @@ abstract class MultipleChoiceQuestion extends Question
   {
     $this->setDescription($formQuestion->title);
     $this->setQuestionnaire($questionnaire);
+
     $this->save();
+    foreach ($formQuestion->images as $key => $imagePath) {
+        $picture = new Picture;
+        $picture->setName($imagePath);
+        $this->addPicture($picture);
+    }
     foreach($formQuestion->options as $formOption) {
         $option = new MultipleChoiceOption();
         $option->setDescription($formOption->description);
@@ -44,6 +50,7 @@ abstract class MultipleChoiceQuestion extends Question
         $option->setQuestion($this);
         $option->save();
     }
+
 
   }
 }

@@ -36,4 +36,8 @@ class PathHelper {
         return $this->getPublicResourcesPath() . "/uploaded";
     }
 
+    public function getPathToUploadedImages() {
+        return $this->getPublicResourcesPath() . "/uploaded_images";
+    }
+
 }

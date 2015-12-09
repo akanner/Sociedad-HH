@@ -45,7 +45,8 @@
                     </div>
                 </div>
                 <div class="images-upload">
-                    <button id="add-question-button" type="button" class="btn btn-sm">Agregar imagen</button>
+                    {!! Form::label("question-title-input", "Subir imagenes") !!}
+                    <input value="Agregar imagen" multiple="multiple" name="attachedImage" data-changeMyName="true" type="file" class="upload-images btn btn-sm">
                 </div>
             </div>
 
