@@ -3,6 +3,9 @@
 /public/build
 #/public/css
 /public/js
+/public/uploaded/**
+/public/uploaded_images/**
+*.log
 .env
 */.tags
 */tags
