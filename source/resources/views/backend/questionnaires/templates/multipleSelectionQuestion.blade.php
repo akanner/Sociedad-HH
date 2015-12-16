@@ -25,9 +25,14 @@
             {!! Form::text("option-multiple-selection-content", null, ["class" => "form-control option-multiple-selection-content", "placeholder" => "Opci&oacute;n", "required"]) !!}
             <button title="Borrar opci&oacute;n" type="button" class="delete-option-multiple-selection-button btn btn-md">Eliminar</button>
         </div>
+
         <div class="add-option-multiple-selection">
             <button type="button" class="add-option-multiple-selection-button btn btn-xs btn-primary">Agregar opci&oacute;n</button>
         </div>
+    </div>
+
+    <div class="add-subquestion-multiple-selection">
+        <button type="button" class="add-subquestion-multiple-selection-button btn btn-default">Agregar subpregunta</button>
     </div>
 
 </div>

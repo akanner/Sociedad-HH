@@ -24,8 +24,22 @@ $(function () {
     /* Returns an array of valid question types asociated with it handler */
     function questionHandlerForType() {
         return {
-            "MultipleChoiceQuestionSingleOption": getJsonForMultipleChoiceQuestionSingleOption
+            "MultipleChoiceQuestionSingleOption": getJsonForMultipleChoiceQuestionSingleOption,
+            "MultipleSelectionQuestion": getJsonForMultipleSelectionQuestion
         };
+    }
+
+    /* Returns the acronym (first letters in uppercase) for an input string */
+    function getAcronym(fullString) {
+        var splitValue = fullString.split(" "),
+            acronym = "";
+
+        // Visits the array of splited values and assembles the acronym
+        for (var i = 0; i < splitValue.length; i++) {
+            acronym += splitValue[i].charAt(0).toUpperCase();
+        }
+
+        return acronym;
     }
 
     /* Makes a JSON from a multiple choice question */
@@ -51,16 +65,59 @@ $(function () {
         return question;
     }
 
+    /* Makes a JSON from a multiple selection question */
+    function getJsonForMultipleSelectionQuestion(questionElement) {
+        var question = {
+            title: questionElement.find(".question-title-input").val(),
+            type: questionElement.find(".question-type-input").val(),
+            possibleAnswers: [],
+            subquestions: []
+        };
+
+        // Makes the array of possible options for the columns
+        questionElement.find(".question-possible-value").each(function () {
+            var selfPossibleValue = $(this),
+                inputValue = selfPossibleValue.find("input").val().trim(),
+                possibleValueObject = {
+                    "description": inputValue,
+                    "acronym": getAcronym(inputValue)
+                };
+
+            question.possibleAnswers.push(possibleValueObject);
+        });
+
+        question.possibleAnswers = JSON.stringify(question.possibleAnswers);
+        console.log("$$possible", question.possibleAnswers);
+
+        // Makes the array with the suquestions and their options
+        questionElement.find(".subquestion").each(function () {
+            var selfSubquestion = $(this),
+                subquestion = {
+                    title: selfSubquestion.find(".subquestion-title").val(),
+                    options: []
+                };
+
+            selfSubquestion.find(".option-multiple-selection-content").each(function() {
+                subquestion.options.push({ description: $(this).val() });
+            });
+
+            question.subquestions.push(subquestion);
+        });
+
+        return question;
+    }
+
     /* Makes a JSON from a question */
-    function getJsonForQuestion(questionElement,formData) {
+    function getJsonForQuestion(questionElement, formData) {
         var questionType = questionElement.find(".question-type-input").val(),
-            jsonHandler = questionHandlerForType()[questionType];
-        var  question = jsonHandler(questionElement);
+            jsonHandler = questionHandlerForType()[questionType],
+            question = jsonHandler(questionElement);
+
         //files processing
         question.images = [];
         var images = questionElement.find("input[type='file']");
         //attaches all questionnaire's images
-        images.each(function(index,element){
+        images.each(function (index, element) {
             //gets the name of the input
             var name = element.name;
             //attaches every image per question
@@ -68,12 +125,13 @@ $(function () {
 
                 // get item
                 var image = element.files.item(i);
-                var newName =name + "#" + i;
+                var newName = name + "#" + i;
                 formData.append(newName, image);
                 question.images.push(newName);
             }
 
-        })
+        });
+
         return question;
     }
 
@@ -88,7 +146,7 @@ $(function () {
 
         // Any number of questions
         $(".question").each(function () {
-            questionnaire.questions.push(getJsonForQuestion($(this),formData));
+            questionnaire.questions.push(getJsonForQuestion($(this), formData));
         });
 
         console.log(":: QUESTIONNAIRE: ", questionnaire);
@@ -100,24 +158,46 @@ $(function () {
     function changeMultipleChoiceQuestionOptionName(question) {
         var mustChangeOption = question.find("[data-changeMyName]");
 
-        mustChangeOption.each(function(index,element){
+        mustChangeOption.each(function (index, element) {
             var currentName = $(element).prop("name");
             $(element).prop("name", currentName + questionNumber.toString());
         });
-        // mustChangeOption.prop("name", currentName + questionNumber.toString());
+
         questionNumber++;
     }
 
     function cloneMultipleChoiceOption(pressedButton) {
-        var firstOption = $(pressedButton).parents(".question-multiple-choice").find(".normal-option").first()
-        var clonedOption = firstOption.clone(true);
+        var firstOption = $(pressedButton).parents(".question-multiple-choice").find(".normal-option").first(),
+            clonedOption = firstOption.clone(true);
 
         clonedOption.find("input[type='radio']").attr("checked", false);
         clonedOption.find("input[type='text']").val("");
-        var lastOption = $(pressedButton).parents(".question-multiple-choice").find(".normal-option").last()
+        var lastOption = $(pressedButton).parents(".question-multiple-choice").find(".normal-option").last();
         lastOption.after(clonedOption);
 
         return clonedOption;
+    }
+
+    function cloneMultipleSelectionOption(pressedButton) {
+        var firstOption = $(pressedButton).parents(".subquestion").find(".option-multiple-selection-subquestion").first(),
+            clonedOption = firstOption.clone(true);
+
+        clonedOption.find("input[type='text']").val("");
+        var lastOption = $(pressedButton).parents(".subquestion").find(".option-multiple-selection-subquestion").last();
+        lastOption.after(clonedOption);
+
+        return clonedOption;
+    }
+
+    function cloneMultipleSelectionSubquestion(pressedButton) {
+        var firstSubquestion = $(pressedButton).parents(".question-multiple-selection").find(".subquestion").first(),
+            clonedSubquestion = firstSubquestion.clone(true);
+
+        // clonedOption.find("input[type='text']").val("");
+        var lastOption = $(pressedButton).parents(".question-multiple-selection").find(".subquestion").last();
+        lastOption.after(clonedSubquestion);
+
+        return clonedSubquestion;
     }
 
     function getFormData() {
@@ -125,8 +205,6 @@ $(function () {
         var fileObject = $("#file-tosend").get(0).files[0];
         var formData = new FormData();
         var questionnaire = JSON.stringify(questionnaireFormToJSON(formData));
-
-
 
         formData.append('questionnaire', questionnaire);
         formData.append('attachedFile', fileObject);
@@ -136,35 +214,11 @@ $(function () {
 
     // ----------- USER INTERACTION
 
-    /* Removes the border shadow from the focused question */
-    $("body").click(function () {
-        $(".question").removeClass("black-border-shadow");
-    });
-
-    /* Duplicates a model multiple choice question and attachs it to the end of the questionnaire */
-    $("#add-question-button").click(function () {
-
-        var newQuestion = modelQuestion.clone(true);
-        changeMultipleChoiceQuestionOptionName(newQuestion);
-
-        // console.log("::: FIRST NAME ", currentName);
-        // mustChangeOption.each(function(index,element){
-        //     var currentName = $(element).prop("name");
-        //     $(element).prop("name", currentName + questionNumber.toString());
-        // });
-        // console.log("::: AFTER NAME ", mustChangeOption.prop("name"));
-
-
-        $(".question").last().after(newQuestion);
-        window.scrollTo(0, document.body.scrollHeight);
-    });
-
-    /* Adds the border shadow to the focused question */
-    $(".questionnaire-form").on("click", ".question", function (event) {
-        event.stopPropagation();
-        $(".question").removeClass("black-border-shadow");
-        $(this).addClass("black-border-shadow");
-    });
+    /**
+     * =============================================================
+     * ====================== MULTIPLE CHOICE ======================
+     * =============================================================
+     */
 
     /* Deletes a multiple choice question option, if there is at least 1 option */
     $(".questionnaire-form").on("click", ".delete-option-button", function () {
@@ -173,16 +227,6 @@ $(function () {
         // If there is more than 1 option
         if (optionsCount > 1) {
             $(this).parent(".option-multiple-choice").remove();
-        }
-    });
-
-    /* Deletes a question, if there is at least 1 question */
-    $(".questionnaire-form").on("click", ".delete-question", function () {
-        var questionsCount = $(this).parents(".questionnaire-form").find(".question").size();
-
-        // If there is more than 1 option
-        if (questionsCount > 1) {
-            $(this).parents(".question").remove();
         }
     });
 
@@ -202,14 +246,6 @@ $(function () {
         clonedOption.addClass("normal-option");
     });
 
-    /* Changes the new question type template */
-    $(".questionnaire-form").on("change", ".question-type-input", function() {
-        var questionTemplate = $(questionTypesTemplates[$(this).val()]);
-
-        changeMultipleChoiceQuestionOptionName(questionTemplate);
-        $(this).parents(".form-group").siblings(".question-loader").html(questionTemplate);
-    })
-
     /* Adds the "other" option to a multiple choice question */
     $(".questionnaire-form").on("click", ".add-other-option-button", function () {
         var otherOptionIsActivated = $(this).parents(".question-multiple-choice").find(".other-option-multiple-choice").size();
@@ -220,15 +256,99 @@ $(function () {
             newOption.removeClass("normal-option");
             newOption.find("input[type='text']").attr("readonly", true);
             newOption.find("input[type='text']").val("Otra");
-            newOption.data("is-other-option","true");
+            newOption.data("is-other-option", "true");
         }
     });
 
+    /* Checks as true the selected option */
     $(".option-multiple-choice").on("click", "input[type='radio']", function () {
         // Uncheck every option from this question
         $(this).parents(".question-multiple-choice").find("input[type='radio']").prop("checked", false);
         // Check this one as correct
         $(this).prop("checked", true);
+    });
+
+    /**
+     * =============================================================
+     * ==================== MULTIPLE SELECTION =====================
+     * =============================================================
+     */
+
+    /* Deletes a multiple selection subquestion option, if there is at least 1 option */
+    $(".questionnaire-form").on("click", ".delete-option-multiple-selection-button", function () {
+        var optionsCount = $(this).parents(".question-multiple-selection").find(".option-multiple-selection-subquestion").size();
+
+        // If there is more than 1 option
+        if (optionsCount > 1) {
+            $(this).parent(".option-multiple-selection-subquestion").remove();
+        }
+    });
+
+    /* Adds an option to a multiple selection subquestion */
+    $(".questionnaire-form").on("click", ".add-option-multiple-selection-button", function () {
+        var clonedOption = cloneMultipleSelectionOption(this);
+    });
+
+    /* Deletes a multiple selection subquestion option, if there is at least 1 option */
+    /*$(".questionnaire-form").on("click", ".delete-option-multiple-selection-button", function () {
+        var optionsCount = $(this).parents(".question-multiple-selection").find(".option-multiple-selection-subquestion").size();
+
+        // If there is more than 1 option
+        if (optionsCount > 1) {
+            $(this).parent(".option-multiple-selection-subquestion").remove();
+        }
+    });*/
+
+    /* Adds a subquestion to a multiple selection question */
+    $(".questionnaire-form").on("click", ".add-subquestion-multiple-selection-button", function () {
+        var clonedOption = cloneMultipleSelectionSubquestion(this);
+    });
+
+    // add-subquestion-multiple-selection-button
+
+    /**
+     * =============================================================
+     * ======================= BODY AND FORM =======================
+     * =============================================================
+     */
+
+    /* Removes the border shadow from the focused question */
+    $("body").click(function () {
+        $(".question").removeClass("black-border-shadow");
+    });
+
+    /* Duplicates a model multiple choice question and attachs it to the end of the questionnaire */
+    $("#add-question-button").click(function () {
+        var newQuestion = modelQuestion.clone(true);
+        changeMultipleChoiceQuestionOptionName(newQuestion);
+
+        $(".question").last().after(newQuestion);
+        window.scrollTo(0, document.body.scrollHeight);
+    });
+
+    /* Adds the border shadow to the focused question */
+    $(".questionnaire-form").on("click", ".question", function (event) {
+        event.stopPropagation();
+        $(".question").removeClass("black-border-shadow");
+        $(this).addClass("black-border-shadow");
+    });
+
+    /* Deletes a question, if there is at least 1 question */
+    $(".questionnaire-form").on("click", ".delete-question", function () {
+        var questionsCount = $(this).parents(".questionnaire-form").find(".question").size();
+
+        // If there is more than 1 question
+        if (questionsCount > 1) {
+            $(this).parents(".question").remove();
+        }
+    });
+
+    /* Changes the new question type template */
+    $(".questionnaire-form").on("change", ".question-type-input", function () {
+        var questionTemplate = $(questionTypesTemplates[$(this).val()]);
+
+        changeMultipleChoiceQuestionOptionName(questionTemplate);
+        $(this).parents(".form-group").siblings(".question-loader").html(questionTemplate);
     });
 
     /* Creates a JSON for submiting the form and posts it to the server */
@@ -242,10 +362,8 @@ $(function () {
         console.log(":: FORM DATA:: ", fileFormData);
 
         // Some UI feedback
-
         sendButton.prop("disabled", true);
         feedback.show();
-
 
         $.ajax({
             url: postUrl,
@@ -255,7 +373,6 @@ $(function () {
             processData: false,
             type: 'POST',
             success: function (data) {
-                //console.log("::: POST RESULT => ", result);
                 var result = JSON.parse(data);
                 if (result.statusOk) {
                     feedback.html("Listo! Cuestionario guardado");
@@ -266,6 +383,11 @@ $(function () {
                     sendButton.prop("disabled", false);
                     feedback.html("Ocurrió un error, intentalo nuevamente");
                 }
+            },
+            error: function (data) {
+                sendButton.prop("disabled", false);
+                feedback.html("Ocurrió un error, intentalo nuevamente");
+                console.log("Error al enviar el formulario", data);
             }
         });
 
