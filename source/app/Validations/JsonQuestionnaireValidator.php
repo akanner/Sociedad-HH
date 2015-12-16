@@ -12,8 +12,12 @@ class JsonQuestionnaireValidator extends IlluminateValidator
     const INVALID_QUESTION              = "Todas las preguntas deben tener una descripción y un tipo";
     const NO_TITLE_ERROR                = "El cuestionario debe tener un encabezado, un título y una descripción";
     const ZERO_OPTIONS_ERROR            = "Cada respuesta debe tener al menos una opción";
+    const ZERO_SUBQUESTION_ERROR        = "Las preguntas tipo tabla deben tener al menos una sub pregunta o sub categoria";
     const OPTION_DESCRIPTION_ERROR      = "Cada opción debe tener una descripción";
     const MORE_THAN_ONE_CORRECT_ANSWER  = "Cada pregunta solo puede tener una opción correcta";
+
+    const MULTIPLE_CHOICE_QUESTION_SINGLE_OPTION = "MultipleChoiceQuestionSingleOption";
+    const MULTIPLE_SELECTION_QUESTION = "MultipleSelectionQuestion";
 
     private $_custom_messages = array("questionnaire_json" => "");
 
@@ -63,9 +67,9 @@ class JsonQuestionnaireValidator extends IlluminateValidator
 
     protected function validateTitleAndDescription($questionnaire)
     {
-        $isValid =  $this->validateRequiredField($questionnaire,'title') &&
-                    $this->validateRequiredField($questionnaire,'description') &&
-                    $this->validateRequiredField($questionnaire,'heading');
+        $isValid =  BasicValidations::getInstance()->validateRequiredField($questionnaire,'title') &&
+                    BasicValidations::getInstance()->validateRequiredField($questionnaire,'description') &&
+                    BasicValidations::getInstance()->validateRequiredField($questionnaire,'heading');
 
         if(!$isValid)
         {
@@ -78,7 +82,7 @@ class JsonQuestionnaireValidator extends IlluminateValidator
     protected function validateQuestions($questionnaire)
     {
         $isValid = TRUE;
-        $hasQuestions = $this->validateRequiredField($questionnaire, 'questions');
+        $hasQuestions = BasicValidations::getInstance()->validateRequiredField($questionnaire, 'questions');
         if(!$hasQuestions)
         {
             $isValid = FALSE;
@@ -99,13 +103,50 @@ class JsonQuestionnaireValidator extends IlluminateValidator
         return $isValid;
     }
 
+    /*QUESTION VALIDATORS*/
+
     protected function validateQuestion($question)
     {
-        $validTitle       = $this->validateRequiredField($question,'title');
+        switch ($question->type) {
+            case self::MULTIPLE_CHOICE_QUESTION_SINGLE_OPTION:
+                return $this->validateMultipleChoiceQuestion($question);
+            case self::MULTIPLE_SELECTION_QUESTION:
+                return $this->validateMultipleSelectionQuestion($question);
+            default:
+                throw new Exception("the type $questionType is not a valid question type");
+        }
+    }
+
+
+    protected function validateMultipleSelectionQuestion($question)
+    {
+        $validGeneralData = $this->validateGeneralQuestion($question);
+        $validSubquestions = $this->validateMultipleSelectionSubquestions($question->subquestions);
+    }
+
+    protected function validateMultipleSelectionSubquestions($subquestions)
+    {
+        $isEmpty = empty($subquestions);
+        if($isEmpty)
+        {
+            $isValid = FALSE;
+            $this->addErrorMessage(self::ZERO_SUBQUESTION_ERROR);
+        }
+    }
+
+    protected function validateGeneralQuestion($question)
+    {
+        $validTitle       = BasicValidations::getInstance()->validateRequiredField($question,'title');
         $validType      = TRUE; //TODO
         if(!$validTitle || !$validType) $this->addErrorMessage(self::INVALID_QUESTION);
+        return $validType && $validTitle;
+    }
+
+    protected function validateMultipleChoiceQuestion($question)
+    {
+        $validGeneralData = $this->validateGeneralQuestion($question);
         $validOptions   = $this->validateMultipleChoiceOptions($question->options);
-        return $validTitle && $validType && $validOptions;
+        return $validGeneralData && $validOptions;
     }
 
     protected function validateMultipleChoiceOptions($arrayOfOptions)
@@ -121,7 +162,7 @@ class JsonQuestionnaireValidator extends IlluminateValidator
         foreach ($arrayOfOptions as $key => $option)
         {
             //checks the existance of the properties description and isCorrect
-            $hasDescription = $this->validateRequiredField($option, 'description');
+            $hasDescription = BasicValidations::getInstance()->validateRequiredField($option, 'description');
             $hasPropertyIsCorrect = isset($option->isCorrect);
 
             if(!$hasDescription || !$hasPropertyIsCorrect)
@@ -147,17 +188,5 @@ class JsonQuestionnaireValidator extends IlluminateValidator
     }
 
 
-    protected function validateRequiredField($object,$field)
-    {
-        $isset = isset($object->$field);
-        if($isset)
-        {
-            return !empty($object->$field);
-        }
-        else
-        {
-            return FALSE;
-        }
-    }
 
 }

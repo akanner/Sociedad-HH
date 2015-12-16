@@ -29,6 +29,12 @@ class MultipleSelectionQuestion extends Question {
         return $this->multiple_selection_answers;
     }
 
+    public function setPossibleAnswers($possibleAnswers)
+    {
+        //possibleAnswers must be an array of stdClass objects
+        $this->multiple_selection_answers = $possibleAnswers;
+    }
+
     public function getDecodedPossibleAnswers() {
         return json_decode($this->getPossibleAnswers());
     }
@@ -112,6 +118,32 @@ class MultipleSelectionQuestion extends Question {
                     return $possibleAnswersArray;
                 },[]);
 
+    }
+    /**
+     * creates a new question with the information provided by an users using the web form.
+     */
+    public function createQuestionFromFormQuestion($formQuestion, $questionnaire)
+    {
+        $this->setDescription($formQuestion->title);
+        $this->save();
+        //sets the subquestions for the question
+        foreach ($formQuestion->subquestions  as $key => $subquestionForm) {
+            $subquestion= $this->createSubquestionWithFormInformation($subquestionForm);
+            $this->addSubquestion($subquestion);
+        }
+        $this->setPossibleAnswers($formQuestion->possibleSelections);
+
+    }
+
+    public function createSubquestionWithFormInformation($subquestionForm)
+    {
+        $subquestion = new MultipleSelectionSubquestion();
+        $subquestion->setDescription($subquestionForm->title);
+        foreach ($subquestionForm->options as $key => $optionForm) {
+            $option = new MultipleSelectionOption();
+            $option->setDescription($optionForm->description);
+            $this->addOption($option);
+        }
     }
 
 }
