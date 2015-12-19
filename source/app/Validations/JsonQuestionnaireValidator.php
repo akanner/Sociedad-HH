@@ -4,6 +4,8 @@ namespace App\Validations;
 use Illuminate\Validation\Validator as IlluminateValidator;
 /**
  * Adds validations for the questionnaires in json format
+ *
+ * NEEDS REFACTORING!!!!!!!!!!!!!!!!!!!!!!!!!!!
  */
 class JsonQuestionnaireValidator extends IlluminateValidator
 {
@@ -13,8 +15,11 @@ class JsonQuestionnaireValidator extends IlluminateValidator
     const NO_TITLE_ERROR                = "El cuestionario debe tener un encabezado, un título y una descripción";
     const ZERO_OPTIONS_ERROR            = "Cada respuesta debe tener al menos una opción";
     const ZERO_SUBQUESTION_ERROR        = "Las preguntas tipo tabla deben tener al menos una sub pregunta o sub categoria";
+    const ZERO_SUBQUESTION_OPTIONS_ERROR= "Cada sub pregunta debe tener al menos una opcion";
+    const EMPTY_OPTION_DESCRIPTION      = "Las opciones eben tener una descripcion";
     const OPTION_DESCRIPTION_ERROR      = "Cada opción debe tener una descripción";
     const MORE_THAN_ONE_CORRECT_ANSWER  = "Cada pregunta solo puede tener una opción correcta";
+    const INVALID_SUBQUESTION           = "Cada sub-pregunta debe tener una descripcion y al menos una opción";
 
     const MULTIPLE_CHOICE_QUESTION_SINGLE_OPTION = "MultipleChoiceQuestionSingleOption";
     const MULTIPLE_SELECTION_QUESTION = "MultipleSelectionQuestion";
@@ -122,16 +127,60 @@ class JsonQuestionnaireValidator extends IlluminateValidator
     {
         $validGeneralData = $this->validateGeneralQuestion($question);
         $validSubquestions = $this->validateMultipleSelectionSubquestions($question->subquestions);
+
+        return $validGeneralData && $validSubquestions;
     }
 
     protected function validateMultipleSelectionSubquestions($subquestions)
     {
+        //validates if the question has subquestions
         $isEmpty = empty($subquestions);
+        $isValid = TRUE;
         if($isEmpty)
         {
             $isValid = FALSE;
             $this->addErrorMessage(self::ZERO_SUBQUESTION_ERROR);
         }
+        //validates each subquestion
+        foreach ($subquestions as $key => $subquestion)
+        {
+            //checks the existance of the properties description and isCorrect
+            $hasTitle = BasicValidations::getInstance()->validateRequiredField($subquestion, 'title');
+            $hasOptions = $this->validateMultipleSelectionSubqustionOptions($subquestion->options);
+
+            if(!$hasTitle || !$hasOptions)
+            {
+                $isValid = FALSE;
+                $this->addErrorMessage(self::INVALID_SUBQUESTION);
+            }
+        }
+
+        return $isValid;
+    }
+
+    protected function validateMultipleSelectionSubqustionOptions($options)
+    {
+        //validates if $options is not empty
+        $isEmpty = empty($options);
+        $isValid = TRUE;
+        if($isEmpty)
+        {
+            $isValid = FALSE;
+            $this->addErrorMessage(self::ZERO_SUBQUESTION_OPTIONS_ERROR);
+        }
+        //validates each subquestion
+        foreach ($options as $key => $option)
+        {
+            //checks the existance of the property "description"
+            $hasDescription = BasicValidations::getInstance()->validateRequiredField($option, 'description');
+            if(!$hasDescription)
+            {
+                $isValid = FALSE;
+                $this->addErrorMessage(self::EMPTY_OPTION_DESCRIPTION);
+            }
+        }
+
+        return $isValid;
     }
 
     protected function validateGeneralQuestion($question)

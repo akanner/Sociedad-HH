@@ -125,24 +125,26 @@ class MultipleSelectionQuestion extends Question {
     public function createQuestionFromFormQuestion($formQuestion, $questionnaire)
     {
         $this->setDescription($formQuestion->title);
+        $this->setQuestionnaire($questionnaire);
+        $this->setPossibleAnswers($formQuestion->possibleAnswers);
         $this->save();
         //sets the subquestions for the question
         foreach ($formQuestion->subquestions  as $key => $subquestionForm) {
             $subquestion= $this->createSubquestionWithFormInformation($subquestionForm);
-            $this->addSubquestion($subquestion);
-        }
-        $this->setPossibleAnswers($formQuestion->possibleSelections);
 
+        }
     }
 
     public function createSubquestionWithFormInformation($subquestionForm)
     {
         $subquestion = new MultipleSelectionSubquestion();
         $subquestion->setDescription($subquestionForm->title);
+        $this->addSubquestion($subquestion);
+        $subquestion->save();
         foreach ($subquestionForm->options as $key => $optionForm) {
             $option = new MultipleSelectionOption();
             $option->setDescription($optionForm->description);
-            $this->addOption($option);
+            $subquestion->addOption($option);
         }
     }
 
