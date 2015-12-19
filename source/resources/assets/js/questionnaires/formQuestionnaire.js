@@ -150,7 +150,7 @@ $(function () {
             questionnaire.questions.push(getJsonForQuestion($(this), formData));
         });
 
-        console.log(":: QUESTIONNAIRE: ", questionnaire);
+        // console.log(":: QUESTIONNAIRE: ", questionnaire);
 
         return questionnaire;
     }
@@ -400,7 +400,7 @@ $(function () {
                 sendButton = $("#send-new-questionnaire-button"),
                 feedback = $(".submit-feedback");
 
-            console.log(":: FORM DATA:: ", fileFormData);
+            // console.log(":: FORM DATA:: ", fileFormData);
 
             // Some UI feedback
             sendButton.prop("disabled", true);
