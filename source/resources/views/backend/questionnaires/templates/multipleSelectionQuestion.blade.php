@@ -18,6 +18,9 @@
     <div class="subquestion">
         <div class="form-group subquestion-title-wrapper">
             {!! Form::label("subquestion-title", "T&iacute;tulo de la subpregunta") !!}
+            <button title="Borrar subpregunta" type="button" class="btn delete-subquestion-button pull-right">
+                <i class="fa fa-trash-o"></i>
+            </button>
             {!! Form::text("subquestion-title", null, ["class" => "form-control subquestion-title", "required"]) !!}
         </div>
 
@@ -32,7 +35,10 @@
     </div>
 
     <div class="add-subquestion-multiple-selection">
-        <button type="button" class="add-subquestion-multiple-selection-button btn btn-default">Agregar subpregunta</button>
+        <button type="button" class="add-subquestion-multiple-selection-button btn btn-default">
+            Agregar subpregunta
+            <i class="fa fa-hand-o-down"></i>
+        </button>
     </div>
 
 </div>

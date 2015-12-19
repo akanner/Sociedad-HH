@@ -53,7 +53,7 @@
                     @include("backend.questionnaires.templates.multipleChoiceQuestionSingleOption")
                 </div>
                 <div class="images-upload">
-                    {!! Form::label("question-title-input", "Subir imagenes") !!}
+                    {!! Form::label("question-title-input", "Subir im&aacute;genes para esta pregunta") !!}
                     <input value="Agregar imagen" multiple="multiple" name="attachedImage" data-changeMyName="true" type="file" class="upload-images btn btn-sm">
                 </div>
 
