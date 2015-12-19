@@ -128,6 +128,12 @@ class MultipleSelectionQuestion extends Question {
         $this->setQuestionnaire($questionnaire);
         $this->setPossibleAnswers($formQuestion->possibleAnswers);
         $this->save();
+        //saves the question's images
+        foreach ($formQuestion->images as $key => $imagePath) {
+            $picture = new Picture;
+            $picture->setName($imagePath);
+            $this->addPicture($picture);
+        }
         //sets the subquestions for the question
         foreach ($formQuestion->subquestions  as $key => $subquestionForm) {
             $subquestion= $this->createSubquestionWithFormInformation($subquestionForm);
