@@ -15,8 +15,6 @@
 ###Instalacion###
 
 ####Git & Composer ####
-    clone git clone git@bitbucket.org:team_sociedad_hh/sociedad_hh.git .
-    cd source
     sudo apt-get install nodejs-legacy
     composer install && npm install
     cp .env.example .env
@@ -26,7 +24,7 @@
 
 Instalar MySql PDO
 
-    sudo apr-get install php5-mysql
+    sudo apt-get install php5-mysql
     
 Crear una base de datos llamada db_sociedadhh
 
